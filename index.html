@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JARVIS // Student Command Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+:root{--bg:#02070b;--panel:#07141c;--panel2:#091c25;--cyan:#36e8ff;--cyan2:#8af6ff;--blue:#2d8cff;--green:#42f5a7;--red:#ff5577;--amber:#ffd45c;--text:#d9faff;--muted:#7395a1;--line:rgba(54,232,255,.20);--glow:0 0 22px rgba(54,232,255,.18)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#0b3040 0,#02070b 48%);color:var(--text);font-family:Rajdhani,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(54,232,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(54,232,255,.025) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,black,transparent)}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{border-right:1px solid var(--line);background:rgba(2,10,15,.92);padding:24px 16px;position:sticky;top:0;height:100vh}
+.logo{font-family:Orbitron;font-size:18px;letter-spacing:3px;color:var(--cyan);text-shadow:0 0 15px var(--cyan);margin-bottom:7px}.sub{font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:35px}
+.nav button{width:100%;background:none;border:1px solid transparent;color:#7899a5;text-align:left;padding:14px 13px;margin:4px 0;font:600 14px Rajdhani;letter-spacing:2px;cursor:pointer;transition:.2s}
+.nav button:hover,.nav button.active{color:var(--cyan);border-color:var(--line);background:rgba(54,232,255,.06);box-shadow:inset 3px 0 var(--cyan),var(--glow)}
+.system{position:absolute;bottom:20px;left:16px;right:16px;border:1px solid var(--line);padding:13px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);margin-right:7px}
+main{padding:24px 28px;max-width:1500px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}.title{font-family:Orbitron;letter-spacing:3px;font-size:20px}.clock{text-align:right;font-family:Orbitron;color:var(--cyan);font-size:17px}.date{font:12px Rajdhani;color:var(--muted);letter-spacing:2px}
+.page{display:none}.page.active{display:block}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(9,28,37,.92),rgba(3,13,18,.92));padding:25px;position:relative;overflow:hidden;box-shadow:var(--glow)}.hero:after{content:"";position:absolute;left:-20%;right:-20%;top:0;height:1px;background:var(--cyan);box-shadow:0 0 20px var(--cyan);animation:scan 4s linear infinite}@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(210px)}}.eyebrow{color:var(--cyan);font:11px Orbitron;letter-spacing:3px}.hero h1{font:600 31px Orbitron;margin:12px 0}.hero p{color:var(--muted);margin:0}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin:16px 0}.card{border:1px solid var(--line);background:rgba(5,18,25,.82);padding:18px;box-shadow:var(--glow)}.label{font-size:11px;color:var(--muted);letter-spacing:2px}.num{font:700 27px Orbitron;color:var(--cyan);margin-top:8px}.dashboard{grid-template-columns:1.4fr 1fr}.section-title{font:600 13px Orbitron;letter-spacing:2px;color:var(--cyan);margin-bottom:15px}.timeline{display:grid;gap:9px}.event{display:flex;justify-content:space-between;padding:12px;border-left:2px solid var(--cyan);background:rgba(54,232,255,.035)}.event.tuition-event{border-left-color:var(--amber);background:rgba(255,212,92,.035)}.event.now{border-color:var(--amber);box-shadow:0 0 15px rgba(255,212,92,.1)}.event small{color:var(--muted)}.bar{height:7px;background:#10242d;margin-top:14px}.bar span{display:block;height:100%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);width:0;transition:.4s}
+.action{background:#07161d;color:var(--muted);border:1px solid var(--line);padding:9px 13px;font:600 12px Rajdhani;letter-spacing:1px;cursor:pointer}.action:hover{color:var(--cyan);background:rgba(54,232,255,.08)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid rgba(54,232,255,.1)}th{font:11px Orbitron;color:var(--muted);letter-spacing:1px}td{font-size:15px}
+form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+form input{background:#041017;border:1px solid var(--line);color:var(--text);padding:11px;font:14px Rajdhani;outline:none;flex:1}
+form select{background:#041017;border:1px solid var(--line);color:var(--text);padding:11px;font:14px Rajdhani;outline:none;flex:0.3}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(54,232,255,.12)}
+
+/* TASK ROW ALIGNMENT FIX */
+.taskrow{display:flex;gap:12px;align-items:center;border-bottom:1px solid rgba(54,232,255,.1);padding:10px 0}
+.taskrow input[type="checkbox"]{accent-color:var(--cyan);width:17px;height:17px;flex-shrink:0}
+.taskrow .task-text{flex:1;word-break:break-word;font-size:15px}
+.taskrow .task-prio{font-size:12px;margin-left:8px;flex-shrink:0}
+.taskrow button{background:none;border:0;color:var(--red);cursor:pointer;padding:2px 6px;flex-shrink:0}
+
+.ring{width:130px;height:130px;border:6px solid rgba(54,232,255,.12);border-top-color:var(--cyan);border-right-color:var(--cyan);border-radius:50%;display:grid;place-items:center;margin:10px auto;box-shadow:0 0 30px rgba(54,232,255,.1);animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.ring b{font:22px Orbitron;color:var(--cyan);animation:spinback 6s linear infinite}@keyframes spinback{to{transform:rotate(-360deg)}}.footer{margin-top:20px;color:#486873;font-size:11px;letter-spacing:1px;text-align:center}
+.chat-log{max-height:230px;overflow-y:auto;border:1px solid rgba(54,232,255,.14);background:rgba(2,10,15,.55);padding:12px;display:flex;flex-direction:column;gap:9px}
+.chat-empty{color:var(--muted);font-size:12px;font-family:Rajdhani}
+.chat-msg{padding:8px 12px;border-radius:3px;max-width:88%;font-size:13.5px;line-height:1.4;font-family:Rajdhani}
+.chat-msg.user{align-self:flex-end;background:rgba(54,232,255,.1);color:var(--cyan2)}
+.chat-msg.jarvis{align-self:flex-start;background:rgba(255,212,92,.06);color:var(--text);border-left:2px solid var(--amber)}
+
+/* EXAM FORM */
+.exam-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;align-items:end;margin-bottom:0}
+.exam-form .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font:11px Orbitron;letter-spacing:1.5px;color:var(--cyan);opacity:.85}
+.field input,.field select{width:100%}
+.stepper{display:flex;align-items:center;width:fit-content;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.stepper button{background:rgba(54,232,255,.07);border:0;color:var(--cyan);width:36px;height:38px;font:18px Orbitron;cursor:pointer;line-height:1}
+.stepper button:hover{background:rgba(54,232,255,.2)}
+.stepper input{width:56px;text-align:center;background:#041017;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);color:var(--text);height:38px;font:15px Rajdhani;outline:none}
+.chapter-rows{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.chapter-row{display:flex;align-items:center;gap:12px}
+.chapter-row .ch-num{font:11px Orbitron;letter-spacing:1px;color:var(--amber);width:52px;flex-shrink:0}
+.chapter-row select{flex:1}
+.submit-row{display:flex;justify-content:flex-end;padding-top:6px;border-top:1px solid rgba(54,232,255,.1);margin-top:4px}
+.submit-row .action{padding:12px 24px;font-size:12px;letter-spacing:2px}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{height:auto;position:relative;border-right:0;border-bottom:1px solid var(--line);padding:15px}.sub,.system{display:none}.nav{display:flex;gap:5px;overflow:auto}.nav button{white-space:nowrap}.logo{margin-bottom:10px}.stats{grid-template-columns:repeat(2,1fr)}.dashboard{grid-template-columns:1fr}main{padding:16px}.top{align-items:flex-start}.hero h1{font-size:23px}}
+
+.schedule-head{display:flex;justify-content:space-between;align-items:center;font:600 16px Orbitron;letter-spacing:2px;color:var(--cyan);margin-bottom:12px}
+.live-chip{font:11px Rajdhani;letter-spacing:2px;color:var(--green)}
+.weekly-table{table-layout:fixed;border:1px solid var(--line);background:rgba(0,10,16,.5)}
+.weekly-table th,.weekly-table td{border:1px solid rgba(54,232,255,.14);padding:12px 11px;height:38px}
+.weekly-table th{height:40px;background:rgba(54,232,255,.045);color:var(--cyan);font-family:Orbitron;font-size:12px}
+.weekly-table td{color:#b8eaf0;font-family:Rajdhani;font-size:15px;letter-spacing:1px}
+.weekly-table .timecell{width:190px;color:var(--cyan);white-space:nowrap}
+.weekly-table tr:hover td{background:rgba(54,232,255,.055);color:#fff}
+.weekly-table .special-row td{background:rgba(54,232,255,.025)}
+.weekly-table .special-row td:not(.timecell)::after{content:"LUNCH";color:var(--cyan);letter-spacing:4px}
+.weekly-table .special-row td.timecell{color:var(--cyan2)}
+.tuition-header{background:rgba(255,212,92,.08) !important;color:var(--amber) !important;font-family:Orbitron;letter-spacing:2px;text-align:center}
+.tuition-row td{color:var(--amber) !important;font-weight:600}
+
+.bujo-wrap{overflow-x:auto;margin-top:10px}
+.habit-table{min-width:900px;font-size:12px}
+.habit-table th{text-align:center;padding:6px;border:1px solid rgba(54,232,255,.15);background:rgba(54,232,255,.05);color:var(--cyan)}
+.habit-table td{padding:4px;border:1px solid rgba(54,232,255,.1);text-align:center}
+.habit-table td.habit-title{text-align:left;font-weight:600;color:var(--text);padding-left:8px;white-space:nowrap}
+.habit-cell{cursor:pointer;user-select:none;font-weight:bold;transition:.1s}
+.habit-cell:hover{background:rgba(54,232,255,.2)}
+.habit-cell.check{color:var(--green);background:rgba(66,245,167,.1)}
+.habit-cell.cross{color:var(--red);background:rgba(255,85,119,.1)}
+
+.mood-controls{display:flex;gap:10px;align-items:center;margin-bottom:15px;flex-wrap:wrap}
+.mood-btn{padding:6px 12px;background:#05141c;border:1px solid var(--line);color:var(--text);font-family:Rajdhani;cursor:pointer;border-radius:3px}
+.mood-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.mood-graph-wrap{position:relative;height:180px;border:1px solid rgba(54,232,255,.15);background:rgba(3,14,20,.6);margin-top:10px;padding:10px}
+svg.mood-svg{width:100%;height:100%}
+
+.voice-btn{background:rgba(54,232,255,.08);border:1px solid var(--cyan);color:var(--cyan);padding:8px 14px;font-family:Orbitron;font-size:10px;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s;width:100%}
+.voice-btn:hover,.voice-btn.active-listening{background:var(--cyan);color:#000;box-shadow:0 0 15px var(--cyan)}
+.mic-dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.voice-btn.active-listening .mic-dot{background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+.voice-status{font-size:11px;color:var(--muted);margin-top:6px;min-height:16px;word-break:break-word}
+
+/* LOCAL AUDIO PLAYER DECK */
+.player-box{margin-top:16px;border:1px solid var(--line);background:rgba(5,18,25,.82);padding:18px;box-shadow:var(--glow)}
+.track-title{font-family:Orbitron;font-size:13px;color:var(--cyan);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-controls{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.player-btn{background:rgba(54,232,255,.08);border:1px solid var(--line);color:var(--cyan);padding:8px 14px;font-family:Orbitron;font-size:11px;cursor:pointer;transition:.2s}
+.player-btn:hover{background:var(--cyan);color:#000;box-shadow:0 0 10px var(--cyan)}
+.seek-bar{width:100%;accent-color:var(--cyan);cursor:pointer;height:4px;background:#10242d;outline:none}
+.playlist{max-height:130px;overflow-y:auto;border:1px solid rgba(54,232,255,.1);margin-top:12px;background:rgba(2,10,15,.6)}
+.playlist-item{padding:8px 10px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:1px solid rgba(54,232,255,.05);display:flex;justify-content:space-between;align-items:center}
+.playlist-item:hover,.playlist-item.active{color:var(--cyan);background:rgba(54,232,255,.08)}
+
+/* ============ GLOBAL POLISH PASS ============ */
+*{scrollbar-width:thin;scrollbar-color:rgba(54,232,255,.35) rgba(2,10,15,.4)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:rgba(2,10,15,.4)}
+::-webkit-scrollbar-thumb{background:rgba(54,232,255,.3);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(54,232,255,.55)}
+
+button,input,select{font-family:inherit}
+button{transition:background .18s ease,color .18s ease,box-shadow .18s ease,transform .12s ease}
+button:active{transform:scale(.97)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan) !important;box-shadow:0 0 0 3px rgba(54,232,255,.12)}
+::selection{background:rgba(54,232,255,.3);color:#fff}
+
+/* Sidebar polish */
+.side{box-shadow:4px 0 24px rgba(0,0,0,.35)}
+.logo{position:relative}
+.nav button{border-radius:2px;display:flex;align-items:center}
+.nav button.active{box-shadow:inset 3px 0 var(--cyan),0 0 18px rgba(54,232,255,.1)}
+
+/* Card depth + hover lift */
+.card{border-radius:3px;box-shadow:0 4px 18px rgba(0,0,0,.28),var(--glow);transition:box-shadow .25s ease,border-color .25s ease,transform .25s ease}
+.card:hover{border-color:rgba(54,232,255,.4);box-shadow:0 6px 26px rgba(0,0,0,.35),0 0 26px rgba(54,232,255,.14)}
+.hero{border-radius:3px}
+.player-box{border-radius:3px}
+
+/* Buttons unified */
+.action{border-radius:2px;position:relative}
+.action:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(54,232,255,.15)}
+.mood-btn,.player-btn,.voice-btn{border-radius:2px}
+
+/* Page switch fade */
+.page.active{animation:pageIn .35s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Stat cards */
+.stats .card{text-align:center;transition:transform .2s ease,box-shadow .2s ease}
+.stats .card:hover{transform:translateY(-3px)}
+.num{text-shadow:0 0 14px rgba(54,232,255,.25)}
+
+/* Table refinement */
+table{border-radius:2px;overflow:hidden}
+tbody tr{transition:background .15s ease}
+tbody tr:hover{background:rgba(54,232,255,.04)}
+.weekly-table tbody tr:nth-child(odd) td{background:rgba(255,255,255,.012)}
+
+/* Timeline events */
+.event{border-radius:2px;transition:background .2s ease,transform .15s ease}
+.event:hover{background:rgba(54,232,255,.07);transform:translateX(2px)}
+
+/* Chat bubbles */
+.chat-msg{border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+/* Habit + mood cards */
+.habit-cell{border-radius:1px}
+.mood-graph-wrap{border-radius:3px}
+
+/* Top bar polish */
+.top{gap:16px}
+.clock{text-shadow:0 0 10px rgba(54,232,255,.35)}
+
+/* Inputs consistent radius */
+form input,form select,.field input,.field select{border-radius:2px}
+
+/* Exam table + next-exam banner */
+#nextExamCard{border-color:rgba(255,212,92,.35)}
+#nextExamCard .hero{background:linear-gradient(135deg,rgba(37,28,9,.5),rgba(13,10,3,.5));border-color:rgba(255,212,92,.25)}
+
+/* Mobile refinements */
+@media(max-width:850px){
+  .card{padding:16px}
+  .exam-form{grid-template-columns:1fr 1fr}
+  .chapter-row{flex-wrap:wrap}
+  .side{box-shadow:none}
+  .top{flex-direction:column;align-items:flex-start;gap:10px}
+  .top>div:last-child{text-align:left}
+}
+@media(max-width:480px){
+  .exam-form{grid-template-columns:1fr}
+  .grid.stats{grid-template-columns:1fr 1fr}
+  main{padding:14px}
+  .hero h1{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="logo">J.A.R.V.I.S</div><div class="sub">STUDENT COMMAND SYSTEM</div>
+  <nav class="nav">
+    <button class="active" id="nav-dashboard" onclick="showPage('dashboard',this)">⌂ &nbsp; DASHBOARD</button>
+    <button id="nav-timetable" onclick="showPage('timetable',this)">◫ &nbsp; TIMETABLE</button>
+    <button id="nav-tracker" onclick="showPage('tracker',this)">◈ &nbsp; TRACKER</button>
+    <button id="nav-exam" onclick="showPage('exam',this)">✎ &nbsp; EXAM</button>
+  </nav>
+  <div style="margin-top:20px;padding:0 2px">
+    <button class="voice-btn" id="voiceBtn" onclick="toggleWakeWord()"><span class="mic-dot" id="micDot"></span>WAKE-WORD: OFF</button>
+    <div class="voice-status" id="voiceStatus">Say "Hey Jarvis" to trigger commands.</div>
+    <button class="voice-btn" id="announceBtn" onclick="toggleAnnouncements()" style="margin-top:8px"><span class="mic-dot" id="announceDot"></span>ANNOUNCEMENTS: ON</button>
+  </div>
+  <div class="system"><span class="dot"></span>SYSTEM ONLINE<br><small>BACKGROUND VOICE ACTIVE</small></div>
+</aside>
+<main>
+<div class="top"><div class="title" id="pageTitle">DASHBOARD // OVERVIEW</div><div><div class="clock" id="clock">--:--:--</div><div class="date" id="date">---</div></div></div>
+
+<section id="dashboard" class="page active">
+<div class="hero"><div class="eyebrow">PERSONAL AI ASSISTANT // READY</div><h1 id="greeting">Good afternoon.</h1><p id="statusText">All systems operational. Hands-free voice recognition initialized.</p></div>
+<div class="grid stats"><div class="card"><div class="label">TODAY'S TASKS</div><div class="num" id="statTasks">0/0</div></div><div class="card"><div class="label">COMPLETION</div><div class="num" id="statPct">0%</div></div><div class="card"><div class="label">SCHOOL PERIODS</div><div class="num">8</div></div><div class="card"><div class="label">TUITION SLOTS</div><div class="num" style="color:var(--amber)">2 DAILY</div></div></div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◈ TALK TO JARVIS</div>
+  <div class="chat-log" id="chatLog"><div class="chat-empty">No conversation yet. Try: "What is my Monday timetable?" or "Tell me Tuesday's schedule."</div></div>
+  <form onsubmit="handleChatSubmit(event)" style="display:flex;gap:8px;margin-top:10px">
+    <input id="chatInput" placeholder="Ask JARVIS about your timetable, tasks, mood..." style="flex:1;background:#041017;border:1px solid var(--line);color:var(--text);padding:10px;font:14px Rajdhani;outline:none">
+    <button class="action">SEND</button>
+  </form>
+</div>
+
+<div class="grid dashboard">
+  <div class="card">
+    <div class="section-title">◉ TODAY // FULL SCHEDULE</div>
+    <div class="timeline" id="dashSchedule"></div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="section-title">◈ DAILY DIRECTIVES</div>
+      <div id="dashTasks"></div>
+      <div class="bar"><span id="dashBar"></span></div>
+    </div>
+
+    <!-- LOCAL AUDIO PLAYER DECK -->
+    <div class="player-box">
+      <div class="section-title">♫ LOCAL MUSIC PLAYER</div>
+      <div class="track-title" id="trackTitle">NO TRACK LOADED</div>
+      <audio id="audioElement" style="display:none"></audio>
+      
+      <input type="range" id="seekBar" class="seek-bar" value="0" min="0" max="100" oninput="seekAudio(this.value)">
+      
+      <div class="player-controls" style="margin-top:12px">
+        <button class="player-btn" onclick="prevTrack()">⏮ PREV</button>
+        <button class="player-btn" id="playPauseBtn" onclick="togglePlayPause()">▶ PLAY</button>
+        <button class="player-btn" onclick="nextTrack()">NEXT ⏭</button>
+        <label class="player-btn" style="margin-left:auto;cursor:pointer">
+          ＋ ADD LOCAL TRACKS
+          <input type="file" id="fileInput" accept="audio/*" multiple style="display:none" onchange="handleAudioUpload(event)">
+        </label>
+      </div>
+
+      <div class="playlist" id="playlistView">
+        <div class="playlist-item">No audio files uploaded yet. Click "+ ADD LOCAL TRACKS".</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="timetable" class="page">
+<div class="card"><div class="section-title">◫ MASTER TIMETABLE // CLASS 10-B & TUITION</div><div id="tableWrap"></div></div>
+</section>
+
+<section id="tracker" class="page">
+<div class="hero"><div class="eyebrow">J.A.R.V.I.S // PERFORMANCE MATRIX</div><h1>30-Day Progress Tracker</h1><p>Level up daily routines, log habits, monitor mood analytics & manage directives.</p></div>
+
+<div class="grid" style="margin-top:16px;grid-template-columns:1.5fr 0.8fr">
+  <div class="card">
+    <div class="section-title">+ NEW DIRECTIVE</div>
+    <form onsubmit="addTask(event)"><input id="taskInput" placeholder="Enter task..." required><select id="priority"><option>Normal</option><option>High</option><option>Critical</option></select><button class="action">ADD</button></form>
+    <div id="taskList"></div>
+  </div>
+  <div class="card" style="text-align:center">
+    <div class="section-title">◉ TASK PERFORMANCE</div>
+    <div class="ring"><b id="ringPct">0%</b></div>
+    <div class="label">MISSION COMPLETION</div>
+    <div class="bar"><span id="trackerBar"></span></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◈ HABIT MATRIX ("BEING BETTER CHALLENGE") // <span id="habitMonthLabel">THIS MONTH</span></div>
+  <p style="font-size:12px;color:var(--muted);margin-top:-8px;margin-bottom:12px">Click grid cells to cycle status: Blank ➔ ✓ (Done) ➔ ✕ (Missed)</p>
+  <div class="bujo-wrap">
+    <table class="habit-table" id="habitMatrix">
+      <thead><tr id="habitHead"></tr></thead>
+      <tbody id="habitBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◉ 30-DAY MOOD SPECTRUM LOG</div>
+  <div class="mood-controls">
+    <span style="font-size:12px;color:var(--muted)">LOG TODAY'S MOOD:</span>
+    <button class="mood-btn" onclick="setMood(5)">😊 Happy</button>
+    <button class="mood-btn" onclick="setMood(4)">😌 Calm</button>
+    <button class="mood-btn" onclick="setMood(3)">😐 Tired</button>
+    <button class="mood-btn" onclick="setMood(2)">😰 Anxious</button>
+    <button class="mood-btn" onclick="setMood(1)">💥 Stressed</button>
+  </div>
+  <div class="mood-graph-wrap">
+    <svg class="mood-svg" id="moodSvg" viewBox="0 0 900 150" preserveAspectRatio="none">
+      <path id="moodPath" d="" fill="none" stroke="var(--cyan)" stroke-width="2.5" />
+    </svg>
+  </div>
+</div>
+</section>
+
+<section id="exam" class="page">
+<div class="hero"><div class="eyebrow">J.A.R.V.I.S // EXAMINATION PROTOCOL</div><h1>Exam Datesheet</h1><p>Log every paper as it's announced — JARVIS will track the countdown for you.</p></div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">+ ADD EXAM ENTRY</div>
+  <form class="exam-form" onsubmit="addExam(event)">
+    <div class="field">
+      <label>SUBJECT</label>
+      <select id="examSubject" required onchange="onExamSubjectChange()">
+        <option value="" disabled selected>Select subject</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Maths">Maths</option>
+        <option value="Science">Science</option>
+        <option value="SST">SST</option>
+        <option value="English">English</option>
+        <option value="IT">IT</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>DATE</label>
+      <input id="examDate" type="date" required>
+    </div>
+    <div class="field">
+      <label>TIME</label>
+      <input id="examTime" type="time">
+    </div>
+
+    <div class="field full" id="examNotesField">
+      <label>ROOM / SYLLABUS NOTE</label>
+      <input id="examNotes" placeholder="Optional note...">
+    </div>
+
+    <div class="field full" id="examChapterBlock" style="display:none">
+      <label>SYLLABUS — HOW MANY CHAPTERS?</label>
+      <div class="stepper">
+        <button type="button" onclick="stepChapterCount(-1)">−</button>
+        <input type="number" id="examChapterCount" min="1" value="1" oninput="renderChapterSelects()">
+        <button type="button" onclick="stepChapterCount(1)">+</button>
+      </div>
+      <div class="chapter-rows" id="examChapterSelects"></div>
+    </div>
+
+    <div class="submit-row full">
+      <button class="action">+ ADD TO DATESHEET</button>
+    </div>
+  </form>
+</div>
+
+<div class="card" id="nextExamCard" style="margin-top:16px;display:none">
+  <div class="section-title">◉ NEXT UP</div>
+  <div class="hero" style="padding:16px;box-shadow:none" id="nextExamBanner"></div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◈ FULL DATESHEET</div>
+  <table>
+    <thead><tr><th>SUBJECT</th><th>DATE</th><th>TIME</th><th>NOTES</th><th>COUNTDOWN</th><th></th></tr></thead>
+    <tbody id="examBody"></tbody>
+  </table>
+  <div id="examEmpty" style="color:var(--muted);padding:14px 0;font-size:13px">No exams logged yet. Add your first paper above.</div>
+</div>
+</section>
+
+<div class="footer">J.A.R.V.I.S STUDENT OS // DATA STORED LOCALLY // LOCAL AUDIO ENGINE INTEGRATED</div>
+</main></div>
+
+<script>
+const days=["MON","TUE","WED","THU","FRI","SAT","SUN"];
+const schedule={
+MON:[["09:00","09:40","Eng"],["09:40","10:20","Maths"],["10:20","11:00","Maths"],["11:00","11:40","Sci"],["11:40","12:10","LUNCH"],["12:10","12:50","Sst"],["12:50","13:30","IT"],["13:30","14:10","Tamil / Hindi"],["14:10","14:50","Sst"]],
+TUE:[["09:00","09:40","Tamil / Hindi"],["09:40","10:20","Counselling"],["10:20","11:00","Sst"],["11:00","11:40","Eng"],["11:40","12:10","LUNCH"],["12:10","12:50","Eng"],["12:50","13:30","Sci"],["13:30","14:10","Maths"],["14:10","14:50","Sci"]],
+WED:[["09:00","09:40","Sci"],["09:40","10:20","IT / Yoga"],["10:20","11:00","Sst"],["11:00","11:40","Maths"],["11:40","12:10","LUNCH"],["12:10","12:50","Sst"],["12:50","13:30","Games"],["13:30","14:10","Tamil / Hindi"],["14:10","14:50","Eng"]],
+THU:[["09:00","09:40","Sst"],["09:40","10:20","Sci"],["10:20","11:00","Maths"],["11:00","11:40","Maths"],["11:40","12:10","LUNCH"],["12:10","12:50","Eng"],["12:50","13:30","IT / Yoga"],["13:30","14:10","Tamil / Hindi"],["14:10","14:50","Tamil / Hindi"]],
+FRI:[["09:00","09:40","Maths"],["09:40","10:20","Sci"],["10:20","11:00","Sst"],["11:00","11:40","Games"],["11:40","12:10","LUNCH"],["12:10","12:50","Eng"],["12:50","13:30","Sci"],["13:30","14:10","Lib"],["14:10","14:50","Tamil / Hindi"]],
+SAT:[["09:00","09:40","Sst"],["09:40","10:20","Sci"],["10:20","11:00","Draw / Music"],["11:00","11:40","Tamil / Hindi"],["11:40","12:10","LUNCH"],["12:10","12:50","Maths"],["12:50","13:30","Eng"],["13:30","14:10","Tamil / Hindi"],["14:10","14:50","Maths"]],
+SUN:[]
+};
+
+const tuitionSchedule={
+MON:[["05:00 PM","SST Tuition"],["08:00 PM","Maths Tuition"]],
+TUE:[["05:00 PM","SST Tuition"],["08:00 PM","Maths Tuition"]],
+WED:[["05:00 PM","Science Tuition"],["08:00 PM","SST Tuition"]],
+THU:[["05:00 PM","Science Tuition"],["08:00 PM","SST Tuition"]],
+FRI:[["05:00 PM","Science Tuition"],["08:00 PM","Maths Tuition"]],
+SAT:[["05:00 PM","Science Tuition"],["08:00 PM","Maths Tuition"]],
+SUN:[]
+};
+
+let tasks=JSON.parse(localStorage.getItem("jarvis_tasks")||"[]");
+function save(){localStorage.setItem("jarvis_tasks",JSON.stringify(tasks));renderTasks()}
+function showPage(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");document.getElementById("pageTitle").textContent=id.toUpperCase()+" // "+(id==="dashboard"?"OVERVIEW":id==="timetable"?"ACADEMIC SCHEDULE":id==="exam"?"DATESHEET":"PERFORMANCE MATRIX")}
+function addTask(e){if(e)e.preventDefault();let input=document.getElementById("taskInput");let prio=document.getElementById("priority");tasks.push({text:input.value,priority:prio.value,done:false});input.value="";save();announce("Directive added, sir.")}
+function toggleTask(i){tasks[i].done=!tasks[i].done;save();if(tasks.length && tasks.every(t=>t.done)){announce("All directives complete, sir. Outstanding work today.");}}
+function deleteTask(i){tasks.splice(i,1);save()}
+
+function renderTasks(){
+  let list=document.getElementById("taskList"), dash=document.getElementById("dashTasks");
+  if(!list||!dash) return;
+  
+  list.innerHTML="";
+  dash.innerHTML="";
+  
+  tasks.forEach((t,i)=>{
+    // Full row for Tracker page (with delete button)
+    let row=document.createElement("div");
+    row.className="taskrow";
+    row.innerHTML=`
+      <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${i})">
+      <span class="task-text" style="${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.text}</span>
+      <small class="task-prio" style="color:${t.priority==='Critical'?'var(--red)':t.priority==='High'?'var(--amber)':'var(--muted)'}">${t.priority}</small>
+      <button onclick="deleteTask(${i})">✕</button>
+    `;
+    list.appendChild(row);
+
+    // Dashboard widget row (clean layout without delete button)
+    let dashRow=document.createElement("div");
+    dashRow.className="taskrow";
+    dashRow.innerHTML=`
+      <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${i})">
+      <span class="task-text" style="${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.text}</span>
+      <small class="task-prio" style="color:${t.priority==='Critical'?'var(--red)':t.priority==='High'?'var(--amber)':'var(--muted)'}">${t.priority}</small>
+    `;
+    dash.appendChild(dashRow);
+  });
+
+  let done=tasks.filter(x=>x.done).length, p=tasks.length?Math.round(done/tasks.length*100):0;
+  document.getElementById("statTasks").textContent=`${done}/${tasks.length}`;
+  document.getElementById("statPct").textContent=p+"%";
+  document.getElementById("ringPct").textContent=p+"%";
+  document.getElementById("dashBar").style.width=p+"%";
+  document.getElementById("trackerBar").style.width=p+"%";
+}
+
+function renderWeeklyTable(){
+  const cols=["MON","TUE","WED","THU","FRI","SAT"];
+  const labels={MON:"MONDAY",TUE:"TUESDAY",WED:"WEDNESDAY",THU:"THURSDAY",FRI:"FRIDAY",SAT:"SATURDAY"};
+  const times=[
+    ["09:00","09:40"],["09:40","10:20"],["10:20","11:00"],["11:00","11:40"],
+    ["11:40","12:10"],["12:10","12:50"],["12:50","13:30"],["13:30","14:10"],["14:10","14:50"]
+  ];
+  const get=(day,t)=>((schedule[day]||[]).find(r=>r[0]===t[0]&&r[1]===t[1])||["","",""])[2];
+  const getT05=(day)=>((tuitionSchedule[day]||[])[0]||["",""])[1]||"-";
+  const getT08=(day)=>((tuitionSchedule[day]||[])[1]||["",""])[1]||"-";
+
+  let body="";
+  times.forEach(t=>{
+    const lunch=t[0]==="11:40";
+    body+=`<tr class="${lunch?'special-row':''}">
+      <td class="timecell">${t[0]} — ${t[1]}</td>
+      ${cols.map(d=>`<td>${lunch?"":get(d,t)}</td>`).join("")}
+    </tr>`;
+  });
+
+  body+=`<tr><td colspan="7" class="tuition-header">◈ EVENING TUITION PROTOCOLS ◈</td></tr>`;
+  body+=`<tr class="tuition-row">
+    <td class="timecell" style="color:var(--amber)">05:00 PM</td>
+    ${cols.map(d=>`<td>${getT05(d)}</td>`).join("")}
+  </tr>`;
+  body+=`<tr class="tuition-row">
+    <td class="timecell" style="color:var(--amber)">08:00 PM</td>
+    ${cols.map(d=>`<td>${getT08(d)}</td>`).join("")}
+  </tr>`;
+
+  document.getElementById("tableWrap").innerHTML=`
+    <div class="schedule-head">
+      <span>SCHEDULE // CLASS 10-B & TUITIONS</span>
+      <span class="live-chip">● LIVE ACADEMIC GRID</span>
+    </div>
+    <table class="weekly-table exact-school-table">
+      <thead><tr><th>TIME</th>${cols.map(d=>`<th>${labels[d]}</th>`).join("")}</tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+  `;
+}
+
+const habitList=["Wake up 5-6 AM","Make Bed","Hydrate 2-3L","Exercise/Workout","Meditation","Cold Shower","Study 4 Hours","Skincare","No Junk/Sugar","Reading Books","Plan Next Day","Sleep by 10:30 PM"];
+let habitData=JSON.parse(localStorage.getItem("jarvis_habits")||"{}");
+
+/* EXAM DATESHEET */
+let exams=JSON.parse(localStorage.getItem("jarvis_exams")||"[]");
+
+const syllabusChapters = {
+  Maths: ["Real Numbers","Polynomials","Pair of Linear Equations in Two Variables","Quadratic Equations","Arithmetic Progressions","Triangles","Coordinate Geometry","Introduction to Trigonometry","Some Applications of Trigonometry","Circles","Areas Related to Circles","Surface Areas and Volumes","Statistics","Probability"],
+  Science: ["Chemical Reactions and Equations","Acids, Bases and Salts","Metals and Non-metals","Carbon and its Compounds","Life Processes","Control and Coordination","How do Organisms Reproduce?","Heredity","Light – Reflection and Refraction","The Human Eye and the Colourful World","Electricity","Magnetic Effects of Electric Current","Our Environment"]
+};
+
+function onExamSubjectChange(){
+  let subj = document.getElementById("examSubject").value;
+  let chapterBlock = document.getElementById("examChapterBlock");
+  let notesField = document.getElementById("examNotesField");
+  if(syllabusChapters[subj]){
+    chapterBlock.style.display="flex";
+    notesField.style.display="none";
+    document.getElementById("examChapterCount").max = syllabusChapters[subj].length;
+    document.getElementById("examChapterCount").value = 1;
+    renderChapterSelects();
+  } else {
+    chapterBlock.style.display="none";
+    notesField.style.display="flex";
+  }
+}
+
+function stepChapterCount(delta){
+  let input = document.getElementById("examChapterCount");
+  let max = parseInt(input.max)||14;
+  let val = Math.max(1, Math.min(max, (parseInt(input.value)||1)+delta));
+  input.value = val;
+  renderChapterSelects();
+}
+
+function renderChapterSelects(){
+  let subj = document.getElementById("examSubject").value;
+  let chapters = syllabusChapters[subj] || [];
+  let countInput = document.getElementById("examChapterCount");
+  let count = Math.max(1, Math.min(parseInt(countInput.value)||1, chapters.length));
+  countInput.value = count;
+  let container = document.getElementById("examChapterSelects");
+  let existing = Array.from(container.querySelectorAll("select")).map(s=>s.value);
+  container.innerHTML = "";
+  for(let i=0;i<count;i++){
+    let row = document.createElement("div");
+    row.className = "chapter-row";
+    let sel = document.createElement("select");
+    sel.innerHTML = `<option value="">— choose —</option>` + chapters.map(c=>`<option value="${c}" ${existing[i]===c?"selected":""}>${c}</option>`).join("");
+    row.innerHTML = `<span class="ch-num">CH ${i+1}</span>`;
+    row.appendChild(sel);
+    container.appendChild(row);
+  }
+}
+
+function saveExams(){localStorage.setItem("jarvis_exams",JSON.stringify(exams));renderExams();}
+function addExam(e){
+  if(e)e.preventDefault();
+  let subject=document.getElementById("examSubject").value;
+  let date=document.getElementById("examDate").value;
+  let time=document.getElementById("examTime").value;
+  let notesInput=document.getElementById("examNotes");
+  let notes;
+  if(syllabusChapters[subject]){
+    let chosen = Array.from(document.querySelectorAll("#examChapterSelects select")).map(s=>s.value).filter(Boolean);
+    notes = chosen.join(", ");
+  } else {
+    notes = notesInput.value.trim();
+  }
+  if(!subject||!date) return;
+  exams.push({subject,date,time,notes});
+  document.getElementById("examSubject").selectedIndex=0;
+  document.getElementById("examDate").value="";
+  document.getElementById("examTime").value="";
+  notesInput.value="";
+  document.getElementById("examNotesField").style.display="flex";
+  document.getElementById("examChapterBlock").style.display="none";
+  document.getElementById("examChapterCount").value=1;
+  document.getElementById("examChapterSelects").innerHTML="";
+  saveExams();
+  announce(`${subject} exam added to your datesheet, sir.`);
+}
+function deleteExam(i){ exams.splice(i,1); saveExams(); }
+function daysUntil(dateStr){
+  let today=new Date(); today.setHours(0,0,0,0);
+  let target=new Date(dateStr+"T00:00:00");
+  return Math.round((target-today)/86400000);
+}
+function fmtExamDate(dateStr){
+  return new Date(dateStr+"T00:00:00").toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
+}
+function countdownLabel(n){
+  if(n<0) return `<span style="color:var(--muted)">PASSED</span>`;
+  if(n===0) return `<span style="color:var(--red)">TODAY</span>`;
+  if(n===1) return `<span style="color:var(--amber)">TOMORROW</span>`;
+  if(n<=3) return `<span style="color:var(--amber)">${n} DAYS</span>`;
+  return `<span style="color:var(--cyan)">${n} DAYS</span>`;
+}
+function nextExam(){
+  let upcoming=exams.filter(x=>daysUntil(x.date)>=0).sort((a,b)=>a.date.localeCompare(b.date)||(a.time||"").localeCompare(b.time||""));
+  return upcoming[0]||null;
+}
+function renderExams(){
+  let sorted=[...exams].sort((a,b)=>a.date.localeCompare(b.date)||(a.time||"").localeCompare(b.time||""));
+  let body=document.getElementById("examBody");
+  let empty=document.getElementById("examEmpty");
+  if(!body) return;
+  if(sorted.length===0){
+    body.innerHTML="";
+    empty.style.display="block";
+  } else {
+    empty.style.display="none";
+    body.innerHTML=sorted.map(x=>{
+      let realIndex=exams.indexOf(x);
+      let n=daysUntil(x.date);
+      return `<tr>
+        <td>${x.subject}</td>
+        <td>${fmtExamDate(x.date)}</td>
+        <td>${x.time?x.time:"—"}</td>
+        <td style="color:var(--muted)">${x.notes||"—"}</td>
+        <td>${countdownLabel(n)}</td>
+        <td><button onclick="deleteExam(${realIndex})" style="background:none;border:0;color:var(--red);cursor:pointer">✕</button></td>
+      </tr>`;
+    }).join("");
+  }
+  let next=nextExam();
+  let card=document.getElementById("nextExamCard");
+  if(next && card){
+    card.style.display="block";
+    let n=daysUntil(next.date);
+    document.getElementById("nextExamBanner").innerHTML=`<div class="eyebrow">UP NEXT</div><h1 style="font-size:24px;margin:10px 0">${next.subject}</h1><p>${fmtExamDate(next.date)}${next.time?" at "+next.time:""} — ${countdownLabel(n)}</p>`;
+  } else if(card){
+    card.style.display="none";
+  }
+}
+
+function getMonthKey(){
+  let d=new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+}
+function daysInCurrentMonth(){
+  let d=new Date();
+  return new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+}
+
+function renderHabits(){
+  const monthKey=getMonthKey();
+  const numDays=daysInCurrentMonth();
+  let monthLabel=new Date().toLocaleDateString("en-IN",{month:"long",year:"numeric"});
+  let headerEl=document.getElementById("habitMonthLabel");
+  if(headerEl) headerEl.textContent=monthLabel.toUpperCase();
+
+  let head="<th>HABIT ROUTINE</th>";
+  for(let i=1;i<=numDays;i++) head+=`<th>${i}</th>`;
+  document.getElementById("habitHead").innerHTML=head;
+
+  let body="";
+  habitList.forEach((h,hIdx)=>{
+    body+=`<tr><td class="habit-title">${hIdx+1}. ${h}</td>`;
+    for(let d=1;d<=numDays;d++){
+      let key=`${monthKey}_${hIdx}_${d}`;
+      let val=habitData[key]||"";
+      let cls=val==="✓"?"check":val==="✕"?"cross":"";
+      body+=`<td class="habit-cell ${cls}" onclick="cycleHabit('${key}')">${val}</td>`;
+    }
+    body+="</tr>";
+  });
+  document.getElementById("habitBody").innerHTML=body;
+}
+
+function cycleHabit(key){
+  let cur=habitData[key]||"";
+  if(cur==="") habitData[key]="✓";
+  else if(cur==="✓") habitData[key]="✕";
+  else delete habitData[key];
+  localStorage.setItem("jarvis_habits",JSON.stringify(habitData));
+  renderHabits();
+}
+
+let moodData=JSON.parse(localStorage.getItem("jarvis_moods")||"{}");
+function setMood(val, speakMsg=true){
+  let today=new Date().getDate();
+  let key=`${getMonthKey()}_${today}`;
+  moodData[key]=val;
+  localStorage.setItem("jarvis_moods",JSON.stringify(moodData));
+  renderMoodGraph();
+  if(speakMsg) speak("Mood recorded into database.");
+}
+
+function renderMoodGraph(){
+  const monthKey=getMonthKey();
+  const numDays=daysInCurrentMonth();
+  let pathD="";
+  let step=900/(numDays-1);
+  let points=[];
+  for(let d=1;d<=numDays;d++){
+    let val=moodData[`${monthKey}_${d}`];
+    if(val){
+      let x=(d-1)*step;
+      let y=130-(val-1)*25;
+      points.push(`${x},${y}`);
+    }
+  }
+  if(points.length>0) pathD="M "+points.join(" L ");
+  document.getElementById("moodPath").setAttribute("d",pathD);
+}
+
+/* CONVERSATIONAL CHAT LOG */
+function addChatMessage(role, text){
+  let log = document.getElementById("chatLog");
+  if(!log) return;
+  let empty = log.querySelector(".chat-empty");
+  if(empty) empty.remove();
+  let div = document.createElement("div");
+  div.className = "chat-msg "+role;
+  div.textContent = (role==="user"?"YOU: ":"JARVIS: ")+text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+function jarvisReply(text){
+  addChatMessage("jarvis", text);
+  speak(text);
+}
+function handleChatSubmit(e){
+  if(e) e.preventDefault();
+  let input = document.getElementById("chatInput");
+  let text = input.value.trim();
+  if(!text) return;
+  addChatMessage("user", text);
+  input.value = "";
+  processVoiceCommand(text.toLowerCase());
+}
+
+/* PROACTIVE VOICE ANNOUNCEMENTS */
+let voiceAnnouncementsOn = JSON.parse(localStorage.getItem("jarvis_announce") ?? "true");
+function syncAnnounceBtn(){
+  let btn=document.getElementById("announceBtn");
+  if(!btn) return;
+  btn.innerHTML = `<span class="mic-dot" id="announceDot" style="background:${voiceAnnouncementsOn?'var(--green)':'var(--muted)'};${voiceAnnouncementsOn?'box-shadow:0 0 8px var(--green)':''}"></span>ANNOUNCEMENTS: ${voiceAnnouncementsOn?"ON":"OFF"}`;
+}
+function toggleAnnouncements(){
+  voiceAnnouncementsOn = !voiceAnnouncementsOn;
+  localStorage.setItem("jarvis_announce", JSON.stringify(voiceAnnouncementsOn));
+  syncAnnounceBtn();
+  if(voiceAnnouncementsOn) jarvisReply("Voice announcements enabled, sir.");
+}
+function announce(text){
+  if(voiceAnnouncementsOn){
+    addChatMessage("jarvis", text);
+    speak(text);
+  }
+}
+
+let hasGreeted = false;
+let announcedKeys = new Set();
+function parseAmPm(str){
+  let [time, ap] = str.split(" ");
+  let [h,m] = time.split(":").map(Number);
+  if(ap==="PM" && h!==12) h+=12;
+  if(ap==="AM" && h===12) h=0;
+  return h*60+m;
+}
+function checkPeriodAnnouncements(d){
+  let dayCode = days[(d.getDay()+6)%7];
+  let todaySched = schedule[dayCode]||[];
+  let todayTuition = tuitionSchedule[dayCode]||[];
+  let nowM = d.getHours()*60+d.getMinutes();
+  let dateStamp = d.toDateString();
+
+  todaySched.forEach(r=>{
+    if(r[2]==="LUNCH") return;
+    let startM = toMinutes(r[0]);
+    let key = dateStamp+"_"+r[0]+"_"+r[2];
+    if(nowM===startM && !announcedKeys.has(key)){
+      announcedKeys.add(key);
+      announce(`Sir, your ${r[2]} period begins now.`);
+    }
+  });
+
+  todayTuition.forEach(t=>{
+    let m = parseAmPm(t[0]);
+    let key = dateStamp+"_tuition_"+t[0]+"_"+t[1];
+    if(nowM===m && !announcedKeys.has(key)){
+      announcedKeys.add(key);
+      announce(`Sir, ${t[1]} begins now.`);
+    }
+  });
+}
+
+function updateClock(){let d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("en-IN",{hour12:false});document.getElementById("date").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"short",year:"numeric"});let h=d.getHours();let greetingText=h<12?"Good morning, sir.":h<17?"Good afternoon, sir.":"Good evening, sir.";document.getElementById("greeting").textContent=greetingText;if(!hasGreeted){hasGreeted=true;setTimeout(()=>announce(greetingText+" All systems are online and ready."),700);}checkPeriodAnnouncements(d);}
+
+function toMinutes(t){ let [h,m]=t.split(":").map(Number); return h*60+m; }
+function nowMinutes(){ let d=new Date(); return d.getHours()*60+d.getMinutes(); }
+
+function renderDashSchedule(){
+  let d=days[(new Date().getDay()+6)%7];
+  let todaySched=schedule[d]||[];
+  let todayTuition=tuitionSchedule[d]||[];
+  let nm=nowMinutes();
+  let html=todaySched.filter(r=>r[2]!=="LUNCH").map(r=>{
+    let isNow = nm>=toMinutes(r[0]) && nm<toMinutes(r[1]);
+    return `<div class="event ${isNow?'now':''}"><span><b>${r[2]}</b><br><small>${r[0]} — ${r[1]}</small></span><small>${isNow?"CURRENT":"SCHOOL"}</small></div>`;
+  }).join("");
+  if(todayTuition.length){
+    html+=todayTuition.map(t=>`<div class="event tuition-event"><span><b style="color:var(--amber)">${t[1]}</b><br><small>TIME: ${t[0]}</small></span><small style="color:var(--amber)">TUITION</small></div>`).join("");
+  }
+  document.getElementById("dashSchedule").innerHTML=html||`<div style="color:var(--muted)">No classes or tuitions scheduled for today. Rest protocol active.</div>`;
+}
+
+/* LOCAL AUDIO PLAYER ENGINE */
+let playlist = [];
+let currentTrackIndex = 0;
+const audioPlayer = document.getElementById("audioElement");
+
+function handleAudioUpload(event) {
+  const files = Array.from(event.target.files);
+  if (files.length === 0) return;
+  
+  files.forEach(file => {
+    playlist.push({
+      name: file.name.replace(/\.[^/.]+$/, ""),
+      url: URL.createObjectURL(file)
+    });
+  });
+
+  renderPlaylist();
+  if (playlist.length === files.length) {
+    loadTrack(0);
+  }
+}
+
+function renderPlaylist() {
+  const view = document.getElementById("playlistView");
+  view.innerHTML = "";
+  playlist.forEach((track, index) => {
+    const item = document.createElement("div");
+    item.className = `playlist-item ${index === currentTrackIndex ? 'active' : ''}`;
+    item.innerHTML = `<span>${index + 1}. ${track.name}</span>`;
+    item.onclick = () => { loadTrack(index); playAudio(); };
+    view.appendChild(item);
+  });
+}
+
+function loadTrack(index) {
+  if (playlist.length === 0) return;
+  currentTrackIndex = index;
+  audioPlayer.src = playlist[currentTrackIndex].url;
+  document.getElementById("trackTitle").textContent = playlist[currentTrackIndex].name.toUpperCase();
+  renderPlaylist();
+}
+
+function togglePlayPause() {
+  if (playlist.length === 0) return alert("Please upload audio tracks first using '+ ADD LOCAL TRACKS'.");
+  if (audioPlayer.paused) {
+    playAudio();
+  } else {
+    pauseAudio();
+  }
+}
+
+function playAudio() {
+  if (playlist.length === 0) return;
+  audioPlayer.play();
+  document.getElementById("playPauseBtn").textContent = "⏸ PAUSE";
+}
+
+function pauseAudio() {
+  audioPlayer.pause();
+  document.getElementById("playPauseBtn").textContent = "▶ PLAY";
+}
+
+function nextTrack() {
+  if (playlist.length === 0) return;
+  currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+  loadTrack(currentTrackIndex);
+  playAudio();
+}
+
+function prevTrack() {
+  if (playlist.length === 0) return;
+  currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+  loadTrack(currentTrackIndex);
+  playAudio();
+}
+
+audioPlayer.ontimeupdate = () => {
+  if (audioPlayer.duration) {
+    const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    document.getElementById("seekBar").value = pct;
+  }
+};
+
+audioPlayer.onended = () => {
+  nextTrack();
+};
+
+function seekAudio(val) {
+  if (audioPlayer.duration) {
+    audioPlayer.currentTime = (val / 100) * audioPlayer.duration;
+  }
+}
+
+/* WAKE WORD & VOICE RECOGNITION ENGINE */
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let wakeWordActive = false;
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  let utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1.0;
+  utter.pitch = 0.95;
+  let voices = window.speechSynthesis.getVoices();
+  let selectedVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Natural") || v.lang.startsWith("en"));
+  if (selectedVoice) utter.voice = selectedVoice;
+  window.speechSynthesis.speak(utter);
+}
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US';
+
+  recognition.onresult = (e) => {
+    let lastIndex = e.results.length - 1;
+    let transcript = e.results[lastIndex][0].transcript.toLowerCase().trim();
+    document.getElementById("voiceStatus").textContent = `Heard: "${transcript}"`;
+    
+    if (transcript.includes("hey jarvis") || transcript.includes("jarvis")) {
+      let command = transcript.replace("hey jarvis", "").replace("jarvis", "").trim();
+      if (command) {
+        addChatMessage("user", command);
+        processVoiceCommand(command);
+      } else {
+        jarvisReply("At your service, sir.");
+      }
+    }
+  };
+
+  recognition.onend = () => {
+    if (wakeWordActive) {
+      try { recognition.start(); } catch(err){}
+    }
+  };
+
+  recognition.onerror = () => {
+    if (wakeWordActive) {
+      setTimeout(() => { try { recognition.start(); } catch(err){} }, 1000);
+    }
+  };
+}
+
+function toggleWakeWord() {
+  if (!recognition) return alert("Speech recognition is not supported on this browser.");
+  
+  let btn = document.getElementById("voiceBtn");
+  let status = document.getElementById("voiceStatus");
+
+  if (!wakeWordActive) {
+    wakeWordActive = true;
+    btn.classList.add("active-listening");
+    btn.innerHTML = `<span class="mic-dot"></span>WAKE-WORD: ON`;
+    status.textContent = "Listening for 'Hey Jarvis'...";
+    jarvisReply("Wake word engine online. Say Hey Jarvis followed by a command.");
+    try { recognition.start(); } catch(err){}
+  } else {
+    wakeWordActive = false;
+    btn.classList.remove("active-listening");
+    btn.innerHTML = `<span class="mic-dot"></span>WAKE-WORD: OFF`;
+    status.textContent = "Voice listening suspended.";
+    jarvisReply("Voice detection deactivated.");
+    try { recognition.stop(); } catch(err){}
+  }
+}
+
+const dayNameMap = {monday:"MON",tuesday:"TUE",wednesday:"WED",thursday:"THU",friday:"FRI",saturday:"SAT",sunday:"SUN"};
+function findDayInText(cmd){
+  for(let name in dayNameMap){
+    if(cmd.includes(name)) return dayNameMap[name];
+  }
+  if(cmd.includes("today")) return days[(new Date().getDay()+6)%7];
+  if(cmd.includes("tomorrow")) return days[(new Date().getDay())%7];
+  return null;
+}
+function speakDayTimetable(dayCode){
+  let label = Object.keys(dayNameMap).find(k=>dayNameMap[k]===dayCode) || dayCode;
+  label = label.charAt(0).toUpperCase()+label.slice(1);
+  let sched = schedule[dayCode]||[];
+  let tuition = tuitionSchedule[dayCode]||[];
+  if(sched.length===0 && tuition.length===0){
+    jarvisReply(`There is nothing scheduled on ${label}, sir. Enjoy the day off.`);
+    return;
+  }
+  let subjects = sched.filter(r=>r[2]!=="LUNCH").map(r=>r[2]);
+  let parts = [];
+  if(subjects.length) parts.push(`Your ${label} school schedule, in order, is: ${subjects.join(", ")}.`);
+  if(tuition.length) parts.push(`Tuition on ${label}: ${tuition.map(t=>`${t[1]} at ${t[0]}`).join(", and ")}.`);
+  jarvisReply(parts.join(" "));
+}
+
+function processVoiceCommand(cmd) {
+  let dayFound = findDayInText(cmd);
+  if (dayFound && (cmd.includes("timetable") || cmd.includes("schedule") || cmd.includes("class") || cmd.includes("period"))) {
+    speakDayTimetable(dayFound);
+  }
+  else if (cmd.includes("dashboard") || cmd.includes("home")) {
+    showPage('dashboard', document.getElementById('nav-dashboard'));
+    jarvisReply("Opening dashboard.");
+  } 
+  else if (cmd.includes("timetable") || cmd.includes("schedule")) {
+    showPage('timetable', document.getElementById('nav-timetable'));
+    jarvisReply("Displaying master timetable. You can also ask me for a specific day, like 'Tuesday's timetable'.");
+  } 
+  else if (cmd.includes("tracker") && !cmd.includes("add")) {
+    showPage('tracker', document.getElementById('nav-tracker'));
+    jarvisReply("Opening tracker module.");
+  } 
+  else if (cmd.includes("add")) {
+    let taskText = cmd.replace("add task", "").replace("add", "").replace("to tracker", "").replace("to tasks", "").trim();
+    if (taskText) {
+      tasks.push({text: taskText, priority: "Normal", done: false});
+      save();
+      jarvisReply(`Added ${taskText} to your tracker.`);
+    } else {
+      jarvisReply("Please specify what task to add.");
+    }
+  } 
+  else if (cmd.includes("mood")) {
+    if (cmd.includes("happy")) setMood(5);
+    else if (cmd.includes("calm")) setMood(4);
+    else if (cmd.includes("tired")) setMood(3);
+    else if (cmd.includes("anxious")) setMood(2);
+    else if (cmd.includes("stressed")) setMood(1);
+    else jarvisReply("Please specify your current mood — happy, calm, tired, anxious, or stressed.");
+  } 
+  else if (cmd.includes("play music") || cmd.includes("play song") || cmd.includes("play")) {
+    if (playlist.length > 0) {
+      playAudio();
+      jarvisReply("Playing music from local queue, sir.");
+    } else {
+      jarvisReply("Please upload local audio files first, sir.");
+    }
+  }
+  else if (cmd.includes("pause") || cmd.includes("stop music")) {
+    pauseAudio();
+    jarvisReply("Audio paused.");
+  }
+  else if (cmd.includes("next song") || cmd.includes("next track") || cmd.includes("skip")) {
+    nextTrack();
+    jarvisReply("Skipping to next track.");
+  }
+  else if (cmd.includes("previous song") || cmd.includes("prev track")) {
+    prevTrack();
+    jarvisReply("Going back to previous track.");
+  }
+  else if (cmd.includes("exam")) {
+    if(cmd.includes("next") || cmd.includes("when")){
+      let next=nextExam();
+      if(next){
+        let n=daysUntil(next.date);
+        jarvisReply(`Your next exam is ${next.subject} on ${fmtExamDate(next.date)}${next.time?" at "+next.time:""}. That's ${n===0?"today":n===1?"tomorrow":n+" days away"}, sir.`);
+      } else {
+        jarvisReply("You have no upcoming exams logged, sir. Add one from the Exam tab.");
+      }
+    } else {
+      showPage('exam', document.getElementById('nav-exam'));
+      jarvisReply("Opening your exam datesheet.");
+    }
+  }
+  else if (cmd.includes("how are you") || cmd.includes("who are you")) {
+    jarvisReply("I am your personal command system, sir — fully operational and monitoring your schedule, tasks, and habits.");
+  }
+  else {
+    jarvisReply("Command unrecognized, sir. Try asking for a day's timetable, adding a task, or logging your mood.");
+  }
+}
+
+renderTasks();renderWeeklyTable();renderHabits();renderMoodGraph();renderDashSchedule();renderExams();syncAnnounceBtn();updateClock();setInterval(updateClock,1000);
+</script>
+</body>
+</html>
