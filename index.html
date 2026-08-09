@@ -103,6 +103,42 @@ svg.mood-svg{width:100%;height:100%}
 .playlist-item{padding:8px 10px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:1px solid rgba(54,232,255,.05);display:flex;justify-content:space-between;align-items:center}
 .playlist-item:hover,.playlist-item.active{color:var(--cyan);background:rgba(54,232,255,.08)}
 
+/* CALENDAR */
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cal-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:14px;letter-spacing:.5px}
+.cal-legend span{display:flex;align-items:center;gap:6px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-dow{text-align:center;font:11px Orbitron;letter-spacing:1px;color:var(--muted);padding:6px 0}
+.cal-cell{aspect-ratio:1;border:1px solid var(--line);background:rgba(5,18,25,.5);padding:6px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;transition:.15s;border-radius:2px}
+.cal-cell:hover{border-color:var(--cyan);background:rgba(54,232,255,.06)}
+.cal-cell.empty{border:none;background:none;cursor:default}
+.cal-cell.today{border-color:var(--amber);box-shadow:0 0 10px rgba(255,212,92,.2)}
+.cal-cell.selected{border-color:var(--cyan);box-shadow:0 0 14px rgba(54,232,255,.3);background:rgba(54,232,255,.1)}
+.cal-daynum{font:600 13px Rajdhani;color:var(--text)}
+.cal-dots{display:flex;gap:3px;flex-wrap:wrap}
+.cal-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.cal-dot.task{background:var(--green);box-shadow:0 0 5px var(--green)}
+.cal-dot.mood{background:var(--cyan);box-shadow:0 0 5px var(--cyan)}
+.cal-dot.exam{background:var(--amber);box-shadow:0 0 5px var(--amber)}
+.cal-dot.habit{background:var(--amber);box-shadow:0 0 5px var(--amber)}
+.habit-today-head,.habit-today-cell{border-color:var(--amber) !important;background:rgba(255,212,92,.10) !important}.habit-today-cell{box-shadow:inset 0 0 8px rgba(255,212,92,.08)}
+.cal-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.cal-detail-grid h4{font:11px Orbitron;letter-spacing:1.5px;color:var(--cyan);margin:0 0 10px;opacity:.85}
+.cal-line{font-size:13.5px;padding:5px 0;border-bottom:1px dashed rgba(54,232,255,.1);color:var(--text)}
+.cal-line.amber{color:var(--amber)}
+.cal-line.done{color:var(--green)}
+.cal-line.missed{color:var(--red)}
+.cal-empty{color:var(--muted);font-size:12.5px;font-style:italic}
+@media(max-width:600px){.cal-cell{padding:4px}.cal-daynum{font-size:11px}}
+
+/* CALENDAR DAY POPUP MODAL */
+.cal-modal-overlay{position:fixed;inset:0;background:rgba(0,4,8,.78);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
+.cal-modal-overlay.active{display:flex}
+.cal-modal{background:linear-gradient(135deg,rgba(9,28,37,.97),rgba(3,13,18,.97));border:1px solid var(--cyan);box-shadow:0 0 50px rgba(54,232,255,.25),0 20px 60px rgba(0,0,0,.5);max-width:720px;width:100%;max-height:85vh;overflow-y:auto;padding:28px;position:relative;border-radius:4px;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.cal-modal-close{position:absolute;top:16px;right:16px;background:rgba(255,85,119,.08);border:1px solid var(--line);color:var(--muted);width:34px;height:34px;cursor:pointer;font-size:15px;border-radius:2px;transition:.15s}
+.cal-modal-close:hover{color:var(--red);border-color:var(--red);background:rgba(255,85,119,.15)}
+
 /* ============ GLOBAL POLISH PASS ============ */
 *{scrollbar-width:thin;scrollbar-color:rgba(54,232,255,.35) rgba(2,10,15,.4)}
 ::-webkit-scrollbar{width:8px;height:8px}
@@ -185,6 +221,24 @@ form input,form select,.field input,.field select{border-radius:2px}
   main{padding:14px}
   .hero h1{font-size:20px}
 }
+
+/* CALENDAR PHOTO JOURNAL */
+.cal-photos-section{margin-top:18px;border-top:1px solid rgba(0,229,255,.18);padding-top:16px}
+.cal-photo-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cal-photo-add{border:1px solid var(--cyan);background:rgba(0,229,255,.08);color:var(--cyan);padding:9px 13px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:700}
+.cal-photo-add:hover{background:rgba(0,229,255,.16)}
+.cal-photo-count{font-size:12px;color:var(--muted)}
+.cal-photo-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.cal-photo{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:9px;background:#071018;border:1px solid rgba(0,229,255,.12);cursor:pointer}
+.cal-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.cal-photo:hover img{transform:scale(1.06)}
+.cal-photo-delete{position:absolute;right:5px;top:5px;width:25px;height:25px;border:0;border-radius:50%;background:rgba(0,0,0,.72);color:#fff;cursor:pointer;font-weight:900;z-index:2}
+.cal-photo-empty{padding:18px;text-align:center;color:var(--muted);border:1px dashed rgba(0,229,255,.18);border-radius:9px;font-size:13px}
+.photo-viewer{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:10000;padding:30px}
+.photo-viewer.active{display:flex}
+.photo-viewer img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px}
+.photo-viewer-close{position:absolute;top:18px;right:24px;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:25px;width:42px;height:42px;border-radius:50%;cursor:pointer}
+@media(max-width:700px){.cal-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -196,6 +250,7 @@ form input,form select,.field input,.field select{border-radius:2px}
     <button id="nav-timetable" onclick="showPage('timetable',this)">◫ &nbsp; TIMETABLE</button>
     <button id="nav-tracker" onclick="showPage('tracker',this)">◈ &nbsp; TRACKER</button>
     <button id="nav-exam" onclick="showPage('exam',this)">✎ &nbsp; EXAM</button>
+    <button id="nav-calendar" onclick="showPage('calendar',this)">▦ &nbsp; CALENDAR</button>
   </nav>
   <div style="margin-top:20px;padding:0 2px">
     <button class="voice-btn" id="voiceBtn" onclick="toggleWakeWord()"><span class="mic-dot" id="micDot"></span>WAKE-WORD: OFF</button>
@@ -371,6 +426,32 @@ form input,form select,.field input,.field select{border-radius:2px}
 </div>
 </section>
 
+<section id="calendar" class="page">
+<div class="hero"><div class="eyebrow">J.A.R.V.I.S // TEMPORAL LOG</div><h1>Day Log Calendar</h1><p>Click any day to see everything logged — tasks, habits, mood, schedule and exams.</p></div>
+
+<div class="card" style="margin-top:16px">
+  <div class="cal-nav">
+    <button class="action" onclick="calPrevMonth()">‹ PREV</button>
+    <div class="section-title" id="calMonthLabel" style="margin:0"></div>
+    <button class="action" onclick="calNextMonth()">NEXT ›</button>
+  </div>
+  <div class="cal-legend">
+    <span><i class="cal-dot task"></i> Tasks completed</span>
+    <span><i class="cal-dot mood"></i> Mood logged</span>
+    <span><i class="cal-dot exam"></i> Exam</span>
+    <span><i class="cal-dot habit"></i> Habit logged</span>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+</div>
+</section>
+
+<div class="cal-modal-overlay" id="calModalOverlay" onclick="if(event.target===this) closeCalModal()">
+  <div class="cal-modal">
+    <button class="cal-modal-close" onclick="closeCalModal()">✕</button>
+    <div id="calModalContent"></div>
+  </div>
+</div>
+
 <div class="footer">J.A.R.V.I.S STUDENT OS // DATA STORED LOCALLY // LOCAL AUDIO ENGINE INTEGRATED</div>
 </main></div>
 
@@ -397,8 +478,23 @@ SUN:[]
 };
 
 let tasks=JSON.parse(localStorage.getItem("jarvis_tasks")||"[]");
-function save(){localStorage.setItem("jarvis_tasks",JSON.stringify(tasks));renderTasks()}
-function showPage(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");document.getElementById("pageTitle").textContent=id.toUpperCase()+" // "+(id==="dashboard"?"OVERVIEW":id==="timetable"?"ACADEMIC SCHEDULE":id==="exam"?"DATESHEET":"PERFORMANCE MATRIX")}
+function saveTaskHistorySnapshot(){
+  let hist = JSON.parse(localStorage.getItem("jarvis_task_history")||"{}");
+  hist[new Date().toDateString()] = tasks.map(t=>({text:t.text,priority:t.priority,done:t.done}));
+  localStorage.setItem("jarvis_task_history", JSON.stringify(hist));
+}
+(function resetTasksForNewDay(){
+  let todayKey = new Date().toDateString();
+  let lastKey = localStorage.getItem("jarvis_tasks_date");
+  if(lastKey !== todayKey){
+    tasks = tasks.filter(t=>!t.done); // drop completed tasks, carry forward anything unfinished
+    localStorage.setItem("jarvis_tasks_date", todayKey);
+    localStorage.setItem("jarvis_tasks", JSON.stringify(tasks));
+    saveTaskHistorySnapshot();
+  }
+})();
+function save(){localStorage.setItem("jarvis_tasks",JSON.stringify(tasks));saveTaskHistorySnapshot();renderTasks()}
+function showPage(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");document.getElementById("pageTitle").textContent=id.toUpperCase()+" // "+(id==="dashboard"?"OVERVIEW":id==="timetable"?"ACADEMIC SCHEDULE":id==="exam"?"DATESHEET":id==="calendar"?"DAY LOG":"PERFORMANCE MATRIX");if(id==="calendar") renderCalendar();}
 function addTask(e){if(e)e.preventDefault();let input=document.getElementById("taskInput");let prio=document.getElementById("priority");tasks.push({text:input.value,priority:prio.value,done:false});input.value="";save();announce("Directive added, sir.")}
 function toggleTask(i){tasks[i].done=!tasks[i].done;save();if(tasks.length && tasks.every(t=>t.done)){announce("All directives complete, sir. Outstanding work today.");}}
 function deleteTask(i){tasks.splice(i,1);save()}
@@ -484,7 +580,34 @@ function renderWeeklyTable(){
 }
 
 const habitList=["Wake up 5-6 AM","Make Bed","Hydrate 2-3L","Exercise/Workout","Meditation","Cold Shower","Study 4 Hours","Skincare","No Junk/Sugar","Reading Books","Plan Next Day","Sleep by 10:30 PM"];
-let habitData=JSON.parse(localStorage.getItem("jarvis_habits")||"{}");
+
+/* HABIT STORAGE V2 — date-safe ISO keys.
+   Old storage used month_habitIndex_day and could become visually/date-shifted
+   when old data was copied or interpreted. V2 stores the complete calendar
+   date in every key: jarvis_habits_v2_YYYY-MM-DD_habitIndex. */
+let habitData={};
+(function loadHabitData(){
+  try{
+    const v2=JSON.parse(localStorage.getItem("jarvis_habits_v2")||"{}");
+    if(v2 && typeof v2 === "object") habitData=v2;
+    // One-time migration of the old format. The old key itself contains the
+    // exact year, month and day, so migration is deterministic.
+    const old=JSON.parse(localStorage.getItem("jarvis_habits")||"{}");
+    Object.keys(old).forEach(key=>{
+      const m=key.match(/^(\d{4})-(\d{2})_(\d+)_(\d{1,2})$/);
+      if(!m) return;
+      const date=`${m[1]}-${m[2]}-${String(Number(m[4])).padStart(2,"0")}`;
+      const idx=Number(m[3]);
+      const v=old[key];
+      if(habitList[idx] && (v==="✓" || v==="✕")) habitData[`${date}_${idx}`]=v;
+    });
+    localStorage.setItem("jarvis_habits_v2",JSON.stringify(habitData));
+  }catch(e){ habitData={}; }
+})();
+function habitDateKey(date, habitIndex){
+  const d = date instanceof Date ? date : new Date(date+"T00:00:00");
+  return `${isoDate(d)}_${habitIndex}`;
+}
 
 /* EXAM DATESHEET */
 let exams=JSON.parse(localStorage.getItem("jarvis_exams")||"[]");
@@ -619,6 +742,214 @@ function renderExams(){
   }
 }
 
+/* CALENDAR / DAY LOG */
+function isoDate(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+let calViewDate = new Date();
+function calPrevMonth(){ calViewDate.setMonth(calViewDate.getMonth()-1); renderCalendar(); }
+function calNextMonth(){ calViewDate.setMonth(calViewDate.getMonth()+1); renderCalendar(); }
+
+function renderCalendar(){
+  let y=calViewDate.getFullYear(), m=calViewDate.getMonth();
+  document.getElementById("calMonthLabel").textContent = calViewDate.toLocaleDateString("en-IN",{month:"long",year:"numeric"}).toUpperCase();
+  let firstDay = new Date(y,m,1).getDay();
+  let numDays = new Date(y,m+1,0).getDate();
+  let hist = JSON.parse(localStorage.getItem("jarvis_task_history")||"{}");
+  let todayIso = isoDate(new Date());
+  let dowRow = ["SUN","MON","TUE","WED","THU","FRI","SAT"].map(d=>`<div class="cal-dow">${d}</div>`).join("");
+  let cells = "";
+  for(let i=0;i<firstDay;i++) cells += `<div class="cal-cell empty"></div>`;
+  for(let day=1; day<=numDays; day++){
+    let cellDate = new Date(y,m,day);
+    let iso = isoDate(cellDate);
+    let hasExam = exams.some(x=>x.date===iso);
+    let monthKey = y+"-"+String(m+1).padStart(2,"0");
+    let moodVal = moodData[`${monthKey}_${day}`];
+    let doneCount = (hist[cellDate.toDateString()]||[]).filter(t=>t.done).length;
+    let habitCount = habitList.reduce((n,_,i)=>n+(habitData[habitDateKey(cellDate,i)]?1:0),0);
+    cells += `<div class="cal-cell ${iso===todayIso?'today':''}" onclick="selectCalendarDay('${iso}')" id="calcell-${iso}">
+      <span class="cal-daynum">${day}</span>
+      <div class="cal-dots">
+        ${doneCount>0?`<span class="cal-dot task"></span>`:""}
+        ${habitCount>0?`<span class="cal-dot habit"></span>`:""}
+        ${moodVal?`<span class="cal-dot mood"></span>`:""}
+        ${hasExam?`<span class="cal-dot exam"></span>`:""}
+      </div>
+    </div>`;
+  }
+  document.getElementById("calGrid").innerHTML = dowRow + cells;
+}
+
+function openCalModal(){ document.getElementById("calModalOverlay").classList.add("active"); }
+function closeCalModal(){ document.getElementById("calModalOverlay").classList.remove("active"); }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeCalModal(); });
+
+// CALENDAR PHOTO JOURNAL — persistent per-date IndexedDB storage
+let calendarPhotoDB=null;
+let calendarPhotoUrls=[];
+function initCalendarPhotoDB(){
+  return new Promise((resolve,reject)=>{
+    if(calendarPhotoDB) return resolve(calendarPhotoDB);
+    const req=indexedDB.open('jarvis_calendar_photos_v1',1);
+    req.onupgradeneeded=e=>{
+      const db=e.target.result;
+      if(!db.objectStoreNames.contains('photos')){
+        const store=db.createObjectStore('photos',{keyPath:'id',autoIncrement:true});
+        store.createIndex('date','date',{unique:false});
+      }
+    };
+    req.onsuccess=e=>{calendarPhotoDB=e.target.result;resolve(calendarPhotoDB)};
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function getCalendarPhotos(date){
+  const db=await initCalendarPhotoDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('photos','readonly');
+    const req=tx.objectStore('photos').index('date').getAll(date);
+    req.onsuccess=()=>resolve(req.result.sort((a,b)=>a.created-b.created));
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function addCalendarPhoto(date,file){
+  const db=await initCalendarPhotoDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('photos','readwrite');
+    const req=tx.objectStore('photos').add({date,name:file.name,type:file.type,blob:file,created:Date.now()});
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function deleteCalendarPhoto(id,date){
+  const db=await initCalendarPhotoDB();
+  await new Promise((resolve,reject)=>{const tx=db.transaction('photos','readwrite');const req=tx.objectStore('photos').delete(id);req.onsuccess=resolve;req.onerror=()=>reject(req.error)});
+  renderCalendarPhotos(date);
+}
+function closePhotoViewer(){
+  const v=document.getElementById('photoViewer'); if(v)v.classList.remove('active');
+  const img=document.getElementById('photoViewerImg'); if(img){if(img.src.startsWith('blob:'))URL.revokeObjectURL(img.src);img.removeAttribute('src')}
+}
+function openPhotoViewer(url){
+  const v=document.getElementById('photoViewer'), img=document.getElementById('photoViewerImg');
+  img.src=url; v.classList.add('active');
+}
+async function renderCalendarPhotos(date){
+  const grid=document.getElementById('calPhotoGrid'), count=document.getElementById('calPhotoCount');
+  if(!grid||!count)return;
+  calendarPhotoUrls.forEach(u=>URL.revokeObjectURL(u)); calendarPhotoUrls=[];
+  const photos=await getCalendarPhotos(date);
+  count.textContent=`${photos.length} / 10 PHOTOS`;
+  grid.innerHTML=photos.length?'':'<div class="cal-photo-empty">No memories added for this date yet.</div>';
+  photos.forEach(photo=>{
+    const url=URL.createObjectURL(photo.blob); calendarPhotoUrls.push(url);
+    const item=document.createElement('div'); item.className='cal-photo';
+    const img=document.createElement('img'); img.src=url; img.alt=photo.name||'Day memory';
+    img.onclick=()=>openPhotoViewer(url);
+    const del=document.createElement('button'); del.className='cal-photo-delete'; del.textContent='×'; del.title='Delete photo';
+    del.onclick=async e=>{e.stopPropagation();if(confirm('Delete this photo?'))await deleteCalendarPhoto(photo.id,date)};
+    item.append(img,del); grid.appendChild(item);
+  });
+}
+async function handleCalendarPhotos(fileList,date){
+  const files=Array.from(fileList||[]).filter(f=>f.type.startsWith('image/'));
+  if(!files.length)return;
+  const existing=await getCalendarPhotos(date);
+  const allowed=10-existing.length;
+  if(allowed<=0){alert('Maximum 10 photos allowed for this date.');return;}
+  const selected=files.slice(0,allowed);
+  for(const file of selected){await addCalendarPhoto(date,file)}
+  if(files.length>allowed) alert(`Only ${allowed} photo${allowed===1?'':'s'} added. Maximum is 10 per date.`);
+  const input=document.getElementById('calPhotoInput'); if(input)input.value='';
+  await renderCalendarPhotos(date);
+}
+
+function selectCalendarDay(iso){
+  document.querySelectorAll(".cal-cell").forEach(c=>c.classList.remove("selected"));
+  let cell=document.getElementById("calcell-"+iso);
+  if(cell) cell.classList.add("selected");
+
+  let d = new Date(iso+"T00:00:00");
+  let dayCode = days[(d.getDay()+6)%7];
+  let label = d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+
+  let hist = JSON.parse(localStorage.getItem("jarvis_task_history")||"{}");
+  let dayTasks = hist[d.toDateString()] || [];
+
+  let habitRows = habitList.map((h,i)=>({name:h, status:habitData[habitDateKey(d,i)]||""})).filter(h=>h.status);
+
+  let monthKey = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+  let moodVal = moodData[`${monthKey}_${d.getDate()}`];
+  const moodLabels = {5:"😊 Happy",4:"😌 Calm",3:"😐 Tired",2:"😰 Anxious",1:"💥 Stressed"};
+
+  let dayExams = exams.filter(x=>x.date===iso);
+  let sched = (schedule[dayCode]||[]).filter(r=>r[2]!=="LUNCH");
+  let tuition = tuitionSchedule[dayCode]||[];
+
+  document.getElementById("calModalContent").innerHTML = `
+    <div class="section-title">◈ ${label.toUpperCase()}</div>
+    <div class="cal-detail-grid">
+      <div>
+        <h4>SCHOOL & TUITION</h4>
+        ${sched.length? sched.map(r=>`<div class="cal-line">${r[0]}–${r[1]} · ${r[2]}</div>`).join("") : `<div class="cal-empty">No school this day</div>`}
+        ${tuition.length? tuition.map(t=>`<div class="cal-line amber">${t[0]} · ${t[1]}</div>`).join("") : ""}
+      </div>
+      <div>
+        <h4>TASKS</h4>
+        ${dayTasks.length? dayTasks.map(t=>`<div class="cal-line ${t.done?'done':''}">${t.done?"✓":"○"} ${t.text}</div>`).join("") : `<div class="cal-empty">No tasks were added or checked on this date.</div>`}
+      </div>
+      <div>
+        <h4>HABITS</h4>
+        ${habitRows.length? habitRows.map(h=>`<div class="cal-line ${h.status==='✓'?'done':'missed'}">${h.status} ${h.name}</div>`).join("") : `<div class="cal-empty">No habit boxes were ticked on this date.</div>`}
+      </div>
+      <div>
+        <h4>MOOD & EXAMS</h4>
+        <div class="cal-line">${moodVal?moodLabels[moodVal]:"Not logged"}</div>
+        ${dayExams.length? dayExams.map(x=>`<div class="cal-line amber">📝 ${x.subject}${x.time?" at "+x.time:""}${x.notes?" — "+x.notes:""}</div>`).join("") : ""}
+      </div>
+    </div>
+    <div class="cal-photos-section">
+      <div class="cal-photo-toolbar">
+        <div><h4 style="margin:0">📸 DAY JOURNAL</h4><div class="cal-photo-count" id="calPhotoCount">0 / 10 PHOTOS</div></div>
+        <label class="cal-photo-add">＋ ADD PHOTOS
+          <input id="calPhotoInput" type="file" accept="image/*" multiple hidden onchange="handleCalendarPhotos(this.files, '${iso}')">
+        </label>
+      </div>
+      <div id="calPhotoGrid" class="cal-photo-grid"><div class="cal-photo-empty">No memories added for this date yet.</div></div>
+    </div>
+  `;
+  openCalModal();
+  renderCalendarPhotos(iso);
+}
+
+const monthNamesList = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+function findExplicitDateInText(cmd){
+  let re1 = /(\d{1,2})(?:st|nd|rd|th)?\s+(january|february|march|april|may|june|july|august|september|october|november|december)/i;
+  let m = cmd.match(re1);
+  if(m){
+    return new Date(new Date().getFullYear(), monthNamesList.indexOf(m[2].toLowerCase()), parseInt(m[1]));
+  }
+  let re2 = /(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})(?:st|nd|rd|th)?/i;
+  let m2 = cmd.match(re2);
+  if(m2){
+    return new Date(new Date().getFullYear(), monthNamesList.indexOf(m2[1].toLowerCase()), parseInt(m2[2]));
+  }
+  return null;
+}
+function speakDaySummary(d){
+  let label = d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long"});
+  let hist = JSON.parse(localStorage.getItem("jarvis_task_history")||"{}");
+  let dayTasks = hist[d.toDateString()] || [];
+  let doneCount = dayTasks.filter(t=>t.done).length;
+  let monthKey = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+  let moodVal = moodData[`${monthKey}_${d.getDate()}`];
+  const moodLabels = {5:"happy",4:"calm",3:"tired",2:"anxious",1:"stressed"};
+  let dayExams = exams.filter(x=>x.date===isoDate(d));
+  let parts = [`On ${label}, sir,`];
+  parts.push(dayTasks.length ? `you completed ${doneCount} of ${dayTasks.length} logged tasks.` : `no tasks were logged.`);
+  if(moodVal) parts.push(`Your mood that day was ${moodLabels[moodVal]}.`);
+  if(dayExams.length) parts.push(`You had ${dayExams.map(x=>x.subject).join(" and ")} exam scheduled.`);
+  jarvisReply(parts.join(" "));
+}
+
 function getMonthKey(){
   let d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
@@ -629,24 +960,32 @@ function daysInCurrentMonth(){
 }
 
 function renderHabits(){
-  const monthKey=getMonthKey();
-  const numDays=daysInCurrentMonth();
-  let monthLabel=new Date().toLocaleDateString("en-IN",{month:"long",year:"numeric"});
+  const now=new Date();
+  const year=now.getFullYear(), month=now.getMonth();
+  const numDays=new Date(year,month+1,0).getDate();
+  let monthLabel=now.toLocaleDateString("en-IN",{month:"long",year:"numeric"});
   let headerEl=document.getElementById("habitMonthLabel");
   if(headerEl) headerEl.textContent=monthLabel.toUpperCase();
 
   let head="<th>HABIT ROUTINE</th>";
-  for(let i=1;i<=numDays;i++) head+=`<th>${i}</th>`;
+  for(let d=1;d<=numDays;d++){
+    const iso=isoDate(new Date(year,month,d));
+    const isToday=iso===isoDate(now);
+    head+=`<th class="${isToday?'habit-today-head':''}" title="${isToday?'TODAY':''}">${d}${isToday?'<small style="display:block;color:var(--amber);font-size:8px">TODAY</small>':''}</th>`;
+  }
   document.getElementById("habitHead").innerHTML=head;
 
   let body="";
   habitList.forEach((h,hIdx)=>{
     body+=`<tr><td class="habit-title">${hIdx+1}. ${h}</td>`;
-    for(let d=1;d<=numDays;d++){
-      let key=`${monthKey}_${hIdx}_${d}`;
-      let val=habitData[key]||"";
-      let cls=val==="✓"?"check":val==="✕"?"cross":"";
-      body+=`<td class="habit-cell ${cls}" onclick="cycleHabit('${key}')">${val}</td>`;
+    for(let day=1;day<=numDays;day++){
+      const date=new Date(year,month,day);
+      const iso=isoDate(date);
+      const key=habitDateKey(date,hIdx);
+      const val=habitData[key]||"";
+      const cls=val==="✓"?"check":val==="✕"?"cross":"";
+      const todayCls=iso===isoDate(now)?" habit-today-cell":"";
+      body+=`<td class="habit-cell ${cls}${todayCls}" onclick="cycleHabit('${key}')" title="${iso===isoDate(now)?'TODAY — ':''}${iso}">${val}</td>`;
     }
     body+="</tr>";
   });
@@ -658,8 +997,9 @@ function cycleHabit(key){
   if(cur==="") habitData[key]="✓";
   else if(cur==="✓") habitData[key]="✕";
   else delete habitData[key];
-  localStorage.setItem("jarvis_habits",JSON.stringify(habitData));
+  localStorage.setItem("jarvis_habits_v2",JSON.stringify(habitData));
   renderHabits();
+  renderCalendar();
 }
 
 let moodData=JSON.parse(localStorage.getItem("jarvis_moods")||"{}");
@@ -683,11 +1023,23 @@ function renderMoodGraph(){
     if(val){
       let x=(d-1)*step;
       let y=130-(val-1)*25;
-      points.push(`${x},${y}`);
+      points.push({x,y});
     }
   }
-  if(points.length>0) pathD="M "+points.join(" L ");
-  document.getElementById("moodPath").setAttribute("d",pathD);
+  if(points.length>0) pathD="M "+points.map(p=>`${p.x},${p.y}`).join(" L ");
+  let pathEl=document.getElementById("moodPath");
+  pathEl.setAttribute("d",pathD);
+  pathEl.setAttribute("style","stroke:var(--cyan)");
+
+  let svg=document.getElementById("moodSvg");
+  svg.querySelectorAll(".mood-dot").forEach(d=>d.remove());
+  points.forEach(p=>{
+    let c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("class","mood-dot");
+    c.setAttribute("cx",p.x); c.setAttribute("cy",p.y); c.setAttribute("r","4.5");
+    c.setAttribute("style","fill:var(--cyan);filter:drop-shadow(0 0 4px var(--cyan))");
+    svg.appendChild(c);
+  });
 }
 
 /* CONVERSATIONAL CHAT LOG */
@@ -792,26 +1144,69 @@ function renderDashSchedule(){
   document.getElementById("dashSchedule").innerHTML=html||`<div style="color:var(--muted)">No classes or tuitions scheduled for today. Rest protocol active.</div>`;
 }
 
-/* LOCAL AUDIO PLAYER ENGINE */
+/* LOCAL AUDIO PLAYER ENGINE — PERSISTENT VIA INDEXEDDB */
 let playlist = [];
 let currentTrackIndex = 0;
 const audioPlayer = document.getElementById("audioElement");
+const MUSIC_DB_NAME = "jarvisMusicDB";
+const MUSIC_STORE = "tracks";
 
-function handleAudioUpload(event) {
-  const files = Array.from(event.target.files);
-  if (files.length === 0) return;
-  
-  files.forEach(file => {
-    playlist.push({
-      name: file.name.replace(/\.[^/.]+$/, ""),
-      url: URL.createObjectURL(file)
-    });
+function openMusicDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(MUSIC_DB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(MUSIC_STORE)) db.createObjectStore(MUSIC_STORE, { keyPath: "id", autoIncrement: true });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
   });
+}
 
-  renderPlaylist();
-  if (playlist.length === files.length) {
-    loadTrack(0);
+async function saveMusicFile(file) {
+  const db = await openMusicDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(MUSIC_STORE, "readwrite");
+    tx.objectStore(MUSIC_STORE).add({ name: file.name.replace(/\.[^/.]+$/, ""), blob: file });
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function restoreMusicLibrary() {
+  try {
+    const db = await openMusicDB();
+    const tracks = await new Promise((resolve, reject) => {
+      const tx = db.transaction(MUSIC_STORE, "readonly");
+      const req = tx.objectStore(MUSIC_STORE).getAll();
+      req.onsuccess = () => resolve(req.result || []);
+      req.onerror = () => reject(req.error);
+    });
+    tracks.forEach(track => {
+      playlist.push({ id: track.id, name: track.name, url: URL.createObjectURL(track.blob) });
+    });
+    renderPlaylist();
+    if (playlist.length) loadTrack(0);
+  } catch (err) {
+    console.warn("Music library restore failed:", err);
   }
+}
+
+async function handleAudioUpload(event) {
+  const files = Array.from(event.target.files || []);
+  if (files.length === 0) return;
+  const wasEmpty = playlist.length === 0;
+  for (const file of files) {
+    try {
+      await saveMusicFile(file);
+      playlist.push({ name: file.name.replace(/\.[^/.]+$/, ""), url: URL.createObjectURL(file) });
+    } catch (err) {
+      console.error("Could not save music:", err);
+    }
+  }
+  renderPlaylist();
+  if (wasEmpty && playlist.length) loadTrack(0);
+  event.target.value = "";
 }
 
 function renderPlaylist() {
@@ -986,6 +1381,13 @@ function speakDayTimetable(dayCode){
 }
 
 function processVoiceCommand(cmd) {
+  let explicitDate = findExplicitDateInText(cmd);
+  if (explicitDate) {
+    showPage('calendar', document.getElementById('nav-calendar'));
+    selectCalendarDay(isoDate(explicitDate));
+    speakDaySummary(explicitDate);
+    return;
+  }
   let dayFound = findDayInText(cmd);
   if (dayFound && (cmd.includes("timetable") || cmd.includes("schedule") || cmd.includes("class") || cmd.includes("period"))) {
     speakDayTimetable(dayFound);
@@ -1054,6 +1456,10 @@ function processVoiceCommand(cmd) {
       jarvisReply("Opening your exam datesheet.");
     }
   }
+  else if (cmd.includes("calendar") || cmd.includes("day log")) {
+    showPage('calendar', document.getElementById('nav-calendar'));
+    jarvisReply("Opening your day log calendar.");
+  }
   else if (cmd.includes("how are you") || cmd.includes("who are you")) {
     jarvisReply("I am your personal command system, sir — fully operational and monitoring your schedule, tasks, and habits.");
   }
@@ -1062,7 +1468,13 @@ function processVoiceCommand(cmd) {
   }
 }
 
-renderTasks();renderWeeklyTable();renderHabits();renderMoodGraph();renderDashSchedule();renderExams();syncAnnounceBtn();updateClock();setInterval(updateClock,1000);
+renderTasks();renderWeeklyTable();renderHabits();renderMoodGraph();renderDashSchedule();renderExams();renderCalendar();syncAnnounceBtn();updateClock();setInterval(updateClock,1000);
+restoreMusicLibrary();
 </script>
+
+<div id="photoViewer" class="photo-viewer" onclick="if(event.target===this)closePhotoViewer()">
+  <button class="photo-viewer-close" onclick="closePhotoViewer()">×</button>
+  <img id="photoViewerImg" alt="Calendar memory">
+</div>
 </body>
 </html>
