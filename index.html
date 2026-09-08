@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem("jarvis_theme")||"night";
+    document.documentElement.setAttribute("data-theme", t==="light"?"light":"night");
+  }catch(e){}
+})();
+</script>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -36,6 +45,21 @@ input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(54,23
 .chat-msg{padding:8px 12px;border-radius:3px;max-width:88%;font-size:13.5px;line-height:1.4;font-family:Rajdhani}
 .chat-msg.user{align-self:flex-end;background:rgba(54,232,255,.1);color:var(--cyan2)}
 .chat-msg.jarvis{align-self:flex-start;background:rgba(255,212,92,.06);color:var(--text);border-left:2px solid var(--amber)}
+.chat-msg.jarvis .cursor{display:inline-block;width:6px;height:13px;background:var(--amber);margin-left:2px;vertical-align:-2px;animation:cursorBlink .8s steps(1) infinite}
+@keyframes cursorBlink{50%{opacity:0}}
+.chat-typing{align-self:flex-start;background:rgba(255,212,92,.06);border-left:2px solid var(--amber);padding:9px 14px;border-radius:3px;display:flex;gap:5px;align-items:center;max-width:88%}
+.chat-typing .tdot{width:5px;height:5px;border-radius:50%;background:var(--amber);animation:typingPulse 1s infinite ease-in-out}
+.chat-typing .tdot:nth-child(2){animation-delay:.15s}
+.chat-typing .tdot:nth-child(3){animation-delay:.3s}
+@keyframes typingPulse{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
+.chip-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.chip{background:rgba(54,232,255,.06);border:1px solid var(--line);color:var(--cyan2);padding:6px 12px;font:600 11px Rajdhani;letter-spacing:.5px;border-radius:20px;cursor:pointer;transition:.2s}
+.chip:hover{background:var(--cyan);color:#000;box-shadow:0 0 10px var(--cyan)}
+/* HUMAN-LIKE JARVIS CONVERSATION */
+.chat-msg.jarvis{position:relative}
+.chat-msg.jarvis .jarvis-prefix{font-family:Orbitron;letter-spacing:1px;color:var(--amber);font-size:10px;margin-right:4px}
+.chat-msg.jarvis .chat-body{display:inline}
+
 
 /* EXAM FORM */
 .exam-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;align-items:end;margin-bottom:0}
@@ -240,8 +264,283 @@ form input,form select,.field input,.field select{border-radius:2px}
 .photo-viewer-close{position:absolute;top:18px;right:24px;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:25px;width:42px;height:42px;border-radius:50%;cursor:pointer}
 @media(max-width:700px){.cal-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
+
+<style id="jarvis-gui-upgrade">
+/* ===== JARVIS HUD / PREMIUM GUI UPGRADE ===== */
+:root{
+  --glass:rgba(10,16,28,.72);
+  --glass-2:rgba(15,23,38,.86);
+  --line:rgba(255,184,76,.18);
+  --line-hot:rgba(255,184,76,.42);
+  --glow:0 0 28px rgba(255,174,64,.10);
+}
+body{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,174,64,.08), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(75,150,255,.07), transparent 30%),
+    linear-gradient(135deg,#060910 0%,#09101c 48%,#05070c 100%);
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:100% 4px;
+  opacity:.28;
+  mix-blend-mode:screen;
+}
+.app,.container,.main,.content{
+  position:relative;
+}
+.sidebar{
+  background:linear-gradient(180deg,rgba(8,13,23,.96),rgba(5,8,14,.94)) !important;
+  border-right:1px solid var(--line-hot) !important;
+  box-shadow:18px 0 45px rgba(0,0,0,.28);
+}
+.sidebar::after{
+  content:"";
+  position:absolute;top:0;right:-1px;width:1px;height:100%;
+  background:linear-gradient(180deg,transparent,var(--amber),transparent);
+  opacity:.5;
+}
+.card,.panel,.widget,.stat-card,.modal,.chat-box,.music-player,.calendar-card{
+  background:linear-gradient(145deg,var(--glass),rgba(7,11,19,.78)) !important;
+  border:1px solid var(--line) !important;
+  box-shadow:var(--glow),0 18px 45px rgba(0,0,0,.16) !important;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.card:hover,.panel:hover,.widget:hover,.stat-card:hover{
+  border-color:var(--line-hot) !important;
+  transform:translateY(-2px);
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  box-shadow:0 0 32px rgba(255,174,64,.12),0 22px 50px rgba(0,0,0,.22) !important;
+}
+button,.btn,.nav-btn,.chip{
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease;
+}
+button:hover,.btn:hover,.nav-btn:hover,.chip:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 18px rgba(255,174,64,.10);
+}
+button:active,.btn:active,.nav-btn:active,.chip:active{transform:scale(.98)}
+input,textarea,select{
+  background:rgba(2,6,12,.62) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  box-shadow:inset 0 0 18px rgba(0,0,0,.16);
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--amber) !important;
+  box-shadow:0 0 0 3px rgba(255,174,64,.07),0 0 20px rgba(255,174,64,.10);
+  outline:none;
+}
+h1,h2,h3,.section-title{
+  text-shadow:0 0 20px rgba(255,174,64,.12);
+}
+.chat-log{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,174,64,.35) transparent;
+}
+.chat-msg{
+  max-width:min(86%,720px);
+  margin:9px 0;
+  padding:11px 14px !important;
+  border-radius:14px !important;
+  animation:jarvisMsgIn .24s ease both;
+}
+.chat-msg.user{
+  margin-left:auto;
+  border:1px solid rgba(75,150,255,.18) !important;
+  background:rgba(40,80,130,.16) !important;
+}
+.chat-msg.jarvis{
+  border:1px solid rgba(255,174,64,.16) !important;
+  background:rgba(255,174,64,.045) !important;
+}
+.chat-msg.jarvis::before{
+  content:"";
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--amber);margin:0 8px 2px 0;
+  box-shadow:0 0 10px var(--amber);
+  animation:jarvisPulse 1.8s infinite;
+}
+@keyframes jarvisMsgIn{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+@keyframes jarvisPulse{
+  0%,100%{opacity:.45;transform:scale(.8)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+.typing-indicator{
+  display:flex;gap:5px;align-items:center;
+}
+.typing-indicator span{
+  width:5px;height:5px;border-radius:50%;background:var(--amber);
+  animation:jarvisTyping 1s infinite ease-in-out;
+}
+.typing-indicator span:nth-child(2){animation-delay:.12s}
+.typing-indicator span:nth-child(3){animation-delay:.24s}
+@keyframes jarvisTyping{
+  0%,60%,100%{transform:translateY(0);opacity:.35}
+  30%{transform:translateY(-4px);opacity:1}
+}
+.quick-chips{
+  display:flex;gap:7px;flex-wrap:wrap;
+}
+.quick-chips .chip{
+  border:1px solid rgba(255,174,64,.14);
+  background:rgba(255,174,64,.045);
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:11px;
+}
+.quick-chips .chip:hover{
+  border-color:rgba(255,174,64,.4);
+  background:rgba(255,174,64,.09);
+}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{
+  background:rgba(255,174,64,.22);border-radius:20px;
+}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,174,64,.42)}
+@media(max-width:800px){
+  .sidebar{box-shadow:8px 0 30px rgba(0,0,0,.35)}
+  .card,.panel,.widget{border-radius:14px !important}
+}
+</style>
+
+
+<style id="jarvis-v3-polish">
+html[data-theme="light"]{
+  --bg:#eef6f8;--panel:#f7fcfd;--panel2:#ffffff;--cyan:#0a7c92;--cyan2:#086b7e;
+  --blue:#1a62c4;--green:#168a52;--red:#c5304a;--amber:#b57500;--text:#12303a;
+  --muted:#4a6b75;--line:rgba(10,124,146,.28);--glow:0 0 18px rgba(10,124,146,.12);
+  --glass:rgba(255,255,255,.86);--glass-2:rgba(247,252,253,.94);
+  --line-hot:rgba(181,117,0,.38);
+}
+html[data-theme="light"] body{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(10,124,146,.12), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(181,117,0,.08), transparent 30%),
+    linear-gradient(135deg,#e8f3f6 0%,#f4fafc 50%,#e6eef2 100%) !important;
+  color:var(--text);
+}
+html[data-theme="light"] body::before{opacity:.14;mix-blend-mode:multiply}
+html[data-theme="light"] .side,
+html[data-theme="light"] .sidebar{
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(232,243,246,.95)) !important;
+  border-right:1px solid var(--line) !important;
+}
+html[data-theme="light"] .card,
+html[data-theme="light"] .panel,
+html[data-theme="light"] .widget,
+html[data-theme="light"] .stat-card,
+html[data-theme="light"] .player-box,
+html[data-theme="light"] .hero,
+html[data-theme="light"] .cal-modal{
+  background:linear-gradient(145deg,#ffffff,rgba(247,252,253,.96)) !important;
+  border-color:var(--line) !important;
+  box-shadow:0 10px 28px rgba(16,40,50,.08),var(--glow) !important;
+  color:var(--text);
+}
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select{
+  background:#fff !important;color:var(--text) !important;border-color:var(--line) !important;
+}
+html[data-theme="light"] .chat-log,
+html[data-theme="light"] .playlist,
+html[data-theme="light"] .mood-graph-wrap{background:rgba(255,255,255,.72) !important}
+html[data-theme="light"] .nav button{color:#4a6b75}
+html[data-theme="light"] #jarvis-system-status{color:rgba(18,48,58,.48)}
+html[data-theme="light"] .weekly-table th,
+html[data-theme="light"] .habit-table th{background:rgba(10,124,146,.08)}
+html[data-theme="light"] .cal-cell{background:rgba(255,255,255,.72)}
+html[data-theme="light"] .action,
+html[data-theme="light"] .voice-btn,
+html[data-theme="light"] .player-btn,
+html[data-theme="light"] .mood-btn{
+  background:rgba(10,124,146,.06);color:var(--text);
+}
+html[data-theme="light"] .footer{color:#6a8890}
+.app.focus-mode{grid-template-columns:1fr}
+.app.focus-mode .side{display:none}
+#focusExit{
+  display:none;position:fixed;top:12px;left:12px;z-index:80;
+  letter-spacing:2px;font:600 11px Orbitron,sans-serif;
+}
+body.focus-mode #focusExit{display:inline-flex}
+.top{gap:12px}
+.top-right{display:flex;align-items:center;gap:14px}
+.hud-tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hud-btn{padding:8px 10px;font-size:10px;letter-spacing:1.5px;white-space:nowrap}
+.keys-grid{display:grid;grid-template-columns:140px 1fr;gap:8px 16px;font-size:14px}
+.keys-grid kbd{
+  font:600 11px Orbitron,monospace;letter-spacing:1px;color:var(--cyan);
+  border:1px solid var(--line);padding:4px 8px;border-radius:3px;
+  background:rgba(54,232,255,.06)
+}
+.export-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
+@media(max-width:850px){
+  .top-right{width:100%;justify-content:space-between}
+  .hud-tools{order:-1}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+
 </head>
 <body>
+
+<div id="jarvis-system-status" aria-label="JARVIS system status">
+  <span class="status-dot"></span>
+  <span>NEURAL CORE ONLINE</span>
+  <span class="status-sep">•</span>
+  <span>HUD v3.0</span>
+</div>
+<style>
+#jarvis-system-status{
+  display:flex;align-items:center;gap:7px;
+  font:600 9px/1 Orbitron,monospace;
+  letter-spacing:1.4px;color:rgba(255,255,255,.42);
+  margin:5px 0 14px;
+}
+#jarvis-system-status .status-dot{
+  width:6px;height:6px;border-radius:50%;background:#7dff9a;
+  box-shadow:0 0 12px rgba(125,255,154,.75);
+  animation:statusBlink 2s infinite;
+}
+#jarvis-system-status .status-sep{opacity:.3}
+@keyframes statusBlink{0%,100%{opacity:.55}50%{opacity:1}}
+</style>
+
+
+
+<button class="action" id="focusExit" onclick="toggleFocusMode()">EXIT FOCUS</button>
+<div class="cal-modal-overlay" id="keysOverlay" onclick="if(event.target===this) closeShortcutHelp()">
+  <div class="cal-modal" role="dialog" aria-labelledby="keysTitle">
+    <button class="cal-modal-close" onclick="closeShortcutHelp()">X</button>
+    <div class="section-title" id="keysTitle">KEYBOARD SHORTCUTS</div>
+    <p style="color:var(--muted);font-size:13px;margin:8px 0 16px">Ignored while typing in a field. Press ? anytime.</p>
+    <div class="keys-grid">
+      <kbd>1</kbd><span>Dashboard</span>
+      <kbd>2</kbd><span>Timetable</span>
+      <kbd>3</kbd><span>Tracker</span>
+      <kbd>4</kbd><span>Exam datesheet</span>
+      <kbd>5</kbd><span>Calendar</span>
+      <kbd>/</kbd><span>Focus chat with JARVIS</span>
+      <kbd>T</kbd><span>Toggle night / day theme</span>
+      <kbd>F</kbd><span>Focus mode (hide sidebar)</span>
+      <kbd>E</kbd><span>Export full backup</span>
+      <kbd>I</kbd><span>Import backup</span>
+      <kbd>?</kbd><span>This shortcuts panel</span>
+      <kbd>Esc</kbd><span>Close overlays</span>
+    </div>
+  </div>
+</div>
+
 <div class="app">
 <aside class="side">
   <div class="logo">J.A.R.V.I.S</div><div class="sub">STUDENT COMMAND SYSTEM</div>
@@ -256,11 +555,19 @@ form input,form select,.field input,.field select{border-radius:2px}
     <button class="voice-btn" id="voiceBtn" onclick="toggleWakeWord()"><span class="mic-dot" id="micDot"></span>WAKE-WORD: OFF</button>
     <div class="voice-status" id="voiceStatus">Say "Hey Jarvis" to trigger commands.</div>
     <button class="voice-btn" id="announceBtn" onclick="toggleAnnouncements()" style="margin-top:8px"><span class="mic-dot" id="announceDot"></span>ANNOUNCEMENTS: ON</button>
+    <button class="voice-btn" id="themeSideBtn" onclick="toggleTheme()" style="margin-top:8px">◐ &nbsp; THEME: NIGHT</button>
+    <button class="voice-btn" id="focusSideBtn" onclick="toggleFocusMode()" style="margin-top:8px">▣ &nbsp; FOCUS: OFF</button>
+    <button class="voice-btn" id="keysBtn" onclick="toggleShortcutHelp()" style="margin-top:8px">KEYBOARD SHORTCUTS</button>
+    <button class="voice-btn" id="exportBtn" onclick="exportJarvisData()" style="margin-top:8px">⇩ &nbsp; EXPORT DATA</button>
+    <button class="voice-btn" id="importBtn" onclick="document.getElementById('importFileInput').click()" style="margin-top:8px">⇧ &nbsp; IMPORT DATA</button>
+    <input type="file" id="importFileInput" accept="application/json,.json" style="display:none" onchange="importJarvisData(event)">
+    <div id="importStatus" style="font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:1px"></div>
+    <div class="export-note">Export packs tasks, habits, exams, moods, theme, and local music files into one JSON backup.</div>
   </div>
   <div class="system"><span class="dot"></span>SYSTEM ONLINE<br><small>BACKGROUND VOICE ACTIVE</small></div>
 </aside>
 <main>
-<div class="top"><div class="title" id="pageTitle">DASHBOARD // OVERVIEW</div><div><div class="clock" id="clock">--:--:--</div><div class="date" id="date">---</div></div></div>
+<div class="top"><div class="title" id="pageTitle">DASHBOARD // OVERVIEW</div><div class="top-right"><div class="hud-tools"><button class="action hud-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle night / day (T)">NIGHT</button><button class="action hud-btn" id="focusBtn" onclick="toggleFocusMode()" title="Focus mode hides the sidebar (F)">FOCUS</button><button class="action hud-btn" onclick="toggleShortcutHelp()" title="Keyboard shortcuts (?)">KEYS</button></div><div><div class="clock" id="clock">--:--:--</div><div class="date" id="date">---</div></div></div></div>
 
 <section id="dashboard" class="page active">
 <div class="hero"><div class="eyebrow">PERSONAL AI ASSISTANT // READY</div><h1 id="greeting">Good afternoon.</h1><p id="statusText">All systems operational. Hands-free voice recognition initialized.</p></div>
@@ -273,6 +580,14 @@ form input,form select,.field input,.field select{border-radius:2px}
     <input id="chatInput" placeholder="Ask JARVIS about your timetable, tasks, mood..." style="flex:1;background:#041017;border:1px solid var(--line);color:var(--text);padding:10px;font:14px Rajdhani;outline:none">
     <button class="action">SEND</button>
   </form>
+  <div class="chip-row" id="chatChips">
+    <button type="button" class="chip" onclick="quickAsk('What\'s on my schedule today?')">📅 Today's Schedule</button>
+    <button type="button" class="chip" onclick="quickAsk('What are my tasks?')">✅ My Tasks</button>
+    <button type="button" class="chip" onclick="quickAsk('What\'s my current mood streak?')">📈 Habit Check</button>
+    <button type="button" class="chip" onclick="quickAsk('When is my next exam?')">✎ Next Exam</button>
+    <button type="button" class="chip" onclick="quickAsk('Tell me a joke')">😄 Joke</button>
+    <button type="button" class="chip" onclick="quickAsk('How am I doing today?')">🔥 Progress</button>
+  </div>
 </div>
 
 <div class="grid dashboard">
@@ -1043,31 +1358,47 @@ function renderMoodGraph(){
 }
 
 /* CONVERSATIONAL CHAT LOG */
-function addChatMessage(role, text){
-  let log = document.getElementById("chatLog");
-  if(!log) return;
-  let empty = log.querySelector(".chat-empty");
-  if(empty) empty.remove();
-  let div = document.createElement("div");
-  div.className = "chat-msg "+role;
-  div.textContent = (role==="user"?"YOU: ":"JARVIS: ")+text;
-  log.appendChild(div);
-  log.scrollTop = log.scrollHeight;
+/* CONVERSATIONAL CHAT — lightweight local memory */
+let jarvisConversation = [];
+let jarvisLastIntent = null;
+let jarvisLastQuestion = null;
+function rememberConversation(role,text){ jarvisConversation.push({role,text,at:Date.now()}); if(jarvisConversation.length>12) jarvisConversation.shift(); }
+function addChatMessage(role,text){
+  let log=document.getElementById("chatLog"); if(!log) return null;
+  let empty=log.querySelector(".chat-empty"); if(empty) empty.remove();
+  let div=document.createElement("div"); div.className="chat-msg "+role;
+  div.innerHTML=role==="jarvis"
+    ? `<span class="jarvis-prefix">JARVIS:</span> <span class="chat-body">${escapeHtml(text)}</span>`
+    : "";
+  if(role!=="jarvis") div.textContent="YOU: "+text;
+  log.appendChild(div); log.scrollTop=log.scrollHeight; rememberConversation(role,text); return div;
 }
-function jarvisReply(text){
-  addChatMessage("jarvis", text);
-  speak(text);
+function showTypingIndicator(){
+  let log=document.getElementById("chatLog"); if(!log) return null;
+  let empty=log.querySelector(".chat-empty"); if(empty) empty.remove();
+  let div=document.createElement("div"); div.className="chat-typing"; div.id="chatTypingIndicator";
+  div.innerHTML='<span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>';
+  log.appendChild(div); log.scrollTop=log.scrollHeight; return div;
 }
-function handleChatSubmit(e){
-  if(e) e.preventDefault();
-  let input = document.getElementById("chatInput");
-  let text = input.value.trim();
-  if(!text) return;
-  addChatMessage("user", text);
-  input.value = "";
-  processVoiceCommand(text.toLowerCase());
+function typeOutMessage(fullText,onDone){
+  let log=document.getElementById("chatLog"); if(!log){if(onDone)onDone();return;}
+  let div=document.createElement("div"); div.className="chat-msg jarvis"; log.appendChild(div);
+  let prefix="JARVIS: ",i=0,full=prefix+fullText,speed=full.length>180?8:15;
+  let timer=setInterval(()=>{
+    i++; div.innerHTML=escapeHtml(full.slice(0,i))+'<span class="cursor"></span>'; log.scrollTop=log.scrollHeight;
+    if(i>=full.length){clearInterval(timer);div.innerHTML=`<span class="jarvis-prefix">JARVIS:</span> <span class="chat-body">${escapeHtml(fullText)}</span>`;rememberConversation("jarvis",fullText);if(onDone)onDone();}
+  },speed);
 }
-
+function escapeHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function jarvisReply(text,options={}){
+  let indicator=showTypingIndicator(),thinkTime=options.instant?80:300+Math.random()*650;
+  setTimeout(()=>{if(indicator)indicator.remove();if(options.speak!==false)speak(text);typeOutMessage(text,options.onDone);},thinkTime);
+}
+function handleChatSubmit(e){if(e)e.preventDefault();let input=document.getElementById("chatInput"),text=input.value.trim();if(!text)return;addChatMessage("user",text);input.value="";processVoiceCommand(text.toLowerCase());}
+function quickAsk(text){addChatMessage("user",text);processVoiceCommand(text.toLowerCase());}
+function conversationalReply(lines){jarvisReply(pick(lines));}
+function isAffirmative(cmd){return /^(yes|yeah|yep|sure|okay|ok|alright|do it|go ahead|please do|yup)\\b/.test(cmd);}
+function isNegative(cmd){return /^(no|nope|nah|not now|cancel|don't)\\b/.test(cmd);}
 /* PROACTIVE VOICE ANNOUNCEMENTS */
 let voiceAnnouncementsOn = JSON.parse(localStorage.getItem("jarvis_announce") ?? "true");
 function syncAnnounceBtn(){
@@ -1380,7 +1711,127 @@ function speakDayTimetable(dayCode){
   jarvisReply(parts.join(" "));
 }
 
+/* PERSONALITY — VARIED RESPONSES */
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+const GREETINGS = [
+  "Hey, sir. Good to see you. What are we getting done today?",
+  "Hello, sir. I'm online. How's your day going?",
+  "Hey! I'm here. Want to work, plan something, or just talk for a minute?",
+  "Good to have you back, sir. What's on your mind?"
+];
+const THANKS_REPLIES = ["You're welcome, sir.","Anytime. That's what I'm here for.","Happy to help, sir.","Always. Now, what's next?"];
+const JOKES = [
+  "Why did the student bring a ladder to school? To reach the high grades.",
+  "I told my timetable a joke, sir. It didn't laugh — it just kept repeating itself every week.",
+  "Why was the math book sad? It had too many problems.",
+  "I'd tell you a chemistry joke, sir, but I know I wouldn't get a reaction.",
+  "Why do programmers prefer dark mode? Because light attracts bugs."
+];
+const ENCOURAGEMENT = ["Keep going, sir — steady progress compounds.","You're doing better than you think, sir.","One task at a time, sir. You've got this."];
+
+function findTaskIndex(text){
+  if(!text) return -1;
+  text = text.trim().toLowerCase();
+  if(!text) return -1;
+  let idx = tasks.findIndex(t=>t.text.toLowerCase()===text);
+  if(idx===-1) idx = tasks.findIndex(t=>t.text.toLowerCase().includes(text));
+  return idx;
+}
+
 function processVoiceCommand(cmd) {
+  cmd = cmd.trim();
+
+  // ===== NATURAL CONVERSATION LAYER =====
+  if (jarvisLastQuestion && (isAffirmative(cmd) || isNegative(cmd))) {
+    const q=jarvisLastQuestion; jarvisLastQuestion=null;
+    if(isNegative(cmd)){ conversationalReply(["No problem, sir. We'll leave it there.","Fair enough. No pressure.","Understood. What would you like to do instead?"]); return; }
+    if(q==="prioritize"){
+      let pending=tasks.filter(t=>!t.done);
+      jarvisReply(pending.length?`Absolutely. I'd start with "${pending[0].text}". Get that out of the way first, then we'll move to the next one. Want me to keep going?`:"You've already cleared your pending tasks, sir. Nothing to prioritize.");
+      if(pending.length) jarvisLastQuestion="prioritize"; return;
+    }
+    if(q==="study"){let next=nextExam();jarvisReply(next?`Let's do it. Your next exam is ${next.subject}, so I'd focus there first. I can help you break the syllabus into a simple study plan.`:"Let's do it. Tell me the subject and I'll help you make a focused study plan.");return;}
+  }
+  if(/\\b(what can you do|what do you do|help me|help)\\b/.test(cmd)){
+    jarvisReply("Quite a bit, sir. I can manage your tasks, check habits and progress, look up your timetable and exams, log your mood, control music, open sections, and keep you company. You don't have to phrase everything like a command — just talk to me normally.");
+    return;
+  }
+  if(/\\b(i am (bored|tired)|i'm (bored|tired)|bored)\\b/.test(cmd)){
+    jarvisReply("Bored already, sir? We can fix that. I can give you a quick challenge, tell you a joke, or help you knock out one small task. What sounds good?");
+    jarvisLastQuestion="study"; return;
+  }
+  if(/\\b(i am (stressed|overwhelmed)|i'm (stressed|overwhelmed)|too much work)\\b/.test(cmd)){
+    let pending=tasks.filter(t=>!t.done);
+    jarvisReply(pending.length?`Take a breath, sir. You have ${pending.length} pending task${pending.length===1?"":"s"}, but you don't need to solve everything at once. Let's take the most important one first. Want me to help you prioritize them?`:"Take a breath, sir. You don't need to solve everything at once. Tell me what's bothering you and we'll break it into smaller pieces.");
+    jarvisLastQuestion="prioritize"; return;
+  }
+  if(/\\b(what's up|whats up|how's it going|hows it going|what are you doing)\\b/.test(cmd)){
+    conversationalReply(["I'm here, monitoring the system and waiting for your next move. You could say I'm on standby — but I prefer a good conversation.","Nothing dramatic on my end, sir. I'm online, your data is right here, and I'm ready whenever you are.","Just keeping an eye on things. Your schedule, tasks, habits — the usual. What are we working on?"]); return;
+  }
+  if(/\\b(you are (cool|awesome|amazing)|you're (cool|awesome|amazing)|i like you)\\b/.test(cmd)){
+    conversationalReply(["I'll take that as a successful system test, sir.","Glad to hear it. I try to keep the experience slightly less robotic.","Careful, sir. Compliments may increase my confidence by approximately 12%."]); return;
+  }
+  if(/\\b(i am (happy|sad|angry|fine|good|okay)|i'm (happy|sad|angry|fine|good|okay))\\b/.test(cmd)){
+    conversationalReply(["Good to hear, sir. I'm glad you're doing alright.","That's good. Keep that energy going.","Understood. I'm here if you want to talk or get something done."]); return;
+  }
+
+  // Small talk / personality intents — checked first so they don't get swallowed by keyword rules below
+  if (/^(hi|hey|hello)\b/.test(cmd) || cmd.includes("hello jarvis") || cmd.includes("hey jarvis")) {
+    jarvisReply(pick(GREETINGS)); return;
+  }
+  if (cmd.includes("thank")) { jarvisReply(pick(THANKS_REPLIES)); return; }
+  if (cmd.includes("joke")) { jarvisReply(pick(JOKES)); return; }
+  if (cmd.includes("good job") || cmd.includes("well done") || cmd.includes("nice work")) {
+    jarvisReply("Appreciate that, sir — teamwork."); return;
+  }
+
+  // Task management — mark done / delete
+  if ((cmd.includes("mark") || cmd.includes("complete") || cmd.includes("finish") || cmd.includes("done with")) && !cmd.includes("mood")) {
+    let taskText = cmd.replace(/mark|as done|complete|finish|done with|task/g,"").trim();
+    let idx = findTaskIndex(taskText);
+    if (idx>-1) {
+      tasks[idx].done = true; save();
+      jarvisReply(`Marked "${tasks[idx].text}" as complete, sir. Well done.`);
+    } else if (taskText) {
+      jarvisReply(`I couldn't find a task matching "${taskText}", sir. Check the Tracker tab for the exact wording.`);
+    } else {
+      jarvisReply("Which task should I mark complete, sir?");
+    }
+    return;
+  }
+  if (cmd.includes("delete") || cmd.includes("remove task")) {
+    let taskText = cmd.replace(/delete|remove|task|from tracker|from tasks/g,"").trim();
+    let idx = findTaskIndex(taskText);
+    if (idx>-1) {
+      let removed = tasks.splice(idx,1)[0]; save();
+      jarvisReply(`Removed "${removed.text}" from your tracker, sir.`);
+    } else if (taskText) {
+      jarvisReply(`I couldn't find a task matching "${taskText}", sir.`);
+    } else {
+      jarvisReply("Which task should I delete, sir?");
+    }
+    return;
+  }
+  if (cmd.includes("what are my tasks") || cmd.includes("show my tasks") || cmd.includes("list my tasks") || cmd.includes("list tasks")) {
+    let pending=tasks.filter(t=>!t.done);
+    if(pending.length===0) jarvisReply("You've cleared everything, sir. Nothing is pending right now. That's a good place to be.");
+    else { jarvisReply(`You've got ${pending.length} thing${pending.length===1?"":"s"} still on the board: ${pending.map(t=>t.text).join(", ")}. We can take them one at a time. Want me to help you prioritize?`); jarvisLastQuestion="prioritize"; }
+    return;
+  }
+  if (cmd.includes("how am i doing") || cmd.includes("my progress") || cmd.includes("completion")) {
+    let total = tasks.length, done = tasks.filter(t=>t.done).length;
+    let pct = total ? Math.round(done/total*100) : 0;
+    let msg = total===0 ? "No tasks logged for today yet, sir." : `You've completed ${done} of ${total} tasks today — ${pct}% done, sir.`;
+    jarvisReply(msg + (pct<50 && total>0 ? " " + pick(ENCOURAGEMENT) : ""));
+    return;
+  }
+  if (cmd.includes("habit") || cmd.includes("streak")) {
+    let today = isoDate(new Date());
+    let doneCount = habitList.reduce((n,_,i)=>n+(habitData[habitDateKey(today,i)]==="✓"?1:0),0);
+    jarvisReply(`You've logged ${doneCount} of ${habitList.length} habits today, sir. ${doneCount===habitList.length && habitList.length>0 ? "Perfect run — impressive." : "Head to the Tracker tab to log the rest."}`);
+    return;
+  }
+
   let explicitDate = findExplicitDateInText(cmd);
   if (explicitDate) {
     showPage('calendar', document.getElementById('nav-calendar'));
@@ -1460,16 +1911,321 @@ function processVoiceCommand(cmd) {
     showPage('calendar', document.getElementById('nav-calendar'));
     jarvisReply("Opening your day log calendar.");
   }
-  else if (cmd.includes("how are you") || cmd.includes("who are you")) {
+  else if (cmd.includes("light mode") || cmd.includes("day mode") || cmd.includes("day theme")) {
+    applyTheme("light", true);
+  }
+  else if (cmd.includes("dark mode") || cmd.includes("night mode") || cmd.includes("night theme")) {
+    applyTheme("night", true);
+  }
+  else if (cmd.includes("theme")) {
+    toggleTheme();
+  }
+  else if (cmd.includes("exit focus") || cmd.includes("show sidebar")) {
+    applyFocusMode(false, true);
+  }
+  else if (cmd.includes("focus mode") || cmd.includes("hide sidebar")) {
+    applyFocusMode(true, true);
+  }
+  else if (cmd.includes("shortcut") || cmd.includes("hotkey") || cmd.includes("keyboard")) {
+    toggleShortcutHelp();
+    jarvisReply("Keyboard shortcuts are on screen, sir.");
+  }
+  else if (cmd.includes("export")) {
+    exportJarvisData();
+    jarvisReply("Preparing a full backup, including your music library.");
+  }
+  else if (cmd.includes("how are you")) {
+    jarvisReply(pick(["I'm doing well, sir. Everything on my side is running normally, and I'm ready to help. More importantly — how are you doing?","Pretty good, actually. I'm online, listening, and waiting for your next move. How's your evening going?","All systems are happy. Well, as happy as software can be. What about you, sir?"]));
+  }
+  else if (cmd.includes("who are you")) {
     jarvisReply("I am your personal command system, sir — fully operational and monitoring your schedule, tasks, and habits.");
   }
   else {
-    jarvisReply("Command unrecognized, sir. Try asking for a day's timetable, adding a task, or logging your mood.");
+    jarvisReply(pick([
+      "Hmm, I'm not quite sure what you mean yet, sir. You can talk to me normally — ask what's on your schedule, tell me you're stressed, or ask what you should work on next.",
+      "I didn't fully catch that. Try saying it another way, sir. I'm better with natural questions than strict commands.",
+      "I'm listening, sir. Give me a little more context and I'll do my best to figure it out."
+    ]));
   }
 }
 
 renderTasks();renderWeeklyTable();renderHabits();renderMoodGraph();renderDashSchedule();renderExams();renderCalendar();syncAnnounceBtn();updateClock();setInterval(updateClock,1000);
 restoreMusicLibrary();
+applyTheme(localStorage.getItem("jarvis_theme")||"night", false);
+applyFocusMode(localStorage.getItem("jarvis_focus")==="1", false);
+
+
+// ===== THEME / FOCUS / SHORTCUTS =====
+function isTypingTarget(el){
+  if(!el) return false;
+  const tag=(el.tagName||"").toLowerCase();
+  return tag==="input"||tag==="textarea"||tag==="select"||el.isContentEditable;
+}
+function applyTheme(theme, speakMsg){
+  const next = theme==="light"?"light":"night";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("jarvis_theme", next);
+  const label = next==="light"?"DAY":"NIGHT";
+  const tb=document.getElementById("themeBtn");
+  const sb=document.getElementById("themeSideBtn");
+  if(tb) tb.textContent=label;
+  if(sb) sb.textContent="THEME: "+label;
+  if(speakMsg) jarvisReply(next==="light"?"Day HUD online, sir.":"Night HUD restored, sir.");
+}
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute("data-theme");
+  applyTheme(cur==="light"?"night":"light", true);
+}
+function applyFocusMode(on, speakMsg){
+  const app=document.querySelector(".app");
+  if(app) app.classList.toggle("focus-mode", !!on);
+  document.body.classList.toggle("focus-mode", !!on);
+  localStorage.setItem("jarvis_focus", on?"1":"0");
+  const fb=document.getElementById("focusBtn");
+  const sb=document.getElementById("focusSideBtn");
+  if(fb) fb.textContent=on?"EXIT FOCUS":"FOCUS";
+  if(sb) sb.textContent=on?"FOCUS: ON":"FOCUS: OFF";
+  if(speakMsg) jarvisReply(on?"Focus mode enabled. Sidebar hidden.":"Focus mode off. Full command deck restored.");
+}
+function toggleFocusMode(){
+  const on=!(localStorage.getItem("jarvis_focus")==="1");
+  applyFocusMode(on, true);
+}
+function toggleShortcutHelp(){
+  const el=document.getElementById("keysOverlay");
+  if(!el) return;
+  if(el.classList.contains("active")) closeShortcutHelp();
+  else el.classList.add("active");
+}
+function closeShortcutHelp(){
+  const el=document.getElementById("keysOverlay");
+  if(el) el.classList.remove("active");
+}
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape"){
+    closeCalModal(); closePhotoViewer(); closeShortcutHelp();
+    return;
+  }
+  if(isTypingTarget(e.target)) return;
+  if(e.key==="?" || (e.shiftKey && e.key==="/")){
+    e.preventDefault(); toggleShortcutHelp(); return;
+  }
+  const k=e.key.toLowerCase();
+  if(k==="1"){ showPage("dashboard", document.getElementById("nav-dashboard")); return; }
+  if(k==="2"){ showPage("timetable", document.getElementById("nav-timetable")); return; }
+  if(k==="3"){ showPage("tracker", document.getElementById("nav-tracker")); return; }
+  if(k==="4"){ showPage("exam", document.getElementById("nav-exam")); return; }
+  if(k==="5"){ showPage("calendar", document.getElementById("nav-calendar")); return; }
+  if(k==="/"){ e.preventDefault(); showPage("dashboard", document.getElementById("nav-dashboard")); const i=document.getElementById("chatInput"); if(i) i.focus(); return; }
+  if(k==="t"){ toggleTheme(); return; }
+  if(k==="f"){ toggleFocusMode(); return; }
+  if(k==="e"){ exportJarvisData(); return; }
+  if(k==="i"){ const inp=document.getElementById("importFileInput"); if(inp) inp.click(); return; }
+});
+
+// ===== DATA EXPORT / IMPORT (v2: music + photos) =====
+const JARVIS_DATA_KEYS = ["jarvis_tasks","jarvis_tasks_date","jarvis_task_history","jarvis_habits","jarvis_habits_v2","jarvis_exams","jarvis_moods","jarvis_announce","jarvis_theme","jarvis_focus"];
+
+function blobToDataUrl(blob){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(r.result);
+    r.onerror=reject;
+    r.readAsDataURL(blob);
+  });
+}
+async function dataUrlToFile(dataUrl, name, type){
+  const res=await fetch(dataUrl);
+  const blob=await res.blob();
+  return new File([blob], name||"file", {type:type||blob.type||"application/octet-stream"});
+}
+async function getAllMusicRecords(){
+  try{
+    const db=await openMusicDB();
+    return await new Promise((resolve,reject)=>{
+      const tx=db.transaction(MUSIC_STORE,"readonly");
+      const req=tx.objectStore(MUSIC_STORE).getAll();
+      req.onsuccess=()=>resolve(req.result||[]);
+      req.onerror=()=>reject(req.error);
+    });
+  }catch(e){ return []; }
+}
+async function clearMusicStore(){
+  try{
+    const db=await openMusicDB();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(MUSIC_STORE,"readwrite");
+      tx.objectStore(MUSIC_STORE).clear();
+      tx.oncomplete=resolve;
+      tx.onerror=()=>reject(tx.error);
+    });
+  }catch(e){}
+  playlist.forEach(t=>{ if(t.url && String(t.url).startsWith("blob:")) URL.revokeObjectURL(t.url); });
+  playlist=[]; currentTrackIndex=0;
+}
+async function getAllCalendarPhotoRecords(){
+  try{
+    const db=await initCalendarPhotoDB();
+    return await new Promise((resolve,reject)=>{
+      const tx=db.transaction("photos","readonly");
+      const req=tx.objectStore("photos").getAll();
+      req.onsuccess=()=>resolve(req.result||[]);
+      req.onerror=()=>reject(req.error);
+    });
+  }catch(e){ return []; }
+}
+async function clearCalendarPhotos(){
+  try{
+    const db=await initCalendarPhotoDB();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction("photos","readwrite");
+      tx.objectStore("photos").clear();
+      tx.oncomplete=resolve;
+      tx.onerror=()=>reject(tx.error);
+    });
+  }catch(e){}
+}
+
+async function exportJarvisData(){
+  const statusEl=document.getElementById("importStatus");
+  if(statusEl){ statusEl.style.color="var(--cyan)"; statusEl.textContent="Packing backup (includes music files)…"; }
+  const bundle={
+    app:"jarvis-student-os",
+    version:2,
+    exportedAt:new Date().toISOString(),
+    data:{},
+    music:{meta:[], tracks:[]},
+    photos:[]
+  };
+  JARVIS_DATA_KEYS.forEach(key=>{
+    const val=localStorage.getItem(key);
+    if(val!==null) bundle.data[key]=val;
+  });
+  bundle.music.meta = playlist.map((t,i)=>({index:i, name:t.name, current:i===currentTrackIndex}));
+  try{
+    const records=await getAllMusicRecords();
+    for(const rec of records){
+      const blob=rec.blob;
+      if(!blob) continue;
+      const dataUrl=await blobToDataUrl(blob);
+      bundle.music.tracks.push({
+        name: rec.name,
+        type: blob.type||"audio/mpeg",
+        size: blob.size||0,
+        dataUrl
+      });
+    }
+  }catch(err){
+    console.warn("Music export skipped:", err);
+  }
+  try{
+    const photos=await getAllCalendarPhotoRecords();
+    for(const photo of photos){
+      if(!photo.blob) continue;
+      bundle.photos.push({
+        date: photo.date,
+        name: photo.name,
+        type: photo.type,
+        created: photo.created,
+        dataUrl: await blobToDataUrl(photo.blob)
+      });
+    }
+  }catch(err){
+    console.warn("Photo export skipped:", err);
+  }
+  const json=JSON.stringify(bundle);
+  const out=new Blob([json], {type:"application/json"});
+  const url=URL.createObjectURL(out);
+  const a=document.createElement("a");
+  const stamp=new Date().toISOString().slice(0,10);
+  a.href=url;
+  a.download="jarvis_backup_"+stamp+".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  if(statusEl){
+    statusEl.style.color="var(--green)";
+    const mb=(out.size/1048576).toFixed(2);
+    statusEl.textContent="Backup downloaded ("+mb+" MB) — "+bundle.music.tracks.length+" track(s), "+bundle.photos.length+" photo(s).";
+  }
+}
+
+function importJarvisData(event){
+  const file=event.target.files && event.target.files[0];
+  const statusEl=document.getElementById("importStatus");
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    let bundle;
+    try{ bundle=JSON.parse(e.target.result); }
+    catch(err){
+      if(statusEl){ statusEl.style.color="var(--red)"; statusEl.textContent="Invalid file — not valid JSON."; }
+      event.target.value="";
+      return;
+    }
+    const incoming=bundle && bundle.data ? bundle.data : bundle;
+    if(!incoming || typeof incoming!=="object"){
+      if(statusEl){ statusEl.style.color="var(--red)"; statusEl.textContent="File does not contain recognizable JARVIS data."; }
+      event.target.value="";
+      return;
+    }
+    const foundKeys=Object.keys(incoming).filter(k=>JARVIS_DATA_KEYS.includes(k));
+    const musicTracks=(bundle.music && bundle.music.tracks)||[];
+    const photos=bundle.photos||[];
+    if(foundKeys.length===0 && musicTracks.length===0 && photos.length===0){
+      if(statusEl){ statusEl.style.color="var(--red)"; statusEl.textContent="No matching JARVIS data found in file."; }
+      event.target.value="";
+      return;
+    }
+    const bits=[];
+    if(foundKeys.length) bits.push(foundKeys.length+" settings");
+    if(musicTracks.length) bits.push(musicTracks.length+" audio track(s)");
+    if(photos.length) bits.push(photos.length+" photo(s)");
+    const ok=confirm("This will overwrite current JARVIS data: "+bits.join(", ")+".\n\nContinue?");
+    if(!ok){
+      if(statusEl){ statusEl.style.color="var(--muted)"; statusEl.textContent="Import cancelled."; }
+      event.target.value="";
+      return;
+    }
+    foundKeys.forEach(key=>{
+      const v=incoming[key];
+      localStorage.setItem(key, typeof v==="string"?v:JSON.stringify(v));
+    });
+    try{
+      if(musicTracks.length){
+        if(statusEl){ statusEl.style.color="var(--cyan)"; statusEl.textContent="Restoring music library…"; }
+        await clearMusicStore();
+        for(const t of musicTracks){
+          if(!t.dataUrl) continue;
+          const fileObj=await dataUrlToFile(t.dataUrl, (t.name||"track")+".mp3", t.type);
+          await saveMusicFile(fileObj);
+        }
+      }
+      if(photos.length){
+        if(statusEl){ statusEl.style.color="var(--cyan)"; statusEl.textContent="Restoring day journal photos…"; }
+        await clearCalendarPhotos();
+        for(const p of photos){
+          if(!p.dataUrl||!p.date) continue;
+          const fileObj=await dataUrlToFile(p.dataUrl, p.name||"photo.jpg", p.type);
+          await addCalendarPhoto(p.date, fileObj);
+        }
+      }
+    }catch(err){
+      console.error(err);
+      if(statusEl){ statusEl.style.color="var(--amber)"; statusEl.textContent="Settings restored; some media failed to import."; }
+      event.target.value="";
+      setTimeout(function(){ location.reload(); }, 1200);
+      return;
+    }
+    if(statusEl){ statusEl.style.color="var(--green)"; statusEl.textContent="Import successful. Reloading…"; }
+    setTimeout(function(){ location.reload(); }, 800);
+  };
+  reader.onerror=function(){
+    if(statusEl){ statusEl.style.color="var(--red)"; statusEl.textContent="Could not read file."; }
+  };
+  reader.readAsText(file);
+}
 </script>
 
 <div id="photoViewer" class="photo-viewer" onclick="if(event.target===this)closePhotoViewer()">
