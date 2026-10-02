@@ -25,6 +25,25 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:lin
 .system{position:absolute;bottom:20px;left:16px;right:16px;border:1px solid var(--line);padding:13px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);margin-right:7px}
 main{padding:24px 28px;max-width:1500px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}.title{font-family:Orbitron;letter-spacing:3px;font-size:20px}.clock{text-align:right;font-family:Orbitron;color:var(--cyan);font-size:17px}.date{font:12px Rajdhani;color:var(--muted);letter-spacing:2px}
 .page{display:none}.page.active{display:block}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(9,28,37,.92),rgba(3,13,18,.92));padding:25px;position:relative;overflow:hidden;box-shadow:var(--glow)}.hero:after{content:"";position:absolute;left:-20%;right:-20%;top:0;height:1px;background:var(--cyan);box-shadow:0 0 20px var(--cyan);animation:scan 4s linear infinite}@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(210px)}}.eyebrow{color:var(--cyan);font:11px Orbitron;letter-spacing:3px}.hero h1{font:600 31px Orbitron;margin:12px 0}.hero p{color:var(--muted);margin:0}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin:16px 0}.card{border:1px solid var(--line);background:rgba(5,18,25,.82);padding:18px;box-shadow:var(--glow)}.label{font-size:11px;color:var(--muted);letter-spacing:2px}.num{font:700 27px Orbitron;color:var(--cyan);margin-top:8px}.dashboard{grid-template-columns:1.4fr 1fr}.section-title{font:600 13px Orbitron;letter-spacing:2px;color:var(--cyan);margin-bottom:15px}.timeline{display:grid;gap:9px}.event{display:flex;justify-content:space-between;padding:12px;border-left:2px solid var(--cyan);background:rgba(54,232,255,.035)}.event.tuition-event{border-left-color:var(--amber);background:rgba(255,212,92,.035)}.event.now{border-color:var(--amber);box-shadow:0 0 15px rgba(255,212,92,.1)}.event small{color:var(--muted)}.bar{height:7px;background:#10242d;margin-top:14px}.bar span{display:block;height:100%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);width:0;transition:.4s}
+.subtab-row{display:flex;gap:8px;margin:16px 0 4px;flex-wrap:wrap}
+.subtab-btn{opacity:.65;cursor:pointer}
+.subtab-btn.active{opacity:1;color:var(--cyan);box-shadow:inset 3px 0 var(--cyan),0 0 18px rgba(54,232,255,.1)}
+.exam-subpage{display:none}
+.exam-subpage.active{display:block}
+.prep-subject-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.prep-subject-chip{background:rgba(54,232,255,.05);border:1px solid var(--line);color:var(--muted);padding:8px 14px;font:600 11px Rajdhani;letter-spacing:1px;border-radius:20px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px}
+.prep-subject-chip:hover{border-color:var(--cyan);color:var(--text)}
+.prep-subject-chip.active{background:var(--cyan);color:#000;border-color:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.prep-subject-chip .chip-pct{font:700 10px Orbitron;opacity:.85}
+.prep-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.prep-overview-item{border:1px solid var(--line);padding:12px;background:rgba(54,232,255,.02)}
+.prep-overview-item .label{margin-bottom:2px}
+.prep-chapter-row{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid rgba(255,255,255,.05)}
+.prep-chapter-row:last-child{border-bottom:none}
+.prep-chapter-row input[type="checkbox"]{accent-color:var(--green);width:18px;height:18px;flex-shrink:0;cursor:pointer}
+.prep-chapter-row label{flex:1;cursor:pointer;font-size:14px}
+.prep-chapter-row.done label{color:var(--muted);text-decoration:line-through}
+.prep-chapter-num{font:600 10px Orbitron;color:var(--muted);width:26px;flex-shrink:0}
 .action{background:#07161d;color:var(--muted);border:1px solid var(--line);padding:9px 13px;font:600 12px Rajdhani;letter-spacing:1px;cursor:pointer}.action:hover{color:var(--cyan);background:rgba(54,232,255,.08)}
 table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid rgba(54,232,255,.1)}th{font:11px Orbitron;color:var(--muted);letter-spacing:1px}td{font-size:15px}
 form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
@@ -60,6 +79,25 @@ input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(54,23
 .chat-msg.jarvis .jarvis-prefix{font-family:Orbitron;letter-spacing:1px;color:var(--amber);font-size:10px;margin-right:4px}
 .chat-msg.jarvis .chat-body{display:inline}
 
+
+/* ===== EXAM PREPARATION UPGRADE ===== */
+.prep-control-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:4px 0 14px;flex-wrap:wrap}
+.prep-active-title{font:700 14px Orbitron;letter-spacing:1.5px;color:var(--text)}
+.prep-subtitle{font-size:12px;color:var(--muted);margin-top:4px}
+.prep-actions{display:flex;gap:7px;flex-wrap:wrap}
+.prep-actions .action{font-size:10px;padding:8px 10px}
+.prep-progress-wrap{margin-bottom:8px}
+.prep-progress-top{display:flex;justify-content:space-between;gap:12px;font:600 10px Orbitron;color:var(--muted);letter-spacing:1px;margin-bottom:6px}
+.prep-progress-top span:first-child{color:var(--cyan)}
+.prep-chapter-row{transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.prep-chapter-row:hover{background:rgba(54,232,255,.035);transform:translateX(2px)}
+.prep-chapter-row.done{border-left:2px solid var(--green);padding-left:8px;background:rgba(66,245,167,.035)}
+.prep-overview-item{transition:transform .18s ease,border-color .18s ease}
+.prep-overview-item:hover{transform:translateY(-2px);border-color:var(--line-hot)}
+@media(max-width:600px){
+  .prep-actions{width:100%}
+  .prep-actions .action{flex:1}
+}
 
 /* EXAM FORM */
 .exam-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;align-items:end;margin-bottom:0}
@@ -263,6 +301,8 @@ form input,form select,.field input,.field select{border-radius:2px}
 .photo-viewer img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px}
 .photo-viewer-close{position:absolute;top:18px;right:24px;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:25px;width:42px;height:42px;border-radius:50%;cursor:pointer}
 @media(max-width:700px){.cal-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.course-badge{display:inline-flex;align-items:center;margin-left:6px;padding:2px 7px;border:1px solid currentColor;border-radius:999px;font-size:.68em;line-height:1;font-weight:800;opacity:.9;vertical-align:middle}
+@media(max-width:700px){.course-badge{font-size:.62em;padding:2px 5px}}
 </style>
 
 <style id="jarvis-gui-upgrade">
@@ -491,8 +531,617 @@ body.focus-mode #focusExit{display:inline-flex}
 }
 </style>
 
+<style id="gui-upgrade">
+/* ===== GUI UPGRADE ===== */
+::selection{background:var(--cyan);color:#001015}
+*{scrollbar-width:thin;scrollbar-color:rgba(54,232,255,.35) transparent}
+.page.active{animation:pgIn .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{position:relative;backdrop-filter:blur(6px);transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:rgba(54,232,255,.42)}
+.card::before,.card::after{content:"";position:absolute;width:12px;height:12px;pointer-events:none;border:0 solid var(--cyan);opacity:.7}
+.card::before{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+.card::after{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+.stats .card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(54,232,255,.18)}
+.num{text-shadow:0 0 14px rgba(54,232,255,.45)}
+.nav button{position:relative;overflow:hidden}
+.nav button:hover{padding-left:19px}
+.nav button{transition:.25s}
+.action{transition:.2s}
+.action:hover{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 14px rgba(54,232,255,.3);transform:translateY(-1px)}
+.action:active{transform:none}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan)!important;box-shadow:0 0 0 2px rgba(54,232,255,.18)}
+.hero{background:linear-gradient(135deg,rgba(9,28,37,.92),rgba(3,13,18,.92)),radial-gradient(circle at 90% 20%,rgba(54,232,255,.12),transparent 50%)}
+.hero h1{background:linear-gradient(90deg,var(--text),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* arc reactor */
+.reactor{position:absolute;right:34px;top:50%;width:112px;height:112px;margin-top:-56px;pointer-events:none}
+.reactor i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--cyan);opacity:.85}
+.reactor i:nth-child(1){border-style:dashed;animation:spin 14s linear infinite}
+.reactor i:nth-child(2){inset:14px;border-color:var(--cyan2);border-top-color:transparent;border-bottom-color:transparent;animation:spin 5s linear infinite reverse}
+.reactor i:nth-child(3){inset:30px;border-width:3px;box-shadow:0 0 18px var(--cyan),inset 0 0 14px var(--cyan);animation:pulse 2.6s ease-in-out infinite}
+.reactor b{position:absolute;inset:46px;border-radius:50%;background:var(--cyan2);box-shadow:0 0 22px var(--cyan);animation:pulse 2.6s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{opacity:.45;transform:scale(.94)}}
+/* accent picker */
+.accent-row{display:flex;gap:9px;align-items:center;margin:-18px 0 22px}
+.accent-row span{font-size:10px;letter-spacing:2px;color:var(--muted)}
+.accent-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:.2s;padding:0}
+.accent-dot:hover{transform:scale(1.2)}
+.accent-dot.on{border-color:#fff;box-shadow:0 0 10px currentColor}
+@media(max-width:850px){.reactor{display:none}.accent-row{margin:0 0 8px}}
+@media(prefers-reduced-motion:reduce){.reactor i,.reactor b,.page.active{animation:none}}
+
+/* ===== NEW LOOK: AURORA (glass) + WIDGETS ===== */
+html[data-look="aurora"]:not([data-theme="light"]) body{background:radial-gradient(circle at 15% 10%,rgba(139,92,246,.35),transparent 45%),radial-gradient(circle at 85% 20%,rgba(236,72,153,.22),transparent 45%),radial-gradient(circle at 50% 100%,rgba(14,165,233,.28),transparent 50%),#0b0a1f;background-attachment:fixed;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+html[data-look="aurora"]:not([data-theme="light"]) body:before{display:none}
+html[data-look="aurora"]:not([data-theme="light"]) .logo,html[data-look="aurora"]:not([data-theme="light"]) .title,html[data-look="aurora"]:not([data-theme="light"]) .hero h1,html[data-look="aurora"]:not([data-theme="light"]) .num,html[data-look="aurora"]:not([data-theme="light"]) .section-title,html[data-look="aurora"]:not([data-theme="light"]) .clock,html[data-look="aurora"]:not([data-theme="light"]) .eyebrow{font-family:inherit;letter-spacing:.5px}
+html[data-look="aurora"]:not([data-theme="light"]) .hero h1{font-weight:700;font-size:34px}
+html[data-look="aurora"]:not([data-theme="light"]) .card,html[data-look="aurora"]:not([data-theme="light"]) .hero,html[data-look="aurora"]:not([data-theme="light"]) .event,html[data-look="aurora"]:not([data-theme="light"]) .prep-overview-item{border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(18px);box-shadow:0 10px 36px rgba(0,0,0,.28)}
+html[data-look="aurora"]:not([data-theme="light"]) .side{background:rgba(255,255,255,.04);backdrop-filter:blur(18px);border-right:1px solid rgba(255,255,255,.1)}
+html[data-look="aurora"]:not([data-theme="light"]) .card:before,html[data-look="aurora"]:not([data-theme="light"]) .card:after,html[data-look="aurora"]:not([data-theme="light"]) .hero:after{display:none}
+html[data-look="aurora"]:not([data-theme="light"]) .nav button,html[data-look="aurora"]:not([data-theme="light"]) .action,html[data-look="aurora"]:not([data-theme="light"]) input,html[data-look="aurora"]:not([data-theme="light"]) select,html[data-look="aurora"]:not([data-theme="light"]) textarea,html[data-look="aurora"]:not([data-theme="light"]) .chip,html[data-look="aurora"]:not([data-theme="light"]) .prep-subject-chip{border-radius:12px}
+html[data-look="aurora"]:not([data-theme="light"]) .nav button:hover,html[data-look="aurora"]:not([data-theme="light"]) .nav button.active{background:rgba(255,255,255,.1);box-shadow:none;border-color:rgba(255,255,255,.18)}
+html[data-look="aurora"]:not([data-theme="light"]) .bar,html[data-look="aurora"]:not([data-theme="light"]) .bar span{border-radius:99px}
+html[data-look="aurora"]:not([data-theme="light"]) .num{text-shadow:none}
+.widgets{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:16px 0}
+.widgets .card{min-height:112px}
+.widgets .wnum{font:700 24px Orbitron,sans-serif;color:var(--cyan);margin:6px 0 4px}
+html[data-look="aurora"]:not([data-theme="light"]) .widgets .wnum{font-family:inherit}
+.widgets .wsub{font-size:13px;color:var(--muted)}
+.widgets .quote{font-size:15px;line-height:1.35;margin-top:6px}
+
+/* ===== ALIVE ORB ===== */
+.reactor{pointer-events:auto;cursor:pointer;transition:filter .4s,transform .12s;filter:drop-shadow(0 0 8px var(--cyan))}
+.reactor em{position:absolute;inset:34px;border-radius:50%;border:2px solid var(--cyan);opacity:0}
+.reactor s{position:absolute;inset:-4px;border-radius:50%;opacity:0;background:conic-gradient(from 0deg,transparent 0 300deg,var(--cyan2) 360deg);-webkit-mask:radial-gradient(circle,transparent 58%,#000 60%);mask:radial-gradient(circle,transparent 58%,#000 60%)}
+.reactor b,.reactor i:nth-child(3){translate:var(--lx,0px) var(--ly,0px);transition:translate .25s ease-out}
+.reactor.kick{transform:scale(1.07)}
+/* speaking */
+.reactor.speaking{filter:drop-shadow(0 0 20px var(--cyan))}
+.reactor.speaking i:nth-child(1){animation-duration:5s}
+.reactor.speaking i:nth-child(2){animation-duration:1.4s}
+.reactor.speaking i:nth-child(3),.reactor.speaking b{animation:pulse .5s ease-in-out infinite}
+.reactor.speaking em{animation:ripple 1.3s ease-out infinite}
+.reactor.speaking em:nth-of-type(2){animation-delay:.65s}
+@keyframes ripple{0%{transform:scale(1);opacity:.85}100%{transform:scale(2.5);opacity:0}}
+/* thinking */
+.reactor.thinking i:nth-child(1){animation:spin 1.6s linear infinite reverse}
+.reactor.thinking i:nth-child(2){animation:spin .8s linear infinite}
+.reactor.thinking b{animation:flick .35s steps(2) infinite}
+@keyframes flick{50%{opacity:.25}}
+/* random idle activities */
+.reactor.a-scan s{animation:sweep 1.5s ease-in-out}
+@keyframes sweep{0%{opacity:0;transform:rotate(0)}15%{opacity:.95}100%{opacity:0;transform:rotate(360deg)}}
+.reactor.a-surge i:nth-child(1){animation-duration:1.8s}
+.reactor.a-surge i:nth-child(2){animation-duration:.9s}
+.reactor.a-surge{filter:drop-shadow(0 0 18px var(--cyan2))}
+.reactor.a-flicker b,.reactor.a-flicker i:nth-child(3){animation:flick .12s steps(2) 6}
+.reactor.a-ping em:first-of-type{animation:ripple 1.3s ease-out 1}
+.reactor.a-glitch{animation:glitch .45s steps(2)}
+@keyframes glitch{0%{translate:0 0}20%{translate:-4px 1px;rotate:6deg}40%{translate:3px -2px;rotate:-5deg}60%{translate:-2px 2px}80%{translate:2px 0;rotate:3deg}100%{translate:0 0;rotate:0deg}}
+
+/* ===== AURORA ORB (soft glass blob, same alive states) ===== */
+html[data-look="aurora"]:not([data-theme="light"]) .reactor{filter:drop-shadow(0 0 16px rgba(139,92,246,.7))}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor.speaking,html[data-look="aurora"]:not([data-theme="light"]) .reactor.a-surge{filter:drop-shadow(0 0 30px rgba(236,72,153,.9))}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor i{border:none}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor i:nth-child(1){background:conic-gradient(from 0deg,#8b5cf6,#ec4899,#0ea5e9,#22d3ee,#8b5cf6);filter:blur(9px);opacity:.85;border-radius:46% 54% 52% 48%/55% 45% 55% 45%}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor i:nth-child(2){inset:10px;background:conic-gradient(from 90deg,#ec4899,#8b5cf6,#38bdf8,#ec4899);filter:blur(5px);opacity:.8;border-radius:56% 44% 42% 58%/48% 56% 44% 52%;mix-blend-mode:screen}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor i:nth-child(3){inset:26px;border:1px solid rgba(255,255,255,.45);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),rgba(255,255,255,.18) 38%,rgba(255,255,255,.05) 70%);box-shadow:inset 0 0 16px rgba(255,255,255,.45),0 0 26px rgba(139,92,246,.7)}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor b{inset:48px;background:#fff;box-shadow:0 0 18px #fff,0 0 34px rgba(236,72,153,.8)}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor em{border-color:rgba(255,255,255,.7)}
+html[data-look="aurora"]:not([data-theme="light"]) .reactor s{background:conic-gradient(from 0deg,transparent 0 300deg,#fff 360deg)}
+
+/* ===== DIGITAL CAT // ALIVE COMPANION v3 — improved design + motion ===== */
+.hero.has-cat{
+  min-height:178px;
+  padding-right:290px;
+  overflow:hidden;
+}
+.cat-pet{
+  position:absolute;
+  right:14px;
+  bottom:0;
+  width:250px;
+  height:155px;
+  cursor:pointer;
+  z-index:4;
+  user-select:none;
+  filter:drop-shadow(0 14px 16px rgba(0,0,0,.32));
+  transform-origin:75% 92%;
+  transition:filter .28s ease;
+}
+.cat-pet:hover{filter:drop-shadow(0 14px 24px rgba(54,232,255,.28))}
+.cat-pet svg{width:100%;height:100%;overflow:visible}
+.cat-pet .cat-shadow{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:catShadow 1.6s ease-in-out infinite;
+}
+@keyframes catShadow{
+  0%,100%{transform:scaleX(1);opacity:.32}
+  50%{transform:scaleX(.78);opacity:.16}
+}
+.cat-pet .cat-body{
+  transform-box:fill-box;
+  transform-origin:50% 100%;
+}
+.cat-pet .cat-head{
+  transform-box:fill-box;
+  transform-origin:50% 85%;
+}
+.cat-pet .cat-ear{
+  transform-box:fill-box;
+  transform-origin:50% 92%;
+}
+.cat-pet .cat-ear.left{animation:earTwitch 4.8s ease-in-out infinite}
+.cat-pet .cat-ear.right{animation:earTwitch 6.2s ease-in-out infinite reverse}
+@keyframes earTwitch{
+  0%,82%,100%{transform:rotate(0)}
+  86%{transform:rotate(-12deg)}
+  90%{transform:rotate(6deg)}
+  94%{transform:rotate(-4deg)}
+}
+.cat-pet .c-eye{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:catBlink 3.8s infinite;
+}
+@keyframes catBlink{
+  0%,88%,100%{transform:scaleY(1)}
+  90%{transform:scaleY(.06)}
+  92%{transform:scaleY(1)}
+  94%{transform:scaleY(.08)}
+  96%{transform:scaleY(1)}
+}
+.cat-pet .c-pupil{
+  transition:transform .16s ease-out;
+}
+.cat-pet .c-tail{
+  transform-box:fill-box;
+  transform-origin:100% 100%;
+  animation:catTail 1.15s ease-in-out infinite alternate;
+}
+@keyframes catTail{
+  from{transform:rotate(-18deg)}
+  to{transform:rotate(22deg)}
+}
+.cat-pet .cat-breathe{
+  transform-box:fill-box;
+  transform-origin:50% 100%;
+  animation:catBreath 2.6s ease-in-out infinite;
+}
+@keyframes catBreath{
+  0%,100%{transform:scaleY(1) scaleX(1)}
+  50%{transform:scaleY(1.04) scaleX(1.01)}
+}
+.cat-pet .cat-chest{
+  transform-box:fill-box;
+  transform-origin:50% 50%;
+  animation:chestGlow 2.6s ease-in-out infinite;
+}
+@keyframes chestGlow{
+  50%{filter:brightness(1.1)}
+}
+.cat-pet .cat-collar{filter:drop-shadow(0 0 5px var(--cyan))}
+.cat-pet .cat-tag{
+  transform-box:fill-box;
+  transform-origin:50% 0;
+  animation:tagSwing 1.2s ease-in-out infinite alternate;
+}
+@keyframes tagSwing{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.cat-pet .whisker{
+  stroke-dasharray:0;
+  animation:whiskerFlick 5s ease-in-out infinite;
+}
+@keyframes whiskerFlick{
+  0%,70%,100%{opacity:.9}
+  75%{opacity:.4}
+  80%{opacity:.95}
+}
+
+/* walking — smoother gait */
+.cat-pet.pose-walk .cat-walker{
+  animation:catWalkBob .65s ease-in-out infinite;
+  transform-origin:center bottom;
+}
+@keyframes catWalkBob{
+  0%,100%{transform:translateY(0) rotate(0)}
+  25%{transform:translateY(-5px) rotate(-1deg)}
+  50%{transform:translateY(0) rotate(0)}
+  75%{transform:translateY(-5px) rotate(1deg)}
+}
+.cat-pet.pose-walk .walk-leg{
+  transform-box:fill-box;
+  transform-origin:50% 8%;
+  animation:walkLeg .65s ease-in-out infinite alternate;
+}
+.cat-pet.pose-walk .walk-leg.alt{animation-direction:alternate-reverse}
+@keyframes walkLeg{
+  from{transform:rotate(-26deg)}
+  to{transform:rotate(28deg)}
+}
+.cat-pet.pose-walk .walk-paw{
+  transform-box:fill-box;
+  transform-origin:50% 0;
+  animation:pawLift .65s ease-in-out infinite alternate;
+}
+.cat-pet.pose-walk .walk-leg.alt .walk-paw{animation-direction:alternate-reverse}
+@keyframes pawLift{
+  from{transform:rotate(8deg)}
+  to{transform:rotate(-12deg)}
+}
+.cat-pet.pose-walk .backpack{
+  animation:bagBounce .65s ease-in-out infinite alternate;
+  transform-box:fill-box;
+  transform-origin:50% 100%;
+}
+@keyframes bagBounce{
+  from{transform:translateY(2px) rotate(-2deg)}
+  to{transform:translateY(-3px) rotate(2deg)}
+}
+.cat-pet.pose-walk .cat-head{
+  animation:walkHeadBob .65s ease-in-out infinite;
+}
+@keyframes walkHeadBob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+.cat-pet .c-ground{
+  stroke-dasharray:10 8;
+  animation:groundMove .48s linear infinite;
+}
+@keyframes groundMove{to{stroke-dashoffset:-18}}
+
+/* push-ups — stronger motion */
+.cat-pet.pose-push .push-body{
+  transform-box:fill-box;
+  transform-origin:50% 100%;
+  animation:pushBody 1.4s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes pushBody{
+  0%,100%{transform:translateY(0) rotate(0)}
+  45%{transform:translateY(16px) rotate(-2deg)}
+  50%{transform:translateY(17px) rotate(-2deg)}
+  55%{transform:translateY(16px) rotate(-1deg)}
+}
+.cat-pet.pose-push .push-arm{
+  transform-box:fill-box;
+  transform-origin:50% 0;
+  animation:pushArm 1.4s ease-in-out infinite alternate;
+}
+.cat-pet.pose-push .push-arm.alt{animation-direction:alternate-reverse}
+@keyframes pushArm{
+  from{transform:rotate(-12deg)}
+  to{transform:rotate(14deg)}
+}
+.cat-pet.pose-push .cat-head{
+  animation:pushHead 1.4s ease-in-out infinite;
+}
+@keyframes pushHead{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(4px) rotate(3deg)}
+}
+.cat-pet .c-sweat{
+  opacity:0;
+  animation:sweatDrop 1.4s ease-in infinite;
+}
+@keyframes sweatDrop{
+  0%,40%{opacity:0;transform:translate(0,0) scale(.6)}
+  55%{opacity:1;transform:translate(2px,4px) scale(1)}
+  100%{opacity:0;transform:translate(6px,18px) scale(.8)}
+}
+.cat-pet .headband{
+  filter:drop-shadow(0 0 6px rgba(255,85,119,.45));
+  animation:bandStretch 1.4s ease-in-out infinite;
+}
+@keyframes bandStretch{
+  0%,100%{transform:scaleX(1)}
+  50%{transform:scaleX(1.04)}
+}
+
+/* studying */
+.cat-pet.pose-study .study-head{
+  transform-box:fill-box;
+  transform-origin:50% 88%;
+  animation:studyNod 3.6s ease-in-out infinite;
+}
+@keyframes studyNod{
+  0%,55%,100%{transform:rotate(0) translateY(0)}
+  62%{transform:rotate(4deg) translateY(1px)}
+  70%{transform:rotate(-3deg) translateY(0)}
+  78%{transform:rotate(2deg)}
+}
+.cat-pet .page{
+  transform-box:fill-box;
+  transform-origin:0 50%;
+  animation:pageTurn 5.2s ease-in-out infinite;
+}
+@keyframes pageTurn{
+  0%,38%{transform:scaleX(1) rotateY(0)}
+  48%{transform:scaleX(.15) rotateY(-20deg)}
+  52%,88%{transform:scaleX(-1) rotateY(0)}
+  100%{transform:scaleX(1)}
+}
+.cat-pet .pencil{
+  transform-box:fill-box;
+  transform-origin:0 50%;
+  animation:writeNote 2.1s ease-in-out infinite;
+}
+@keyframes writeNote{
+  0%,50%,100%{transform:rotate(0) translate(0,0)}
+  58%{transform:rotate(-9deg) translate(4px,-2px)}
+  68%{transform:rotate(5deg) translate(8px,1px)}
+  78%{transform:rotate(-4deg) translate(5px,0)}
+}
+.cat-pet .glasses-glint{animation:glint 2.8s ease-in-out infinite}
+@keyframes glint{0%,60%,100%{opacity:.04}68%{opacity:.95}76%{opacity:.04}}
+.cat-pet.pose-study .book-base{filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+
+/* sleeping */
+.cat-pet.pose-sleep .sleep-body{
+  transform-box:fill-box;
+  transform-origin:50% 100%;
+  animation:sleepBreath 3.1s ease-in-out infinite;
+}
+@keyframes sleepBreath{
+  0%,100%{transform:scaleY(1) scaleX(1)}
+  50%{transform:scaleY(1.08) scaleX(1.02)}
+}
+.cat-pet.pose-sleep .cat-ear{
+  animation:sleepEar 4s ease-in-out infinite;
+}
+@keyframes sleepEar{
+  0%,70%,100%{transform:rotate(0)}
+  80%{transform:rotate(-5deg)}
+  90%{transform:rotate(3deg)}
+}
+.cat-pet .zzz{
+  opacity:0;
+  animation:zzzFloat 3.2s ease-out infinite;
+}
+.cat-pet .zzz.z2{animation-delay:1s}
+.cat-pet .zzz.z3{animation-delay:2s}
+@keyframes zzzFloat{
+  0%{opacity:0;transform:translate(0,10px) scale(.6) rotate(-8deg)}
+  18%{opacity:1}
+  100%{opacity:0;transform:translate(16px,-32px) scale(1.2) rotate(12deg)}
+}
+
+/* interaction */
+.cat-pet.hop{animation:catHop .55s cubic-bezier(.2,.85,.3,1)}
+@keyframes catHop{
+  0%{transform:translateY(0) rotate(0) scale(1)}
+  30%{transform:translateY(-28px) rotate(-4deg) scale(1.04)}
+  55%{transform:translateY(-10px) rotate(4deg) scale(1.02)}
+  75%{transform:translateY(-4px) rotate(-2deg)}
+  100%{transform:translateY(0) rotate(0) scale(1)}
+}
+.cat-pet.pet-purr{animation:catPurr .32s ease-in-out 4}
+@keyframes catPurr{
+  0%,100%{transform:scale(1) translateY(0)}
+  50%{transform:scale(1.03) translateY(-2px)}
+}
+.cat-pet.look-around .cat-head{
+  animation:lookAround 1.8s ease-in-out;
+}
+@keyframes lookAround{
+  0%{transform:rotate(0)}
+  25%{transform:rotate(-12deg)}
+  50%{transform:rotate(0)}
+  75%{transform:rotate(10deg)}
+  100%{transform:rotate(0)}
+}
+.cat-bubble{
+  position:absolute;
+  right:252px;
+  bottom:56px;
+  max-width:250px;
+  background:linear-gradient(145deg,rgba(10,22,32,.96),rgba(16,30,42,.92));
+  border:1px solid rgba(54,232,255,.38);
+  padding:10px 14px;
+  border-radius:16px 16px 4px 16px;
+  font-size:13px;
+  line-height:1.35;
+  color:var(--text);
+  opacity:0;
+  transform:translateY(10px) scale(.94);
+  transition:opacity .28s ease,transform .28s ease;
+  pointer-events:none;
+  z-index:5;
+  box-shadow:0 12px 32px rgba(0,0,0,.3),0 0 20px rgba(54,232,255,.1);
+}
+.cat-bubble:after{
+  content:"";
+  position:absolute;
+  right:-6px;
+  bottom:12px;
+  width:12px;height:12px;
+  background:rgba(16,30,42,.94);
+  border-right:1px solid rgba(54,232,255,.38);
+  border-top:1px solid rgba(54,232,255,.38);
+  transform:rotate(45deg);
+}
+.cat-bubble.show{opacity:1;transform:none}
+.cat-status{
+  position:absolute;
+  left:12px;
+  bottom:10px;
+  font:700 8px Orbitron,sans-serif;
+  letter-spacing:1.6px;
+  color:var(--cyan);
+  opacity:.65;
+}
+/* only hide cats on very small phones — keep them visible on tablets */
+@media(max-width:560px){
+  .hero.has-cat{padding-right:16px;min-height:auto}
+  .cat-pet,.cat-bubble,.cat-status{display:none}
+}
+@media(min-width:561px) and (max-width:900px){
+  .hero.has-cat{padding-right:200px;min-height:150px}
+  .cat-pet{width:180px;height:115px;right:8px}
+  .cat-bubble{right:185px;max-width:160px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .cat-pet .c-eye,.cat-pet .c-tail,.cat-pet .cat-ear,
+  .cat-pet .cat-breathe,.cat-pet .cat-shadow{animation:none!important}
+}</style>
+
+<style id="jarvis-mobile-opt">
+/* ===== MOBILE OPTIMIZATION ===== */
+html{-webkit-text-size-adjust:100%}
+body{overscroll-behavior-y:none}
+button,a,.action,.chip,.prep-subject-chip,.nav button,.mood-btn,.player-btn,.voice-btn,.habit-cell{
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+#mobileMenuBtn{
+  display:none;position:fixed;top:10px;left:10px;z-index:200;
+  width:44px;height:44px;background:rgba(5,18,25,.94);border:1px solid var(--line);
+  color:var(--cyan);border-radius:10px;cursor:pointer;
+  flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  box-shadow:0 4px 18px rgba(0,0,0,.4);backdrop-filter:blur(10px);padding:0;
+}
+#mobileMenuBtn span{display:block;width:18px;height:2px;background:var(--cyan);border-radius:2px;transition:.2s}
+body.mobile-nav-open #mobileMenuBtn span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+body.mobile-nav-open #mobileMenuBtn span:nth-child(2){opacity:0}
+body.mobile-nav-open #mobileMenuBtn span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+#mobileOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;backdrop-filter:blur(2px)}
+#mobileOverlay.show{display:block}
+#mobileTabBar{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:140;
+  background:rgba(2,10,15,.97);border-top:1px solid var(--line);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));
+  grid-template-columns:repeat(6,1fr);gap:2px;
+  backdrop-filter:blur(14px);box-shadow:0 -8px 28px rgba(0,0,0,.4);
+}
+#mobileTabBar button{
+  background:none;border:0;color:var(--muted);font:600 9px Rajdhani,sans-serif;
+  letter-spacing:.4px;padding:8px 2px 6px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-height:48px;border-radius:8px;
+}
+#mobileTabBar button .ico{font-size:16px;line-height:1}
+#mobileTabBar button.active{color:var(--cyan);background:rgba(54,232,255,.1)}
+#mobileTabBar button:active{transform:scale(.96)}
+
+@media(max-width:900px){
+  .app{grid-template-columns:1fr!important}
+  .side{
+    position:fixed!important;top:0;left:0;bottom:0;width:min(280px,86vw);
+    height:100%!important;z-index:160;transform:translateX(-105%);
+    transition:transform .28s cubic-bezier(.2,.8,.2,1);
+    border-right:1px solid var(--line)!important;border-bottom:0!important;
+    padding:20px 14px!important;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:none;
+  }
+  body.mobile-nav-open .side{transform:translateX(0);box-shadow:12px 0 40px rgba(0,0,0,.5)}
+  .side .sub,.side .system{display:block!important}
+  .side .system{position:relative;bottom:auto;left:auto;right:auto;margin-top:18px}
+  .side .nav{display:flex;flex-direction:column;gap:2px;overflow:visible}
+  .side .nav button{white-space:normal;width:100%;text-align:left;padding:14px 12px;min-height:48px;font-size:14px}
+  #mobileMenuBtn{display:flex}
+  #mobileTabBar{display:grid}
+  main{padding:56px 12px calc(72px + env(safe-area-inset-bottom,0px))!important;max-width:100%}
+  .top{flex-direction:column;align-items:flex-start!important;gap:10px;padding-bottom:12px;margin-bottom:14px}
+  .top-right{width:100%;justify-content:space-between;flex-wrap:wrap}
+  .title{font-size:15px;letter-spacing:2px;padding-left:48px}
+  .clock{font-size:15px}
+  .hud-tools{gap:4px}
+  .hud-btn{padding:8px 10px;font-size:10px;min-height:40px}
+  .hero{padding:16px!important}
+  .hero h1{font-size:20px!important;margin:8px 0!important}
+  .hero p{font-size:13px}
+  .hero.has-cat{padding-right:16px!important;min-height:auto!important}
+  .grid.stats{grid-template-columns:repeat(2,1fr)!important;gap:10px}
+  .grid.dashboard{grid-template-columns:1fr!important}
+  .stats .card{padding:14px}
+  .num{font-size:22px}
+  .widgets{grid-template-columns:1fr 1fr!important;gap:10px}
+  .widgets .card{min-height:0;padding:14px}
+  .widgets .wnum{font-size:18px}
+  .card{padding:14px!important}
+  .section-title{font-size:11px;margin-bottom:12px}
+  form{flex-direction:column}
+  form input,form select,.field input,.field select,.exam-form input,.exam-form select{
+    font-size:16px!important;min-height:44px;padding:12px!important;
+  }
+  .action,.player-btn,.mood-btn,.voice-btn,.chip,.prep-subject-chip{min-height:44px;padding:10px 14px}
+  .exam-form{grid-template-columns:1fr!important}
+  .chip-row{gap:6px}
+  .chip{font-size:12px;padding:8px 12px}
+  .weekly-table,.habit-table,table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+  .bujo-wrap{margin-left:-4px;margin-right:-4px}
+  .habit-table{font-size:11px;min-width:700px}
+  .weekly-table{min-width:640px}
+  .weekly-table .timecel{width:auto}
+  .cal-grid{gap:3px}
+  .cal-cell{padding:4px}
+  .cal-daynum{font-size:11px}
+  .cal-dow{font-size:9px;padding:4px 0}
+  .cal-modal{padding:18px;max-height:90vh;margin:8px;width:calc(100% - 16px)}
+  .cal-detail-grid{grid-template-columns:1fr!important;gap:14px}
+  .cal-photo-grid{grid-template-columns:repeat(3,1fr)!important}
+  .chat-log{max-height:200px}
+  .chat-msg{max-width:94%;font-size:13px}
+  .reactor{display:none!important}
+  .accent-row{margin:0 0 10px;flex-wrap:wrap}
+  .cat-pet{width:140px!important;height:90px!important;right:4px!important}
+  .cat-bubble{display:none!important}
+  .cat-status{font-size:7px}
+  #spRoom .grid,#spLanding .grid{grid-template-columns:1fr!important}
+  #spYtStage{min-height:200px!important}
+  .subtab-row{gap:6px}
+  .subtab-btn{flex:1;min-width:0;font-size:11px;padding:10px 8px;text-align:center}
+  .voice-btn{font-size:10px;padding:10px 12px;min-height:44px}
+  .app.focus-mode .side{display:none}
+  body.focus-mode #mobileTabBar{display:none}
+  body.focus-mode main{padding-bottom:16px!important}
+}
+@media(max-width:560px){
+  .widgets{grid-template-columns:1fr!important}
+  .hero.has-cat{padding-right:14px!important}
+  .cat-pet,.cat-status{display:none!important}
+  .title{font-size:13px;letter-spacing:1px}
+  main{padding-left:10px!important;padding-right:10px!important}
+  .prep-overview{grid-template-columns:1fr 1fr!important}
+  .mood-controls{gap:6px}
+  .mood-btn{flex:1;min-width:calc(50% - 6px);font-size:12px}
+  .player-controls{flex-wrap:wrap}
+  .player-btn{flex:1;min-width:calc(33% - 8px)}
+  #jarvis-system-status{display:none}
+  .footer{font-size:10px;padding:0 8px}
+}
+@media(max-width:380px){
+  #mobileTabBar button{font-size:8px;padding:6px 1px}
+  #mobileTabBar button .ico{font-size:14px}
+  .num{font-size:18px}
+}
+@media(max-height:500px) and (max-width:900px){
+  main{padding-top:48px!important;padding-bottom:56px!important}
+  #mobileTabBar{padding:2px 4px}
+  #mobileTabBar button{min-height:40px;padding:4px 2px}
+  .hero h1{font-size:18px!important}
+}
+@supports(padding:max(0px)){
+  @media(max-width:900px){
+    #mobileMenuBtn{top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left))}
+    .side{padding-top:max(20px,env(safe-area-inset-top))!important}
+  }
+}
+</style>
 </head>
 <body>
+
+<button type="button" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileNav()">
+  <span></span><span></span><span></span>
+</button>
+<div id="mobileOverlay" onclick="closeMobileNav()"></div>
+<nav id="mobileTabBar" aria-label="Primary">
+  <button type="button" data-page="dashboard" onclick="mobileGo('dashboard')"><span class="ico">⌂</span>Home</button>
+  <button type="button" data-page="timetable" onclick="mobileGo('timetable')"><span class="ico">◫</span>Timetable</button>
+  <button type="button" data-page="tracker" onclick="mobileGo('tracker')"><span class="ico">◈</span>Tracker</button>
+  <button type="button" data-page="exam" onclick="mobileGo('exam')"><span class="ico">✎</span>Exam</button>
+  <button type="button" data-page="calendar" onclick="mobileGo('calendar')"><span class="ico">▦</span>Calendar</button>
+  <button type="button" data-page="social" onclick="mobileGo('social')"><span class="ico">☀</span>Social</button>
+</nav>
 
 <div id="jarvis-system-status" aria-label="JARVIS system status">
   <span class="status-dot"></span>
@@ -550,6 +1199,7 @@ body.focus-mode #focusExit{display:inline-flex}
     <button id="nav-tracker" onclick="showPage('tracker',this)">◈ &nbsp; TRACKER</button>
     <button id="nav-exam" onclick="showPage('exam',this)">✎ &nbsp; EXAM</button>
     <button id="nav-calendar" onclick="showPage('calendar',this)">▦ &nbsp; CALENDAR</button>
+    <button id="nav-social" onclick="showPage('social',this)">&#9728; &nbsp; SOCIAL</button>
   </nav>
   <div style="margin-top:20px;padding:0 2px">
     <button class="voice-btn" id="voiceBtn" onclick="toggleWakeWord()"><span class="mic-dot" id="micDot"></span>WAKE-WORD: OFF</button>
@@ -577,7 +1227,7 @@ body.focus-mode #focusExit{display:inline-flex}
   <div class="section-title">◈ TALK TO JARVIS</div>
   <div class="chat-log" id="chatLog"><div class="chat-empty">No conversation yet. Try: "What is my Monday timetable?" or "Tell me Tuesday's schedule."</div></div>
   <form onsubmit="handleChatSubmit(event)" style="display:flex;gap:8px;margin-top:10px">
-    <input id="chatInput" placeholder="Ask JARVIS about your timetable, tasks, mood..." style="flex:1;background:#041017;border:1px solid var(--line);color:var(--text);padding:10px;font:14px Rajdhani;outline:none">
+    <input id="chatInput" placeholder="Ask JARVIS anything — timetable, tasks, study plans, doubts..." style="flex:1;background:#041017;border:1px solid var(--line);color:var(--text);padding:10px;font:14px Rajdhani;outline:none">
     <button class="action">SEND</button>
   </form>
   <div class="chip-row" id="chatChips">
@@ -586,6 +1236,7 @@ body.focus-mode #focusExit{display:inline-flex}
     <button type="button" class="chip" onclick="quickAsk('What\'s my current mood streak?')">📈 Habit Check</button>
     <button type="button" class="chip" onclick="quickAsk('When is my next exam?')">✎ Next Exam</button>
     <button type="button" class="chip" onclick="quickAsk('Tell me a joke')">😄 Joke</button>
+    <button type="button" class="chip" onclick="setAIKey()">🔑 AI Key</button>
     <button type="button" class="chip" onclick="quickAsk('How am I doing today?')">🔥 Progress</button>
   </div>
 </div>
@@ -629,7 +1280,8 @@ body.focus-mode #focusExit{display:inline-flex}
 </section>
 
 <section id="timetable" class="page">
-<div class="card"><div class="section-title">◫ MASTER TIMETABLE // CLASS 10-B & TUITION</div><div id="tableWrap"></div></div>
+<div class="hero"><div class="eyebrow">J.A.R.V.I.S // SCHOOL RUN</div><h1>Class 10-B Timetable</h1><p>Your weekly academic grid and evening tuition protocols.</p></div>
+<div class="card" style="margin-top:16px"><div class="section-title">◫ MASTER TIMETABLE // CLASS 10-B & TUITION</div><div id="tableWrap"></div></div>
 </section>
 
 <section id="tracker" class="page">
@@ -652,6 +1304,16 @@ body.focus-mode #focusExit{display:inline-flex}
 <div class="card" style="margin-top:16px">
   <div class="section-title">◈ HABIT MATRIX ("BEING BETTER CHALLENGE") // <span id="habitMonthLabel">THIS MONTH</span></div>
   <p style="font-size:12px;color:var(--muted);margin-top:-8px;margin-bottom:12px">Click grid cells to cycle status: Blank ➔ ✓ (Done) ➔ ✕ (Missed)</p>
+  <button class="action" id="editGoalsBtn" type="button" onclick="toggleGoalEditor()">✎ EDIT GOALS</button>
+  <div id="goalEditor" style="display:none;margin-top:12px;border:1px solid var(--line);padding:14px;background:rgba(54,232,255,.03)">
+    <div class="label" style="margin-bottom:10px">RENAME, DELETE OR ADD GOALS</div>
+    <div id="goalEditList"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <input id="newGoalInput" placeholder="New goal..." maxlength="40" style="flex:1;min-width:180px" onkeydown="if(event.key==='Enter'){event.preventDefault();addGoal();}">
+      <button class="action" type="button" onclick="addGoal()">+ ADD</button>
+      <button class="action" type="button" onclick="resetGoals()">RESET TO DEFAULT</button>
+    </div>
+  </div>
   <div class="bujo-wrap">
     <table class="habit-table" id="habitMatrix">
       <thead><tr id="habitHead"></tr></thead>
@@ -680,6 +1342,14 @@ body.focus-mode #focusExit{display:inline-flex}
 
 <section id="exam" class="page">
 <div class="hero"><div class="eyebrow">J.A.R.V.I.S // EXAMINATION PROTOCOL</div><h1>Exam Datesheet</h1><p>Log every paper as it's announced — JARVIS will track the countdown for you.</p></div>
+
+<div class="subtab-row">
+  <button type="button" class="action subtab-btn active" id="examTab-datesheet" onclick="showExamSubTab('datesheet')">◈ &nbsp; DATESHEET</button>
+  <button type="button" class="action subtab-btn" id="examTab-prep" onclick="showExamSubTab('prep')">✎ &nbsp; PREPARATION</button>
+  <button type="button" class="action subtab-btn" id="examTab-plan" onclick="showExamSubTab('plan')">&#9733; &nbsp; STUDY PLAN</button>
+</div>
+
+<div class="exam-subpage active" id="examSub-datesheet">
 
 <div class="card" style="margin-top:16px">
   <div class="section-title">+ ADD EXAM ENTRY</div>
@@ -739,7 +1409,215 @@ body.focus-mode #focusExit{display:inline-flex}
   </table>
   <div id="examEmpty" style="color:var(--muted);padding:14px 0;font-size:13px">No exams logged yet. Add your first paper above.</div>
 </div>
+
+</div>
+
+<div class="exam-subpage" id="examSub-plan">
+<div class="card" style="margin-top:16px">
+  <div class="section-title">&#9733; AUTO STUDY PLANNER</div>
+  <p style="font-size:12px;color:var(--muted);margin-top:-8px">Built from your datesheet and unchecked chapters. Runs on your device, so it is free and works offline. Tick a chapter here and the plan re-balances itself.</p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">
+    <span class="label">STUDY HOURS PER DAY:</span>
+    <select id="planHours" onchange="setPlanHours(this.value)">
+      <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+    </select>
+  </div>
+  <div id="planWarn"></div>
+  <div id="planBody"></div>
+</div>
+</div>
+
+<div class="exam-subpage" id="examSub-prep">
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◎ PREPARATION OVERVIEW</div>
+  <div class="prep-overview" id="prepOverview"></div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <div class="section-title">◈ CHAPTER CHECKLIST</div>
+  <div class="prep-subject-row" id="prepSubjectRow"></div>
+
+  <div class="prep-control-row">
+    <div>
+      <div class="prep-active-title" id="prepActiveTitle">SUBJECT PREPARATION</div>
+      <div class="prep-subtitle" id="prepSubjectLabel"></div>
+    </div>
+    <div class="prep-actions">
+      <button type="button" class="action" onclick="setAllPrepChapters(true)">✓ COMPLETE ALL</button>
+      <button type="button" class="action" onclick="setAllPrepChapters(false)">↺ RESET SUBJECT</button>
+    </div>
+  </div>
+
+  <div class="prep-progress-wrap">
+    <div class="prep-progress-top">
+      <span id="prepProgressText">0%</span>
+      <span id="prepRemainingText">0 remaining</span>
+    </div>
+    <div class="bar"><span id="prepSubjectBar"></span></div>
+  </div>
+
+  <div id="prepChecklist"></div>
+</div>
+
+</div>
+
 </section>
+
+<section id="social" class="page">
+<div class="hero"><div class="eyebrow">J.A.R.V.I.S // SOCIAL DECK</div><h1>Stay social. Stay focused.</h1><p>Instagram gatekeeper for doomscroll control — and SyncPlay for YouTube watch parties with friends.</p></div>
+
+<div class="subtab-row">
+  <button type="button" class="action subtab-btn active" id="socTab-instagram" onclick="showSocSubTab('instagram')">&#9728; &nbsp; INSTAGRAM</button>
+  <button type="button" class="action subtab-btn" id="socTab-youtube" onclick="showSocSubTab('youtube')">&#9654; &nbsp; YOUTUBE // SYNCPLAY</button>
+</div>
+
+<!-- ===== INSTAGRAM SUB ===== -->
+<div class="soc-subpage active" id="socSub-instagram">
+
+<div class="card" style="margin-top:12px;border-color:var(--amber)">
+  <div class="label">&#9888; HONEST NOTE</div>
+  <p style="margin:6px 0 0;font-size:14px">Instagram doesn't allow itself to be embedded inside other apps. JARVIS works as a <b>gatekeeper</b>: it asks why you're going, opens just that part, and times your visit.</p>
+</div>
+
+<div class="grid" style="margin-top:16px;grid-template-columns:1.2fr 1fr">
+  <div class="card">
+    <div class="section-title">&#9654; STEP 1: WHY ARE YOU OPENING IT?</div>
+    <div class="prep-subject-row" id="socIntent">
+      <button type="button" class="prep-subject-chip" data-i="msg" onclick="socPick('msg')">&#128172; Reply to a friend</button>
+      <button type="button" class="prep-subject-chip" data-i="notif" onclick="socPick('notif')">&#128276; Check notifications</button>
+      <button type="button" class="prep-subject-chip" data-i="story" onclick="socPick('story')">&#9711; Watch stories</button>
+      <button type="button" class="prep-subject-chip" data-i="bored" onclick="socPick('bored')">&#128529; Just bored</button>
+    </div>
+    <div id="socGate" class="label" style="min-height:42px;padding:10px 0"></div>
+    <div class="section-title">&#9654; STEP 2: OPEN ONLY THAT</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button type="button" class="action" onclick="socOpen('msg')">&#128172; OPEN MESSAGES</button>
+      <button type="button" class="action" onclick="socOpen('notif')">&#128276; OPEN NOTIFICATIONS</button>
+      <button type="button" class="action" onclick="socOpen('story')">&#9711; OPEN STORIES</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">Come back to this tab when you're done and your time is logged automatically.</p>
+  </div>
+  <div class="card">
+    <div class="section-title">&#9201; TODAY'S BUDGET</div>
+    <div class="num" id="socUsed">0 / 20 min</div>
+    <div class="bar"><span id="socBar"></span></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+      <span class="label">DAILY LIMIT (MIN):</span>
+      <input id="socLimit" type="number" min="5" max="180" step="5" style="width:80px" onchange="socSetLimit(this.value)">
+    </div>
+    <div class="label" style="margin-top:12px" id="socStats"></div>
+    <div class="section-title" style="margin-top:16px">LAST 7 DAYS</div>
+    <div id="socWeek"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== YOUTUBE / SYNCPLAY SUB ===== -->
+<div class="soc-subpage" id="socSub-youtube">
+
+<div class="card" style="margin-top:12px">
+  <div class="section-title">&#9654; SYNCPLAY // WATCH PARTY</div>
+  <p style="font-size:13px;color:var(--muted);margin:4px 0 14px">Create or join a room, drop a YouTube link, invite friends. Synced playback, live chat, reactions and voice — same SyncPlay engine, JARVIS HUD.</p>
+
+  <div class="field" style="margin-bottom:12px">
+    <label style="font:11px Orbitron;letter-spacing:1.5px;color:var(--cyan)">SYNCPLAY SERVER URL</label>
+    <input id="spServer" placeholder="wss://sync-play-h1t3.onrender.com" style="width:100%;margin-top:6px" value="wss://sync-play-h1t3.onrender.com">
+    <div class="label" style="margin-top:6px">Your live SyncPlay server on Render. Change only if you deploy somewhere else.</div>
+  </div>
+
+  <!-- Landing (create / join) -->
+  <div id="spLanding">
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div class="field">
+          <label style="font:11px Orbitron;letter-spacing:1.5px;color:var(--cyan)">YOUR NAME</label>
+          <input id="spNick" placeholder="Nickname" maxlength="20" style="width:100%;margin-top:6px">
+        </div>
+        <button type="button" class="action" style="width:100%;margin-top:14px;padding:12px;letter-spacing:2px" onclick="spCreateRoom()">+ CREATE WATCH PARTY</button>
+      </div>
+      <div>
+        <div class="field">
+          <label style="font:11px Orbitron;letter-spacing:1.5px;color:var(--cyan)">ROOM CODE</label>
+          <input id="spCode" placeholder="ABCD12" maxlength="8" style="width:100%;margin-top:6px;text-transform:uppercase;letter-spacing:2px">
+        </div>
+        <button type="button" class="action" style="width:100%;margin-top:14px;padding:12px;letter-spacing:2px" onclick="spJoinRoom()">JOIN ROOM →</button>
+      </div>
+    </div>
+    <div id="spLandingError" style="color:var(--red);font-size:13px;margin-top:12px;min-height:18px"></div>
+  </div>
+
+  <!-- Room -->
+  <div id="spRoom" style="display:none">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)">
+      <button type="button" class="action" onclick="spLeaveRoom()">← LEAVE</button>
+      <div>
+        <div style="font:600 13px Orbitron;letter-spacing:1px" id="spRoomTitle">ROOM</div>
+        <div class="label" id="spRoomStatus"><span class="dot" style="background:var(--green)"></span> Connected</div>
+      </div>
+      <button type="button" class="action" id="spCodePill" onclick="spCopyCode()" title="Copy room code" style="font-family:Orbitron;letter-spacing:2px;color:var(--cyan)"></button>
+      <div style="flex:1"></div>
+      <button type="button" class="action" id="spMicBtn" onclick="spToggleVoice()" title="Voice chat">🎤 VOICE</button>
+      <span class="label" id="spWatchCount">0 watching</span>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1.6fr 1fr;gap:14px;min-height:420px">
+      <!-- Video -->
+      <div style="display:flex;flex-direction:column;border:1px solid var(--line);background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden">
+        <div id="spYtStage" style="position:relative;flex:1;min-height:280px;background:#000">
+          <div id="spEmptyVideo" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)">
+            <div style="font:600 14px Orbitron;color:var(--cyan)">NO VIDEO LOADED</div>
+            <span id="spEmptySub" style="font-size:13px">Paste a YouTube URL below</span>
+          </div>
+          <div id="spReactionStage" style="position:absolute;inset:0;pointer-events:none;overflow:hidden"></div>
+          <div id="spSyncToast" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--cyan);color:#001015;padding:6px 16px;border-radius:20px;font:700 11px Orbitron;letter-spacing:1px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap"></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:rgba(5,18,25,.9);flex-wrap:wrap" class="sp-host-only">
+          <input id="spUrlInput" placeholder="Paste YouTube URL..." style="flex:1;min-width:160px">
+          <button type="button" class="action" onclick="spSetVideo()">LOAD</button>
+        </div>
+        <div style="display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(54,232,255,.08);flex-wrap:wrap" id="spReactBar"></div>
+      </div>
+
+      <!-- Chat + people -->
+      <div style="display:flex;flex-direction:column;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:rgba(5,18,25,.7)">
+        <div style="display:flex;border-bottom:1px solid var(--line)">
+          <button type="button" class="action sp-side-tab active" id="spTabChat" onclick="spSwitchTab('chat')" style="flex:1;border:0;border-radius:0;border-bottom:2px solid var(--cyan)">CHAT</button>
+          <button type="button" class="action sp-side-tab" id="spTabPeople" onclick="spSwitchTab('people')" style="flex:1;border:0;border-radius:0;opacity:.65">PEOPLE</button>
+        </div>
+        <div id="spChatPanel" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:260px">
+          <div id="spChatList" style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px">
+            <div class="label" style="text-align:center;padding:20px 0">No messages yet.</div>
+          </div>
+          <div style="display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)">
+            <input id="spChatInput" placeholder="Message the party..." style="flex:1" onkeydown="if(event.key==='Enter')spSendChat()">
+            <button type="button" class="action" onclick="spSendChat()">SEND</button>
+          </div>
+        </div>
+        <div id="spPeoplePanel" style="flex:1;display:none;overflow-y:auto;padding:12px;min-height:260px">
+          <div id="spPeopleList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<style>
+.soc-subpage{display:none}
+.soc-subpage.active{display:block}
+.sp-host-only{display:none}
+body.sp-is-host .sp-host-only{display:flex}
+.sp-floater{position:absolute;bottom:70px;font-size:2rem;animation:spFloat 2.4s ease-out forwards;pointer-events:none}
+@keyframes spFloat{0%{opacity:1;transform:translateY(0) scale(.8)}15%{transform:translateY(-20px) scale(1.1)}100%{opacity:0;transform:translateY(-220px) scale(1.25)}}
+.sp-chat-msg{display:flex;flex-direction:column;gap:3px}
+.sp-chat-bubble{background:rgba(54,232,255,.06);border:1px solid var(--line);border-radius:4px 12px 12px 12px;padding:8px 12px;font-size:13.5px;margin-left:10px;line-height:1.4}
+.sp-chat-msg.mine .sp-chat-bubble{background:rgba(54,232,255,.12);border-color:rgba(54,232,255,.28)}
+.sp-sys{text-align:center;color:var(--muted);font-size:12px}
+.sp-person{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);margin-bottom:8px;background:rgba(54,232,255,.03)}
+.sp-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:800 11px Orbitron;color:#001015;flex-shrink:0}
+</style>
 
 <section id="calendar" class="page">
 <div class="hero"><div class="eyebrow">J.A.R.V.I.S // TEMPORAL LOG</div><h1>Day Log Calendar</h1><p>Click any day to see everything logged — tasks, habits, mood, schedule and exams.</p></div>
@@ -792,6 +1670,13 @@ SAT:[["05:00 PM","Science Tuition"],["08:00 PM","Maths Tuition"]],
 SUN:[]
 };
 
+const TT_DEFAULT=JSON.stringify({s:schedule,t:tuitionSchedule});
+function ttApply(obj){
+  Object.keys(schedule).forEach(k=>{ schedule[k]=Array.isArray(obj.s[k])?obj.s[k]:[]; });
+  Object.keys(tuitionSchedule).forEach(k=>{ tuitionSchedule[k]=Array.isArray(obj.t[k])?obj.t[k]:[]; });
+}
+try{ const sv=JSON.parse(localStorage.getItem("jarvis_timetable")||"null"); if(sv&&sv.s&&sv.t) ttApply(sv); }catch(e){}
+
 let tasks=JSON.parse(localStorage.getItem("jarvis_tasks")||"[]");
 function saveTaskHistorySnapshot(){
   let hist = JSON.parse(localStorage.getItem("jarvis_task_history")||"{}");
@@ -809,7 +1694,10 @@ function saveTaskHistorySnapshot(){
   }
 })();
 function save(){localStorage.setItem("jarvis_tasks",JSON.stringify(tasks));saveTaskHistorySnapshot();renderTasks()}
-function showPage(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");document.getElementById("pageTitle").textContent=id.toUpperCase()+" // "+(id==="dashboard"?"OVERVIEW":id==="timetable"?"ACADEMIC SCHEDULE":id==="exam"?"DATESHEET":id==="calendar"?"DAY LOG":"PERFORMANCE MATRIX");if(id==="calendar") renderCalendar();}
+function showPage(id,btn){if(id==="social")setTimeout(renderSocial,0);document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));const sideBtn=btn||document.getElementById("nav-"+id);if(sideBtn)sideBtn.classList.add("active");document.getElementById("pageTitle").textContent=id.toUpperCase()+" // "+(id==="dashboard"?"OVERVIEW":id==="timetable"?"ACADEMIC SCHEDULE":id==="exam"?"DATESHEET":id==="calendar"?"DAY LOG":id==="social"?"SOCIAL DECK":"PERFORMANCE MATRIX");if(id==="calendar") renderCalendar();document.querySelectorAll("#mobileTabBar button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));closeMobileNav();}
+function toggleMobileNav(){document.body.classList.toggle("mobile-nav-open");document.getElementById("mobileOverlay")?.classList.toggle("show",document.body.classList.contains("mobile-nav-open"));}
+function closeMobileNav(){document.body.classList.remove("mobile-nav-open");document.getElementById("mobileOverlay")?.classList.remove("show");}
+function mobileGo(id){showPage(id,document.getElementById("nav-"+id));window.scrollTo({top:0,behavior:"smooth"});}
 function addTask(e){if(e)e.preventDefault();let input=document.getElementById("taskInput");let prio=document.getElementById("priority");tasks.push({text:input.value,priority:prio.value,done:false});input.value="";save();announce("Directive added, sir.")}
 function toggleTask(i){tasks[i].done=!tasks[i].done;save();if(tasks.length && tasks.every(t=>t.done)){announce("All directives complete, sir. Outstanding work today.");}}
 function deleteTask(i){tasks.splice(i,1);save()}
@@ -852,6 +1740,34 @@ function renderTasks(){
   document.getElementById("trackerBar").style.width=p+"%";
 }
 
+let ttEdit=false;
+function ttInput(kind,day,a,b,val){
+  const v=String(val).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  return `<input value="${v}" maxlength="30" placeholder="-" style="width:100%;min-width:70px;background:rgba(54,232,255,.06);border:1px solid var(--line);color:var(--text);font:inherit;padding:4px" onchange="ttSet('${kind}','${day}','${a}','${b}',this.value)">`;
+}
+function ttSave(){
+  try{ localStorage.setItem("jarvis_timetable",JSON.stringify({s:schedule,t:tuitionSchedule})); }catch(e){}
+  try{ renderDashSchedule(); renderCalendar(); }catch(e){}
+}
+function ttSet(kind,day,a,b,val){
+  val=val.trim();
+  if(kind==="s"){
+    const rows=schedule[day]=(schedule[day]||[]).filter(r=>!(r[0]===a&&r[1]===b));
+    if(val) rows.push([a,b,val]);
+    rows.sort((x,y)=>x[0].localeCompare(y[0]));
+  } else {
+    const rows=tuitionSchedule[day]=(tuitionSchedule[day]||[]).filter(r=>r[0]!==a);
+    if(val) rows.push([a,val]);
+    rows.sort((x,y)=>(x[0].endsWith("AM")?0:1)-(y[0].endsWith("AM")?0:1)||x[0].localeCompare(y[0]));
+  }
+  ttSave();
+}
+function toggleTimetableEdit(){ ttEdit=!ttEdit; renderWeeklyTable(); }
+function resetTimetable(){
+  if(!confirm("Reset the whole timetable and tuitions to the original?")) return;
+  ttApply(JSON.parse(TT_DEFAULT)); try{localStorage.removeItem("jarvis_timetable");}catch(e){}
+  ttSave(); renderWeeklyTable();
+}
 function renderWeeklyTable(){
   const cols=["MON","TUE","WED","THU","FRI","SAT"];
   const labels={MON:"MONDAY",TUE:"TUESDAY",WED:"WEDNESDAY",THU:"THURSDAY",FRI:"FRIDAY",SAT:"SATURDAY"};
@@ -860,31 +1776,35 @@ function renderWeeklyTable(){
     ["11:40","12:10"],["12:10","12:50"],["12:50","13:30"],["13:30","14:10"],["14:10","14:50"]
   ];
   const get=(day,t)=>((schedule[day]||[]).find(r=>r[0]===t[0]&&r[1]===t[1])||["","",""])[2];
-  const getT05=(day)=>((tuitionSchedule[day]||[])[0]||["",""])[1]||"-";
-  const getT08=(day)=>((tuitionSchedule[day]||[])[1]||["",""])[1]||"-";
+  const getT05=(day)=>((tuitionSchedule[day]||[]).find(r=>r[0]==="05:00 PM")||["",""])[1]||"-";
+  const getT08=(day)=>((tuitionSchedule[day]||[]).find(r=>r[0]==="08:00 PM")||["",""])[1]||"-";
 
   let body="";
   times.forEach(t=>{
     const lunch=t[0]==="11:40";
     body+=`<tr class="${lunch?'special-row':''}">
       <td class="timecell">${t[0]} — ${t[1]}</td>
-      ${cols.map(d=>`<td>${lunch?"":get(d,t)}</td>`).join("")}
+      ${cols.map(d=>`<td>${lunch?"":(ttEdit?ttInput("s",d,t[0],t[1],get(d,t)):get(d,t))}</td>`).join("")}
     </tr>`;
   });
 
   body+=`<tr><td colspan="7" class="tuition-header">◈ EVENING TUITION PROTOCOLS ◈</td></tr>`;
   body+=`<tr class="tuition-row">
     <td class="timecell" style="color:var(--amber)">05:00 PM</td>
-    ${cols.map(d=>`<td>${getT05(d)}</td>`).join("")}
+    ${cols.map(d=>`<td>${ttEdit?ttInput("t",d,"05:00 PM","",getT05(d)==="-"?"":getT05(d)):getT05(d)}</td>`).join("")}
   </tr>`;
   body+=`<tr class="tuition-row">
     <td class="timecell" style="color:var(--amber)">08:00 PM</td>
-    ${cols.map(d=>`<td>${getT08(d)}</td>`).join("")}
+    ${cols.map(d=>`<td>${ttEdit?ttInput("t",d,"08:00 PM","",getT08(d)==="-"?"":getT08(d)):getT08(d)}</td>`).join("")}
   </tr>`;
 
   document.getElementById("tableWrap").innerHTML=`
     <div class="schedule-head">
       <span>SCHEDULE // CLASS 10-B & TUITIONS</span>
+      <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button type="button" class="action" onclick="toggleTimetableEdit()">${ttEdit?"&#10003; DONE EDITING":"&#9998; EDIT TIMETABLE"}</button>
+        ${ttEdit?'<button type="button" class="action" onclick="resetTimetable()">RESET TO DEFAULT</button>':''}
+      </span>
       <span class="live-chip">● LIVE ACADEMIC GRID</span>
     </div>
     <table class="weekly-table exact-school-table">
@@ -894,7 +1814,13 @@ function renderWeeklyTable(){
   `;
 }
 
-const habitList=["Wake up 5-6 AM","Make Bed","Hydrate 2-3L","Exercise/Workout","Meditation","Cold Shower","Study 4 Hours","Skincare","No Junk/Sugar","Reading Books","Plan Next Day","Sleep by 10:30 PM"];
+const DEFAULT_HABITS=["Wake up 5-6 AM","Make Bed","Hydrate 2-3L","Exercise/Workout","Meditation","Cold Shower","Study 4 Hours","Skincare","No Junk/Sugar","Reading Books","Plan Next Day","Sleep by 10:30 PM"];
+let habitList=DEFAULT_HABITS.slice();
+try{
+  const savedHabits=JSON.parse(localStorage.getItem("jarvis_habit_list")||"null");
+  if(Array.isArray(savedHabits) && savedHabits.every(x=>typeof x==="string")) habitList=savedHabits;
+}catch(e){}
+function saveHabitList(){ try{ localStorage.setItem("jarvis_habit_list",JSON.stringify(habitList)); }catch(e){} }
 
 /* HABIT STORAGE V2 — date-safe ISO keys.
    Old storage used month_habitIndex_day and could become visually/date-shifted
@@ -1004,6 +1930,135 @@ function addExam(e){
   announce(`${subject} exam added to your datesheet, sir.`);
 }
 function deleteExam(i){ exams.splice(i,1); saveExams(); }
+
+/* ===== EXAM SUB-TABS ===== */
+function showExamSubTab(name){
+  document.querySelectorAll(".exam-subpage").forEach(x=>x.classList.remove("active"));
+  document.getElementById("examSub-"+name).classList.add("active");
+  document.querySelectorAll(".subtab-btn").forEach(x=>x.classList.remove("active"));
+  document.getElementById("examTab-"+name).classList.add("active");
+  if(name==="prep") renderPrep();
+  if(name==="plan") renderStudyPlan();
+}
+
+/* ===== EXAM PREPARATION CHECKLIST ===== */
+const prepSyllabus = {
+  Hindi: ['साखी','पद','मनुष्यता','पर्वत प्रदेश में पावस','कर चले हम फ़िदा','आत्मत्राण','बड़े भाई साहब','डायरी का एक पन्ना','तताँरा-वामीरो कथा','तीसरी कसम के शिल्पकार शैलेंद्र','अब कहाँ दूसरे के दुख से दुखी होने वाले','पतझर में टूटी पत्तियाँ','कारतूस'],
+  Maths: ["Real Numbers","Polynomials","Pair of Linear Equations in Two Variables","Quadratic Equations","Arithmetic Progressions","Triangles","Coordinate Geometry","Introduction to Trigonometry","Some Applications of Trigonometry","Circles","Areas Related to Circles","Surface Areas and Volumes","Statistics","Probability"],
+  Science: ["Chemical Reactions and Equations","Acids, Bases and Salts","Metals and Non-metals","Carbon and its Compounds","Life Processes","Control and Coordination","How do Organisms Reproduce?","Heredity","Light – Reflection and Refraction","The Human Eye and the Colourful World","Electricity","Magnetic Effects of Electric Current","Our Environment"],
+  SST: ["The Rise of Nationalism in Europe","Nationalism in India","The Making of a Global World","The Age of Industrialisation","Print Culture and the Modern World","Resources and Development","Forest and Wildlife Resources","Water Resources","Agriculture","Minerals and Energy Resources","Manufacturing Industries","Lifelines of National Economy","Power Sharing","Federalism","Democracy and Diversity","Gender, Religion and Caste","Popular Struggles and Movements","Political Parties","Outcomes of Democracy","Challenges to Democracy","Development","Sectors of the Indian Economy","Money and Credit","Globalisation and the Indian Economy","Consumer Rights"],
+  English: ["A Letter to God","Nelson Mandela: Long Walk to Freedom","Two Stories about Flying","From the Diary of Anne Frank","The Hundred Dresses I","The Hundred Dresses II","Glimpses of India","Mijbil the Otter","Madam Rides the Bus","The Sermon at Benares","The Proposal","Dust of Snow","Fire and Ice","A Tiger in the Zoo","How to Tell Wild Animals","The Ball Poem","Amanda!","Animals","The Trees","Fog","The Tale of Custard the Dragon","For Anne Gregory","A Triumph of Surgery","The Thief's Story","The Midnight Visitor","A Question of Trust","Footprints without Feet","The Making of a Scientist","The Necklace","Bholi","The Book That Saved the Earth"],
+  IT: ["Communication Skills","Self-Management Skills","ICT Skills","Entrepreneurial Skills","Green Skills","Digital Documentation (Advanced)","Electronic Spreadsheet (Advanced)","Database Management System","Web Applications and Security"]
+};
+const PREP_SUBJECTS = Object.keys(prepSyllabus);
+let prepData = JSON.parse(localStorage.getItem("jarvis_prep")||"{}");
+let prepActiveSubject = localStorage.getItem("jarvis_prep_subject") || PREP_SUBJECTS[0];
+if(!PREP_SUBJECTS.includes(prepActiveSubject)) prepActiveSubject = PREP_SUBJECTS[0];
+
+function savePrep(){ localStorage.setItem("jarvis_prep", JSON.stringify(prepData)); }
+function subjectPrepProgress(subj){
+  let chapters = prepSyllabus[subj]||[];
+  let subjData = prepData[subj]||{};
+  let done = chapters.filter(c=>subjData[c]).length;
+  let pct = chapters.length ? Math.round(done/chapters.length*100) : 0;
+  return {done, total:chapters.length, pct};
+}
+function overallPrepProgress(){
+  let done=0, total=0;
+  PREP_SUBJECTS.forEach(s=>{ let p=subjectPrepProgress(s); done+=p.done; total+=p.total; });
+  return {done, total, pct: total?Math.round(done/total*100):0};
+}
+function setPrepSubject(subj){
+  prepActiveSubject = subj;
+  localStorage.setItem("jarvis_prep_subject", subj);
+  renderPrep();
+}
+function togglePrepChapter(subj, chapter){
+  if(!prepData[subj]) prepData[subj] = {};
+  prepData[subj][chapter] = !prepData[subj][chapter];
+  savePrep();
+  renderPrep();
+}
+function escapePrepText(value){
+  return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function setAllPrepChapters(done){
+  const subj = prepActiveSubject;
+  if(!prepData[subj]) prepData[subj] = {};
+  (prepSyllabus[subj]||[]).forEach(ch=>{ prepData[subj][ch] = !!done; });
+  savePrep();
+  renderPrep();
+  announce(done ? `${subj} preparation marked complete, sir.` : `${subj} preparation checklist reset, sir.`);
+}
+function renderPrep(){
+  const overviewEl = document.getElementById("prepOverview");
+  const overall = overallPrepProgress();
+
+  if(overviewEl){
+    overviewEl.innerHTML =
+      `<div class="prep-overview-item">
+        <div class="label">OVERALL</div>
+        <div class="num" style="font-size:20px">${overall.pct}%</div>
+        <div class="bar" style="margin-top:8px"><span style="width:${overall.pct}%"></span></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">${overall.done}/${overall.total} CHAPTERS</div>
+      </div>` +
+      PREP_SUBJECTS.map(s=>{
+        const p=subjectPrepProgress(s);
+        return `<div class="prep-overview-item">
+          <div class="label">${escapePrepText(s.toUpperCase())}</div>
+          <div class="num" style="font-size:20px">${p.pct}%</div>
+          <div class="bar" style="margin-top:8px"><span style="width:${p.pct}%"></span></div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px">${p.done}/${p.total} DONE</div>
+        </div>`;
+      }).join("");
+  }
+
+  const subjectRow=document.getElementById("prepSubjectRow");
+  if(subjectRow){
+    subjectRow.innerHTML=PREP_SUBJECTS.map(s=>{
+      const p=subjectPrepProgress(s);
+      return `<button type="button" class="prep-subject-chip ${s===prepActiveSubject?"active":""}"
+        onclick="setPrepSubject('${escapePrepText(s)}')">
+        ${escapePrepText(s)} <span class="chip-pct">${p.pct}%</span>
+      </button>`;
+    }).join("");
+  }
+
+  const chapters=prepSyllabus[prepActiveSubject]||[];
+  const subjData=prepData[prepActiveSubject]||{};
+  const progress=subjectPrepProgress(prepActiveSubject);
+
+  const titleEl=document.getElementById("prepActiveTitle");
+  if(titleEl) titleEl.textContent=`${prepActiveSubject.toUpperCase()} PREPARATION`;
+
+  const barEl=document.getElementById("prepSubjectBar");
+  if(barEl) barEl.style.width=progress.pct+"%";
+
+  const labelEl=document.getElementById("prepSubjectLabel");
+  if(labelEl) labelEl.textContent=`${progress.done} of ${progress.total} chapters completed`;
+
+  const progressText=document.getElementById("prepProgressText");
+  if(progressText) progressText.textContent=`${progress.pct}% COMPLETE`;
+
+  const remainingText=document.getElementById("prepRemainingText");
+  if(remainingText) remainingText.textContent=`${progress.total-progress.done} REMAINING`;
+
+  const listEl=document.getElementById("prepChecklist");
+  if(listEl){
+    listEl.innerHTML=chapters.length ? chapters.map((c,i)=>{
+      const done=!!subjData[c];
+      const cid=`prepchk_${prepActiveSubject}_${i}`.replace(/[^a-zA-Z0-9_]/g,"");
+      return `<div class="prep-chapter-row ${done?"done":""}">
+        <span class="prep-chapter-num">CH ${String(i+1).padStart(2,"0")}</span>
+        <input type="checkbox" id="${cid}" ${done?"checked":""}
+          onchange="togglePrepChapter('${escapePrepText(prepActiveSubject)}','${escapePrepText(c)}')">
+        <label for="${cid}">${escapePrepText(c)}</label>
+        <span style="font:600 9px Orbitron;color:${done?"var(--green)":"var(--muted)"}">${done?"DONE":"PENDING"}</span>
+      </div>`;
+    }).join("") : `<div class="cal-empty">No chapters configured for this subject.</div>`;
+  }
+}
+
 function daysUntil(dateStr){
   let today=new Date(); today.setHours(0,0,0,0);
   let target=new Date(dateStr+"T00:00:00");
@@ -1292,7 +2347,7 @@ function renderHabits(){
 
   let body="";
   habitList.forEach((h,hIdx)=>{
-    body+=`<tr><td class="habit-title">${hIdx+1}. ${h}</td>`;
+    body+=`<tr><td class="habit-title">${hIdx+1}. ${escapeHtml(h)}</td>`;
     for(let day=1;day<=numDays;day++){
       const date=new Date(year,month,day);
       const iso=isoDate(date);
@@ -1305,6 +2360,61 @@ function renderHabits(){
     body+="</tr>";
   });
   document.getElementById("habitBody").innerHTML=body;
+}
+
+function toggleGoalEditor(){
+  const ed=document.getElementById("goalEditor"), btn=document.getElementById("editGoalsBtn");
+  const open=ed.style.display==="none";
+  ed.style.display=open?"block":"none";
+  btn.textContent=open?"✓ DONE EDITING":"✎ EDIT GOALS";
+  if(open) renderGoalEditor();
+}
+function renderGoalEditor(){
+  const box=document.getElementById("goalEditList"); if(!box) return;
+  box.innerHTML="";
+  habitList.forEach((name,i)=>{
+    const row=document.createElement("div");
+    row.style.cssText="display:flex;gap:8px;margin-bottom:6px;align-items:center";
+    const num=document.createElement("span");
+    num.className="prep-chapter-num"; num.textContent=(i+1)+".";
+    const inp=document.createElement("input");
+    inp.value=name; inp.maxLength=40; inp.style.flex="1";
+    inp.onchange=()=>renameGoal(i,inp.value);
+    const del=document.createElement("button");
+    del.className="action"; del.type="button"; del.textContent="✕"; del.title="Delete goal";
+    del.onclick=()=>deleteGoal(i);
+    row.append(num,inp,del);
+    box.appendChild(row);
+  });
+}
+function renameGoal(i,val){
+  val=val.trim();
+  if(!val){ renderGoalEditor(); return; }
+  habitList[i]=val; saveHabitList(); renderHabits(); renderCalendar();
+}
+function addGoal(){
+  const inp=document.getElementById("newGoalInput");
+  const val=inp.value.trim(); if(!val) return;
+  habitList.push(val); inp.value="";
+  saveHabitList(); renderGoalEditor(); renderHabits(); renderCalendar();
+}
+function deleteGoal(i){
+  if(!confirm('Delete "'+habitList[i]+'" and all its logged history?')) return;
+  const next={};
+  Object.keys(habitData).forEach(k=>{
+    const m=k.match(/^(\d{4}-\d{2}-\d{2})_(\d+)$/); if(!m) return;
+    const idx=Number(m[2]);
+    if(idx<i) next[k]=habitData[k];
+    else if(idx>i) next[m[1]+"_"+(idx-1)]=habitData[k];
+  });
+  habitData=next;
+  habitList.splice(i,1);
+  localStorage.setItem("jarvis_habits_v2",JSON.stringify(habitData));
+  saveHabitList(); renderGoalEditor(); renderHabits(); renderCalendar();
+}
+function resetGoals(){
+  if(!confirm("Reset goal names to the defaults? Logged marks stay attached to their row numbers.")) return;
+  habitList=DEFAULT_HABITS.slice(); saveHabitList(); renderGoalEditor(); renderHabits(); renderCalendar();
 }
 
 function cycleHabit(key){
@@ -1397,8 +2507,8 @@ function jarvisReply(text,options={}){
 function handleChatSubmit(e){if(e)e.preventDefault();let input=document.getElementById("chatInput"),text=input.value.trim();if(!text)return;addChatMessage("user",text);input.value="";processVoiceCommand(text.toLowerCase());}
 function quickAsk(text){addChatMessage("user",text);processVoiceCommand(text.toLowerCase());}
 function conversationalReply(lines){jarvisReply(pick(lines));}
-function isAffirmative(cmd){return /^(yes|yeah|yep|sure|okay|ok|alright|do it|go ahead|please do|yup)\\b/.test(cmd);}
-function isNegative(cmd){return /^(no|nope|nah|not now|cancel|don't)\\b/.test(cmd);}
+function isAffirmative(cmd){return /^(yes|yeah|yep|sure|okay|ok|alright|do it|go ahead|please do|yup)\b/.test(cmd);}
+function isNegative(cmd){return /^(no|nope|nah|not now|cancel|don't)\b/.test(cmd);}
 /* PROACTIVE VOICE ANNOUNCEMENTS */
 let voiceAnnouncementsOn = JSON.parse(localStorage.getItem("jarvis_announce") ?? "true");
 function syncAnnounceBtn(){
@@ -1752,26 +2862,26 @@ function processVoiceCommand(cmd) {
     }
     if(q==="study"){let next=nextExam();jarvisReply(next?`Let's do it. Your next exam is ${next.subject}, so I'd focus there first. I can help you break the syllabus into a simple study plan.`:"Let's do it. Tell me the subject and I'll help you make a focused study plan.");return;}
   }
-  if(/\\b(what can you do|what do you do|help me|help)\\b/.test(cmd)){
+  if(/\b(what can you do|what do you do|help me|help)\b/.test(cmd)){
     jarvisReply("Quite a bit, sir. I can manage your tasks, check habits and progress, look up your timetable and exams, log your mood, control music, open sections, and keep you company. You don't have to phrase everything like a command — just talk to me normally.");
     return;
   }
-  if(/\\b(i am (bored|tired)|i'm (bored|tired)|bored)\\b/.test(cmd)){
+  if(/\b(i am (bored|tired)|i'm (bored|tired)|bored)\b/.test(cmd)){
     jarvisReply("Bored already, sir? We can fix that. I can give you a quick challenge, tell you a joke, or help you knock out one small task. What sounds good?");
     jarvisLastQuestion="study"; return;
   }
-  if(/\\b(i am (stressed|overwhelmed)|i'm (stressed|overwhelmed)|too much work)\\b/.test(cmd)){
+  if(/\b(i am (stressed|overwhelmed)|i'm (stressed|overwhelmed)|too much work)\b/.test(cmd)){
     let pending=tasks.filter(t=>!t.done);
     jarvisReply(pending.length?`Take a breath, sir. You have ${pending.length} pending task${pending.length===1?"":"s"}, but you don't need to solve everything at once. Let's take the most important one first. Want me to help you prioritize them?`:"Take a breath, sir. You don't need to solve everything at once. Tell me what's bothering you and we'll break it into smaller pieces.");
     jarvisLastQuestion="prioritize"; return;
   }
-  if(/\\b(what's up|whats up|how's it going|hows it going|what are you doing)\\b/.test(cmd)){
+  if(/\b(what's up|whats up|how's it going|hows it going|what are you doing)\b/.test(cmd)){
     conversationalReply(["I'm here, monitoring the system and waiting for your next move. You could say I'm on standby — but I prefer a good conversation.","Nothing dramatic on my end, sir. I'm online, your data is right here, and I'm ready whenever you are.","Just keeping an eye on things. Your schedule, tasks, habits — the usual. What are we working on?"]); return;
   }
-  if(/\\b(you are (cool|awesome|amazing)|you're (cool|awesome|amazing)|i like you)\\b/.test(cmd)){
+  if(/\b(you are (cool|awesome|amazing)|you're (cool|awesome|amazing)|i like you)\b/.test(cmd)){
     conversationalReply(["I'll take that as a successful system test, sir.","Glad to hear it. I try to keep the experience slightly less robotic.","Careful, sir. Compliments may increase my confidence by approximately 12%."]); return;
   }
-  if(/\\b(i am (happy|sad|angry|fine|good|okay)|i'm (happy|sad|angry|fine|good|okay))\\b/.test(cmd)){
+  if(/\b(i am (happy|sad|angry|fine|good|okay)|i'm (happy|sad|angry|fine|good|okay))\b/.test(cmd)){
     conversationalReply(["Good to hear, sir. I'm glad you're doing alright.","That's good. Keep that energy going.","Understood. I'm here if you want to talk or get something done."]); return;
   }
 
@@ -1940,6 +3050,17 @@ function processVoiceCommand(cmd) {
   else if (cmd.includes("who are you")) {
     jarvisReply("I am your personal command system, sir — fully operational and monitoring your schedule, tasks, and habits.");
   }
+  else if (/instagram|insta\b|doomscroll/.test(cmd)) {
+    jarvisReply("Opening your focus gate, sir. Tell me why you're going in, and keep it short.");
+    showPage("social", document.getElementById("nav-social"));
+  }
+  else if (/study plan|what should i study|what to study|plan my study/.test(cmd)) {
+    jarvisReply(todaysPlanSummary());
+    showPage("exam", document.getElementById("nav-exam")); showExamSubTab("plan");
+  }
+  else if (aiKey()) {
+    askAI(cmd);
+  }
   else {
     jarvisReply(pick([
       "Hmm, I'm not quite sure what you mean yet, sir. You can talk to me normally — ask what's on your schedule, tell me you're stressed, or ask what you should work on next.",
@@ -1948,6 +3069,1164 @@ function processVoiceCommand(cmd) {
     ]));
   }
 }
+
+/* ===== AI BRAIN (Claude) =====
+   Any message the built-in commands don't understand goes to Claude, along with a
+   snapshot of your tasks, today's timetable, exams and habits. The API key stays in
+   this browser only (localStorage) and is NOT included in backups. */
+function aiKey(){ try{ return localStorage.getItem("jarvis_ai_key")||""; }catch(e){ return ""; } }
+function setAIKey(){
+  const k=prompt("Paste your Anthropic API key (console.anthropic.com). It is stored only in this browser.\nLeave blank to remove it.", aiKey());
+  if(k===null) return;
+  try{ k.trim()?localStorage.setItem("jarvis_ai_key",k.trim()):localStorage.removeItem("jarvis_ai_key"); }catch(e){}
+  jarvisReply(k.trim()?"AI core connected, sir. Ask me anything.":"AI core disconnected.");
+}
+function aiContext(){
+  const now=new Date(), day=["SUN","MON","TUE","WED","THU","FRI","SAT"][now.getDay()];
+  return JSON.stringify({
+    now:now.toLocaleString("en-IN"),
+    tasks:tasks.map(t=>({task:t.text,priority:t.priority,done:t.done})),
+    todaySchedule:(schedule[day]||[]).map(p=>p[0]+"-"+p[1]+" "+p[2]),
+    upcomingExams:exams.filter(x=>daysUntil(x.date)>=0).slice(0,8).map(x=>({subject:x.subject,date:x.date,time:x.time,notes:x.notes})),
+    habitsToday:habitList.map((h,i)=>({habit:h,status:habitData[habitDateKey(now,i)]||"not logged"}))
+  });
+}
+async function askAI(text){
+  const indicator=showTypingIndicator();
+  const history=jarvisConversation.slice(-8).map(m=>({role:m.role==="jarvis"?"assistant":"user",content:m.text}));
+  while(history.length && history[0].role!=="user") history.shift();
+  const msgs=[];
+  history.forEach(m=>{ if(msgs.length && msgs[msgs.length-1].role===m.role) msgs[msgs.length-1].content+="\n"+m.content; else msgs.push({...m}); });
+  if(msgs.length && msgs[msgs.length-1].role==="user" && msgs[msgs.length-1].content.includes(text)) {} else {
+    if(msgs.length && msgs[msgs.length-1].role==="user") msgs[msgs.length-1].content+="\n"+text; else msgs.push({role:"user",content:text});
+  }
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":aiKey(),"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-6", max_tokens:400,
+        system:"You are JARVIS, a witty, concise personal assistant for a school student (address them as 'sir'). Reply in plain text, 1-3 short sentences, no markdown, since replies are spoken aloud. Use this live data when relevant: "+aiContext(),
+        messages:msgs
+      })
+    });
+    const data=await r.json();
+    if(indicator) indicator.remove();
+    if(!r.ok) throw new Error(data.error&&data.error.message||("HTTP "+r.status));
+    const reply=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join(" ").trim();
+    jarvisReply(reply||"I drew a blank on that one, sir.",{instant:true});
+  }catch(err){
+    if(indicator) indicator.remove();
+    jarvisReply("My AI core hit an error, sir: "+err.message+". Check your API key with the AI KEY button.");
+  }
+}
+
+/* ===== FREE AUTO STUDY PLANNER (no AI service, runs locally) =====
+   Earliest-deadline-first: every unchecked chapter must be done before its exam.
+   Each chapter takes ~1 hour. The day before each exam is kept for revision. */
+let planHours=Number(localStorage.getItem("jarvis_plan_hours"))||3;
+let planItems=[];
+function setPlanHours(v){ planHours=Number(v)||3; try{localStorage.setItem("jarvis_plan_hours",String(planHours));}catch(e){} renderStudyPlan(); }
+function buildStudyPlan(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const upcoming=exams.filter(x=>daysUntil(x.date)>=1).sort((a,b)=>a.date.localeCompare(b.date));
+  const horizon=upcoming.length?Math.max(...upcoming.map(x=>daysUntil(x.date))):0;
+  const days=[]; for(let d=0;d<horizon;d++){ const dt=new Date(today); dt.setDate(dt.getDate()+d); days.push({date:dt,items:[],cap:planHours}); }
+  const overflow=[];
+  // reserve revision slot on the day before each exam
+  upcoming.forEach(ex=>{ const d=daysUntil(ex.date)-1; days[d].items.push({type:"rev",subject:ex.subject,label:"Revise "+ex.subject+" for tomorrow's exam"}); days[d].cap-=1; });
+  // unchecked chapters, nearest exam first
+  const jobs=[];
+  upcoming.forEach(ex=>{
+    const dl=daysUntil(ex.date)-1;
+    (prepSyllabus[ex.subject]||[]).forEach(ch=>{ if(!(prepData[ex.subject]||{})[ch]) jobs.push({type:"ch",subject:ex.subject,chapter:ch,label:ch,deadline:dl}); });
+  });
+  jobs.sort((a,b)=>a.deadline-b.deadline);
+  jobs.forEach(job=>{
+    let placed=false;
+    for(let d=0; d<=job.deadline; d++){ if(days[d].cap>=1){ days[d].items.push(job); days[d].cap-=1; placed=true; break; } }
+    if(!placed){ days[job.deadline].items.push(job); overflow.push(job); }   // too much work: squeeze onto last day, flagged
+  });
+  return {days,overflow,examCount:upcoming.length};
+}
+function renderStudyPlan(){
+  const sel=document.getElementById("planHours"); if(sel) sel.value=String(planHours);
+  const body=document.getElementById("planBody"), warn=document.getElementById("planWarn"); if(!body) return;
+  const plan=buildStudyPlan(); planItems=[];
+  warn.innerHTML=plan.overflow.length?`<div class="card" style="border-color:var(--amber);margin:8px 0">&#9888; ${plan.overflow.length} chapter(s) don't fit at ${planHours}h/day. They are squeezed onto the last day before their exam. Raise the hours per day to fix it.</div>`:"";
+  if(!plan.examCount){ body.innerHTML='<div class="label" style="padding:14px">No upcoming exams. Add exams in the DATESHEET tab and your plan appears here.</div>'; return; }
+  let html="";
+  plan.days.forEach((d,di)=>{
+    if(!d.items.length) return;
+    const title=di===0?"TODAY":di===1?"TOMORROW":d.date.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
+    html+=`<div class="event${di===0?' now':''}" style="display:block;margin:10px 0"><div class="section-title" style="margin-bottom:8px">${title}</div>`;
+    d.items.forEach(it=>{
+      if(it.type==="ch"){ const idx=planItems.push(it)-1;
+        html+=`<div class="prep-chapter-row"><input type="checkbox" onchange="togglePlanItem(${idx})"><label style="flex:1">${escapeHtml(it.subject)}: ${escapeHtml(it.chapter)}</label></div>`;
+      } else html+=`<div class="prep-chapter-row"><span style="color:var(--amber);width:18px">&#9733;</span><label style="flex:1">${escapeHtml(it.label)}</label></div>`;
+    });
+    html+="</div>";
+  });
+  body.innerHTML=html||'<div class="label" style="padding:14px">All chapters are done. Only revision is left. Well done, sir.</div>';
+}
+function togglePlanItem(i){
+  const it=planItems[i]; if(!it) return;
+  if(!prepData[it.subject]) prepData[it.subject]={};
+  prepData[it.subject][it.chapter]=true; savePrep(); renderStudyPlan();
+}
+function todaysPlanSummary(){
+  const plan=buildStudyPlan(); const t=plan.days[0];
+  if(!plan.examCount) return "You have no upcoming exams in the datesheet, sir. Add some and I'll build your study plan.";
+  if(!t||!t.items.length) return "Nothing scheduled to study today, sir. You're ahead of the plan.";
+  return "Today's plan, sir: "+t.items.map(it=>it.type==="ch"?it.subject+", "+it.chapter:it.label).join("; ")+".";
+}
+
+/* ===== SOCIAL SUB-TABS ===== */
+function showSocSubTab(name){
+  document.querySelectorAll(".soc-subpage").forEach(x=>x.classList.remove("active"));
+  const p=document.getElementById("socSub-"+name); if(p) p.classList.add("active");
+  document.querySelectorAll("#socTab-instagram,#socTab-youtube").forEach(b=>b.classList.remove("active"));
+  const t=document.getElementById("socTab-"+name); if(t) t.classList.add("active");
+  if(name==="instagram") setTimeout(renderSocial,0);
+}
+
+/* ===== SYNCPLAY (YouTube watch party) — JARVIS client ===== */
+const SP_QUICK=["😂","🔥","❤️","👏","😱","💀","🙌","🎉"];
+const SP_RTC={iceServers:[{urls:"stun:stun.l.google.com:19302"}]};
+let spWs=null, spMyId=null, spMyColor="#36e8ff", spRoomId=null, spIsHost=false;
+let spPlayer=null, spYtReady=false, spPending=null, spIgnoreSeek=false, spLastState=-1, spLastTime=0;
+let spUsers=[], spInVoice=false, spMuted=false, spLocalStream=null;
+let spPeers={}, spRemoteAudio={}, spAnalyser=null, spSpeakTimer=null;
+
+function spWsUrl(){
+  const custom=(document.getElementById("spServer")?.value||"").trim();
+  if(custom) return custom.replace(/^http/,"ws");
+  try{ const s=localStorage.getItem("jarvis_sp_server"); if(s) return s; }catch(e){}
+  return "wss://sync-play-h1t3.onrender.com";
+}
+function spSaveServer(){
+  const v=(document.getElementById("spServer")?.value||"").trim();
+  try{ v?localStorage.setItem("jarvis_sp_server",v):localStorage.removeItem("jarvis_sp_server"); }catch(e){}
+}
+(function(){
+  try{
+    const el=document.getElementById("spServer"); if(!el) return;
+    const s=localStorage.getItem("jarvis_sp_server");
+    el.value=s||"wss://sync-play-h1t3.onrender.com";
+  }catch(e){}
+})();
+
+function spShowError(t){ const e=document.getElementById("spLandingError"); if(e) e.textContent=t||""; }
+function spToast(t){
+  const el=document.getElementById("spSyncToast"); if(!el) return;
+  el.textContent=t; el.style.opacity="1";
+  clearTimeout(el._t); el._t=setTimeout(()=>el.style.opacity="0",1600);
+}
+function spCreateRoom(){
+  const name=(document.getElementById("spNick").value||"").trim()||"Guest";
+  spSaveServer();
+  spShowError("Connecting to server… (Render may take up to 60s to wake)");
+  spConnect(()=>{
+    spShowError("");
+    spWs.send(JSON.stringify({type:"create_room",name}));
+  });
+}
+function spJoinRoom(){
+  const name=(document.getElementById("spNick").value||"").trim()||"Guest";
+  const code=(document.getElementById("spCode").value||"").trim().toUpperCase();
+  if(!code) return spShowError("Enter a room code.");
+  spSaveServer();
+  spShowError("Connecting to server… (Render may take up to 60s to wake)");
+  spConnect(()=>{
+    spShowError("");
+    spWs.send(JSON.stringify({type:"join_room",roomId:code,name}));
+  });
+}
+function spConnect(onOpen){
+  if(spWs&&spWs.readyState===WebSocket.OPEN) return onOpen();
+  if(spWs){ try{ spWs.close(); }catch(e){} spWs=null; }
+  let opened=false;
+  try{ spWs=new WebSocket(spWsUrl()); }
+  catch(e){ return spShowError("Invalid server URL."); }
+  const timeout=setTimeout(()=>{
+    if(!opened) spShowError("Still waiting… Open https://sync-play-h1t3.onrender.com once to wake the server, then try again.");
+  },12000);
+  spWs.onopen=()=>{ opened=true; clearTimeout(timeout); onOpen(); };
+  spWs.onmessage=e=>{ try{ spHandle(JSON.parse(e.data)); }catch(err){} };
+  spWs.onclose=()=>{
+    clearTimeout(timeout);
+    if(spRoomId) spShowError("Connection lost. Rejoin the room.");
+    else if(!opened) spShowError("Could not connect. Wake the server at sync-play-h1t3.onrender.com, wait 30s, then retry.");
+  };
+  spWs.onerror=()=>{};
+}
+function spLeaveRoom(){
+  try{ spWs?.close(); }catch(e){}
+  spWs=null; spRoomId=null; spIsHost=false;
+  document.body.classList.remove("sp-is-host");
+  document.getElementById("spLanding").style.display="block";
+  document.getElementById("spRoom").style.display="none";
+  spDestroyPlayer();
+  document.getElementById("spEmptyVideo").style.display="flex";
+  spLeaveVoice();
+}
+
+function spHandle(msg){
+  switch(msg.type){
+    case "error": spShowError(msg.message); break;
+    case "room_joined":{
+      spMyId=msg.userId; spMyColor=msg.color; spRoomId=msg.roomId; spIsHost=msg.isHost;
+      document.body.classList.toggle("sp-is-host",spIsHost);
+      document.getElementById("spLanding").style.display="none";
+      document.getElementById("spRoom").style.display="block";
+      document.getElementById("spCodePill").textContent=spRoomId;
+      document.getElementById("spRoomTitle").textContent="ROOM "+spRoomId;
+      document.getElementById("spChatInput").placeholder="Message as "+(msg.users.find(u=>u.id===spMyId)?.name||"")+"...";
+      spUpdatePeople(msg.users);
+      spBuildReactions();
+      if(msg.videoUrl) spLoadVideo(msg.videoUrl,msg.state);
+      else document.getElementById("spEmptySub").textContent=spIsHost?"Paste a YouTube URL below to start.":"Waiting for the host to load a video...";
+      spAddSys("You joined "+spRoomId+(spIsHost?" as host":""));
+      break;
+    }
+    case "user_joined": spUpdatePeople(msg.users); spAddSys(msg.name+" joined 🎉"); break;
+    case "user_left":
+      spUpdatePeople(msg.users); spAddSys(msg.name+" left.");
+      if(msg.newHostId===spMyId){ spIsHost=true; document.body.classList.add("sp-is-host"); spAddSys("You are now the host."); }
+      break;
+    case "video_set": spLoadVideo(msg.url,{playing:false,time:0}); spAddSys("Host loaded a new video."); break;
+    case "play":
+      spToast("▶ PLAY SYNCED");
+      if(spPlayer&&spYtReady){ spPlayer.seekTo(msg.time,true); spPlayer.playVideo(); }
+      break;
+    case "pause":
+      spToast("⏸ PAUSE SYNCED");
+      if(spPlayer&&spYtReady){ spPlayer.seekTo(msg.time,true); spPlayer.pauseVideo(); }
+      break;
+    case "seek":
+      spToast("⏩ SEEK SYNCED");
+      if(spPlayer&&spYtReady){
+        spIgnoreSeek=true; spPlayer.seekTo(msg.time,true);
+        msg.playing?spPlayer.playVideo():spPlayer.pauseVideo();
+        setTimeout(()=>spIgnoreSeek=false,500);
+      }
+      break;
+    case "chat": spAddChat(msg); break;
+    case "reaction": spSpawnReact(msg.emoji,msg.color); break;
+    case "voice_existing_peers": (msg.peers||[]).forEach(p=>spCreatePC(p.userId,true)); break;
+    case "voice_peer_left": spClosePC(msg.userId); break;
+    case "voice_signal": spHandleSignal(msg.fromId,msg.signal); break;
+    case "voice_state":{
+      const u=spUsers.find(x=>x.id===msg.userId); if(u){u.inVoice=msg.inVoice;u.muted=msg.muted;} spUpdatePeople(spUsers); break;
+    }
+    case "voice_speaking":{
+      const row=document.getElementById("sp-person-"+msg.userId);
+      if(row) row.style.borderColor=msg.speaking?"var(--green)":"";
+      break;
+    }
+  }
+}
+
+function spExtractId(url){
+  const m=url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/)||url.match(/^([a-zA-Z0-9_-]{11})$/);
+  return m?m[1]:null;
+}
+function spIsFileOrigin(){ return location.protocol==="file:"; }
+function spLoadVideo(url,state){
+  const id=spExtractId(url); if(!id) return spAddSys("Invalid YouTube URL.");
+  document.getElementById("spEmptyVideo").style.display="none";
+  spPending=state||{playing:false,time:0};
+  // YouTube blocks the IFrame API on file:// (Error 153). Use a plain embed fallback.
+  if(spIsFileOrigin()){
+    spEmbedFallback(id);
+    spAddSys("Tip: open JARVIS via a local server (not as a file) for full sync controls. YouTube blocks embeds from file://.");
+    return;
+  }
+  if(spPlayer&&typeof spPlayer.loadVideoById==="function"){
+    try{ spPlayer.loadVideoById(id); return; }catch(e){}
+  }
+  if(window.YT&&window.YT.Player){ spCreatePlayer(id); }
+  else {
+    window._spPendingId=id;
+    if(!document.getElementById("yt-api")){
+      const s=document.createElement("script"); s.id="yt-api"; s.src="https://www.youtube.com/iframe_api"; document.head.appendChild(s);
+    }
+  }
+}
+const _ytReady=window.onYouTubeIframeAPIReady;
+window.onYouTubeIframeAPIReady=function(){
+  if(typeof _ytReady==="function") try{ _ytReady(); }catch(e){}
+  if(window._spPendingId) spCreatePlayer(window._spPendingId);
+};
+function spDestroyPlayer(){
+  try{ if(spPlayer&&spPlayer.destroy) spPlayer.destroy(); }catch(e){}
+  spPlayer=null; spYtReady=false;
+  const old=document.getElementById("yt-player"); if(old) old.remove();
+  const fb=document.getElementById("sp-yt-fallback"); if(fb) fb.remove();
+}
+function spEmbedFallback(videoId){
+  spDestroyPlayer();
+  const stage=document.getElementById("spYtStage");
+  const iframe=document.createElement("iframe");
+  iframe.id="sp-yt-fallback";
+  iframe.style.cssText="position:absolute;inset:0;width:100%;height:100%;border:0";
+  iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframe.allowFullscreen=true;
+  iframe.referrerPolicy="strict-origin-when-cross-origin";
+  // nocookie + origin-less embed is the most reliable from restricted contexts
+  iframe.src="https://www.youtube-nocookie.com/embed/"+videoId+"?rel=0&modestbranding=1&playsinline=1"+(spIsHost?"":"&controls=0");
+  stage.appendChild(iframe);
+  spYtReady=false; // no API control in fallback
+}
+function spCreatePlayer(videoId){
+  spDestroyPlayer();
+  const mount=document.createElement("div");
+  mount.id="yt-player";
+  mount.style.cssText="position:absolute;inset:0;width:100%;height:100%";
+  document.getElementById("spYtStage").appendChild(mount);
+  const vars={
+    autoplay:0,
+    controls:spIsHost?1:0,
+    disablekb:spIsHost?0:1,
+    rel:0,
+    modestbranding:1,
+    playsinline:1,
+    enablejsapi:1,
+    fs:1
+  };
+  // origin is required by YouTube for the IFrame API on many browsers
+  if(location.protocol==="http:"||location.protocol==="https:"){
+    vars.origin=location.origin;
+    vars.widget_referrer=location.href;
+  }
+  try{
+    spPlayer=new YT.Player("yt-player",{
+      videoId,
+      width:"100%",
+      height:"100%",
+      host:"https://www.youtube-nocookie.com",
+      playerVars:vars,
+      events:{
+        onReady:e=>{
+          spYtReady=true;
+          if(spPending){
+            try{
+              e.target.seekTo(spPending.time||0,true);
+              spPending.playing?e.target.playVideo():e.target.pauseVideo();
+            }catch(err){}
+            spPending=null;
+          }
+        },
+        onStateChange:e=>{
+          if(!spIsHost||spIgnoreSeek||!spPlayer) return;
+          try{
+            const t=spPlayer.getCurrentTime();
+            if(e.data===YT.PlayerState.PLAYING&&spLastState!==YT.PlayerState.PLAYING) spWs?.send(JSON.stringify({type:"play",time:t}));
+            else if(e.data===YT.PlayerState.PAUSED&&spLastState!==YT.PlayerState.PAUSED) spWs?.send(JSON.stringify({type:"pause",time:t}));
+            spLastState=e.data;
+          }catch(err){}
+        },
+        onError:e=>{
+          // 2=invalid id, 5=html5, 100=not found, 101/150=embed not allowed, 153=config/origin
+          console.warn("YT error",e.data);
+          if(e.data===153||e.data===101||e.data===150){
+            spAddSys("YouTube embed blocked (error "+e.data+"). Using fallback player.");
+            spEmbedFallback(videoId);
+          }
+        }
+      }
+    });
+  }catch(err){
+    spAddSys("Player failed to start. Using fallback embed.");
+    spEmbedFallback(videoId);
+  }
+}
+setInterval(()=>{
+  if(!spIsHost||!spPlayer||!spYtReady) return;
+  try{
+    const t=spPlayer.getCurrentTime();
+    if(Math.abs(t-spLastTime)>2.5&&spPlayer.getPlayerState()!==YT.PlayerState.BUFFERING) spWs?.send(JSON.stringify({type:"seek",time:t}));
+    spLastTime=t;
+  }catch(e){}
+},1000);
+function spSetVideo(){
+  const url=(document.getElementById("spUrlInput").value||"").trim(); if(!url) return;
+  if(!spExtractId(url)) return spToast("❌ Invalid URL");
+  spWs?.send(JSON.stringify({type:"set_video",url}));
+  document.getElementById("spUrlInput").value="";
+}
+function spSendChat(){
+  const input=document.getElementById("spChatInput");
+  const text=(input.value||"").trim(); if(!text||!spWs) return;
+  spWs.send(JSON.stringify({type:"chat",message:text})); input.value="";
+}
+function spAddChat(msg){
+  const list=document.getElementById("spChatList");
+  const empty=list.querySelector(".label"); if(empty) empty.remove();
+  const el=document.createElement("div");
+  el.className="sp-chat-msg"+(msg.userId===spMyId?" mine":"");
+  const time=new Date(msg.timestamp||Date.now()).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+  el.innerHTML=`<div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--muted)"><span style="width:7px;height:7px;border-radius:50%;background:${msg.color||'var(--cyan)'}"></span><b>${escapeHtml(msg.name||"")}</b><span style="margin-left:auto">${time}</span></div><div class="sp-chat-bubble">${escapeHtml(msg.message||"")}</div>`;
+  list.appendChild(el); list.scrollTop=list.scrollHeight;
+}
+function spAddSys(text){
+  const list=document.getElementById("spChatList");
+  const empty=list.querySelector(".label"); if(empty) empty.remove();
+  const el=document.createElement("div"); el.className="sp-sys"; el.textContent=text;
+  list.appendChild(el); list.scrollTop=list.scrollHeight;
+}
+function spBuildReactions(){
+  const bar=document.getElementById("spReactBar"); if(!bar) return;
+  bar.innerHTML="";
+  SP_QUICK.forEach(emoji=>{
+    const b=document.createElement("button"); b.type="button"; b.className="action"; b.textContent=emoji; b.style.cssText="padding:6px 10px;font-size:16px";
+    b.onclick=()=>{ spWs?.send(JSON.stringify({type:"reaction",emoji})); spSpawnReact(emoji,spMyColor); };
+    bar.appendChild(b);
+  });
+}
+function spSpawnReact(emoji,color){
+  const stage=document.getElementById("spReactionStage"); if(!stage) return;
+  const el=document.createElement("div"); el.className="sp-floater"; el.textContent=emoji;
+  el.style.left=(15+Math.random()*70)+"%"; el.style.filter=`drop-shadow(0 0 6px ${color||'var(--cyan)'})`;
+  stage.appendChild(el); setTimeout(()=>el.remove(),2500);
+}
+function spUpdatePeople(users){
+  spUsers=users||[];
+  document.getElementById("spWatchCount").textContent=spUsers.length+" watching";
+  document.getElementById("spTabPeople").textContent="PEOPLE ("+spUsers.length+")";
+  const list=document.getElementById("spPeopleList"); list.innerHTML="";
+  spUsers.forEach(u=>{
+    const row=document.createElement("div"); row.className="sp-person"; row.id="sp-person-"+u.id;
+    const tags=[];
+    if(u.isHost) tags.push('<span style="font:700 10px Orbitron;color:var(--amber);border:1px solid var(--amber);padding:2px 8px;border-radius:20px">HOST</span>');
+    if(u.id===spMyId) tags.push('<span style="font:700 10px Orbitron;color:var(--cyan);border:1px solid var(--cyan);padding:2px 8px;border-radius:20px">YOU</span>');
+    if(u.inVoice) tags.push(u.muted?"🔇":"🎤");
+    row.innerHTML=`<div class="sp-avatar" style="background:${u.color||'var(--cyan)'}">${(u.name||"?")[0].toUpperCase()}</div><span style="flex:1;font-weight:600">${escapeHtml(u.name||"")}</span>${tags.join(" ")}`;
+    list.appendChild(row);
+  });
+}
+function spSwitchTab(name){
+  document.getElementById("spChatPanel").style.display=name==="chat"?"flex":"none";
+  document.getElementById("spPeoplePanel").style.display=name==="people"?"block":"none";
+  document.getElementById("spTabChat").style.borderBottomColor=name==="chat"?"var(--cyan)":"transparent";
+  document.getElementById("spTabChat").style.opacity=name==="chat"?"1":".65";
+  document.getElementById("spTabPeople").style.borderBottomColor=name==="people"?"var(--cyan)":"transparent";
+  document.getElementById("spTabPeople").style.opacity=name==="people"?"1":".65";
+}
+function spCopyCode(){
+  if(!spRoomId) return;
+  navigator.clipboard?.writeText(spRoomId).catch(()=>{});
+  spToast("📋 CODE COPIED");
+}
+
+/* voice */
+async function spToggleVoice(){
+  if(!spInVoice) await spJoinVoice(); else spToggleMute();
+}
+async function spJoinVoice(){
+  try{ spLocalStream=await navigator.mediaDevices.getUserMedia({audio:true,video:false}); }
+  catch(e){ return spToast("🚫 MIC DENIED"); }
+  spInVoice=true; spMuted=false; spUpdateMicBtn();
+  spWs?.send(JSON.stringify({type:"voice_join"}));
+}
+function spLeaveVoice(){
+  if(!spInVoice) return;
+  spInVoice=false; spWs?.send(JSON.stringify({type:"voice_leave"}));
+  Object.keys(spPeers).forEach(spClosePC);
+  if(spLocalStream){ spLocalStream.getTracks().forEach(t=>t.stop()); spLocalStream=null; }
+  spUpdateMicBtn();
+}
+function spToggleMute(){
+  if(!spInVoice) return;
+  spMuted=!spMuted;
+  spLocalStream?.getAudioTracks().forEach(t=>t.enabled=!spMuted);
+  spWs?.send(JSON.stringify({type:"voice_mute",muted:spMuted}));
+  spUpdateMicBtn();
+}
+function spUpdateMicBtn(){
+  const b=document.getElementById("spMicBtn"); if(!b) return;
+  b.textContent=!spInVoice?"🎤 VOICE":(spMuted?"🔇 MUTED":"🎤 LIVE");
+  b.style.borderColor=spInVoice?(spMuted?"var(--red)":"var(--green)"):"";
+}
+function spCreatePC(targetId,isInitiator){
+  if(spPeers[targetId]) return spPeers[targetId];
+  const pc=new RTCPeerConnection(SP_RTC); spPeers[targetId]=pc;
+  spLocalStream?.getTracks().forEach(t=>pc.addTrack(t,spLocalStream));
+  pc.onicecandidate=e=>{ if(e.candidate) spWs?.send(JSON.stringify({type:"voice_signal",targetId,signal:{kind:"ice",candidate:e.candidate}})); };
+  pc.ontrack=e=>{
+    let a=spRemoteAudio[targetId];
+    if(!a){ a=document.createElement("audio"); a.autoplay=true; document.body.appendChild(a); spRemoteAudio[targetId]=a; }
+    a.srcObject=e.streams[0];
+  };
+  if(isInitiator){
+    pc.onnegotiationneeded=async()=>{
+      try{
+        const offer=await pc.createOffer(); await pc.setLocalDescription(offer);
+        spWs?.send(JSON.stringify({type:"voice_signal",targetId,signal:{kind:"offer",sdp:pc.localDescription}}));
+      }catch(e){}
+    };
+  }
+  return pc;
+}
+async function spHandleSignal(fromId,signal){
+  let pc=spPeers[fromId];
+  if(signal.kind==="offer"){
+    if(!pc) pc=spCreatePC(fromId,false);
+    await pc.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+    const answer=await pc.createAnswer(); await pc.setLocalDescription(answer);
+    spWs?.send(JSON.stringify({type:"voice_signal",targetId:fromId,signal:{kind:"answer",sdp:pc.localDescription}}));
+  } else if(signal.kind==="answer"){ if(pc) await pc.setRemoteDescription(new RTCSessionDescription(signal.sdp)); }
+  else if(signal.kind==="ice"){ try{ await pc?.addIceCandidate(new RTCIceCandidate(signal.candidate)); }catch(e){} }
+}
+function spClosePC(id){
+  spPeers[id]?.close(); delete spPeers[id];
+  spRemoteAudio[id]?.remove(); delete spRemoteAudio[id];
+}
+
+/* ===== SOCIAL FOCUS GATE (Instagram) ===== */
+const SOC_URL={msg:"https://www.instagram.com/direct/inbox/",notif:"https://www.instagram.com/accounts/activity/",story:"https://www.instagram.com/"};
+let socData={}; try{ socData=JSON.parse(localStorage.getItem("jarvis_social")||"{}")||{}; }catch(e){ socData={}; }
+let socIntent=null, socLaunchAt=0;
+function socDay(off=0){ const d=new Date(); d.setDate(d.getDate()-off); return isoDate(d); }
+function socToday(){ const k=socDay(); return socData[k]||(socData[k]={mins:0,opens:0,blocked:0,overrides:0}); }
+function socLimit(){ return Number(socData._limit)||20; }
+function socSave(){ try{ localStorage.setItem("jarvis_social",JSON.stringify(socData)); }catch(e){} }
+function socSetLimit(v){ socData._limit=Math.max(5,Math.min(180,Number(v)||20)); socSave(); renderSocial(); }
+function socPick(i){
+  socIntent=i;
+  if(i==="bored"){ socToday().blocked++; socSave(); }
+  renderSocial();
+}
+function socOpen(kind,override){
+  const t=socToday(), over=t.mins>=socLimit();
+  if(socIntent==="bored"){ renderSocial(); return; }
+  if(!socIntent){ document.getElementById("socGate").textContent="Pick your reason in Step 1 first, sir."; return; }
+  if(over&&!override){ renderSocial(); return; }
+  if(override) t.overrides++;
+  t.opens++; socSave();
+  socLaunchAt=Date.now(); try{ localStorage.setItem("jarvis_social_launch",String(socLaunchAt)); }catch(e){}
+  window.open(SOC_URL[kind],"_blank","noopener");
+  renderSocial();
+}
+function socCommit(){
+  // called when you come back to this tab: logs the time spent away
+  let at=socLaunchAt; if(!at){ try{ at=Number(localStorage.getItem("jarvis_social_launch"))||0; }catch(e){} }
+  if(!at) return;
+  const mins=Math.min(120,Math.max(0,(Date.now()-at)/60000));
+  socLaunchAt=0; try{ localStorage.removeItem("jarvis_social_launch"); }catch(e){}
+  if(mins<0.1) return;
+  const t=socToday(); t.mins=Math.round((t.mins+mins)*10)/10; socSave(); renderSocial();
+  const left=socLimit()-t.mins;
+  if(t.mins>=socLimit()) announce("Instagram budget used up for today, sir. Time to get back to work.");
+  else if(left<=5) announce("Only "+Math.max(1,Math.round(left))+" minutes of Instagram left today, sir.");
+}
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) socCommit(); });
+function renderSocial(){
+  const t=socToday(), lim=socLimit(), pct=Math.min(100,Math.round(t.mins/lim*100));
+  const set=(id,fn)=>{ const el=document.getElementById(id); if(el) fn(el); };
+  set("socUsed",e=>e.textContent=Math.round(t.mins)+" / "+lim+" min");
+  set("socBar",e=>{ e.style.width=pct+"%"; e.style.background=pct>=100?"var(--red)":pct>=75?"var(--amber)":"var(--cyan)"; });
+  set("socLimit",e=>e.value=lim);
+  set("socStats",e=>e.textContent="OPENS TODAY: "+t.opens+"  //  BORED-BLOCKS: "+t.blocked+"  //  OVERRIDES: "+t.overrides);
+  document.querySelectorAll("#socIntent .prep-subject-chip").forEach(b=>b.classList.toggle("active",b.dataset.i===socIntent));
+  set("socGate",e=>{
+    if(socIntent==="bored") e.innerHTML="Boredom isn't a reason, sir. Go knock out one chapter from your <a href=\"#\" style=\"color:var(--cyan)\" onclick=\"showPage('exam',document.getElementById('nav-exam'));showExamSubTab('plan');return false\">study plan</a> first. Instagram will still be there.";
+    else if(t.mins>=lim) e.innerHTML="Daily limit reached. The gate is locked until tomorrow. <button type=\"button\" class=\"action\" onclick=\"socOpen(socIntent==='notif'?'notif':socIntent==='story'?'story':'msg',true)\">OVERRIDE (logs a slip)</button>";
+    else if(socIntent) e.textContent="Approved. Go in, do only that, then come back here.";
+    else e.textContent="Waiting for your reason...";
+  });
+  let wk="";
+  for(let i=6;i>=0;i--){ const d=socData[socDay(i)]; const m=d?Math.round(d.mins):0; const w=Math.min(100,Math.round(m/lim*100));
+    wk+=`<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12px"><span style="width:52px;color:var(--muted)">${i===0?"TODAY":socDay(i).slice(5)}</span><div class="bar" style="flex:1;margin:0"><span style="width:${w}%;background:${m>=lim?'var(--red)':'var(--cyan)'}"></span></div><span style="width:40px;text-align:right">${m}m</span></div>`; }
+  set("socWeek",e=>e.innerHTML=wk);
+}
+
+/* ===== GUI UPGRADE: reactor + accent colours ===== */
+(function(){
+  const hero=document.querySelector("#dashboard .hero");
+  if(hero){ const r=document.createElement("div"); r.className="reactor"; r.innerHTML="<i></i><i></i><i></i><b></b><em></em><em></em><s></s>"; hero.appendChild(r); }
+  const ACCENTS={Cyan:["#36e8ff","#8af6ff","54,232,255"],Green:["#42f5a7","#9dfbd0","66,245,167"],Violet:["#a78bfa","#d0c2ff","167,139,250"],Amber:["#ffd45c","#ffe99e","255,212,92"],Red:["#ff5577","#ff98ad","255,85,119"]};
+  const st=document.createElement("style"); st.id="accentStyle"; document.head.appendChild(st);
+  function setAccent(n,save){
+    const a=ACCENTS[n]||ACCENTS.Cyan;
+    st.textContent=`html:not([data-theme="light"]){--cyan:${a[0]};--cyan2:${a[1]};--line:rgba(${a[2]},.20);--glow:0 0 22px rgba(${a[2]},.18)}`;
+    document.querySelectorAll(".accent-dot").forEach(d=>d.classList.toggle("on",d.title===n));
+    if(save){ try{localStorage.setItem("jarvis_accent",n);}catch(e){} }
+  }
+  const sub=document.querySelector(".side .sub");
+  if(sub){
+    const row=document.createElement("div"); row.className="accent-row"; row.innerHTML="<span>ACCENT</span>";
+    Object.keys(ACCENTS).forEach(n=>{ const b=document.createElement("button"); b.type="button"; b.className="accent-dot"; b.title=n; b.style.background=ACCENTS[n][0]; b.style.color=ACCENTS[n][0]; b.onclick=()=>setAccent(n,true); row.appendChild(b); });
+    sub.after(row);
+  }
+  let saved="Cyan"; try{ saved=localStorage.getItem("jarvis_accent")||"Cyan"; }catch(e){}
+  setAccent(saved,false);
+})();
+
+/* ===== NEW LOOK switch + DASHBOARD WIDGETS ===== */
+(function(){
+  // look switch (HUD / Aurora)
+  const root=document.documentElement;
+  function setLook(v,save){ root.setAttribute("data-look",v); const b=document.getElementById("lookBtn"); if(b) b.textContent=v==="aurora"?"AURORA":"HUD"; if(save){try{localStorage.setItem("jarvis_look",v);}catch(e){}} }
+  const accent=document.querySelector(".accent-row");
+  if(accent){
+    const row=document.createElement("div"); row.className="accent-row"; row.style.margin="-8px 0 22px";
+    row.innerHTML='<span>LOOK</span><button type="button" class="action" id="lookBtn" style="padding:4px 10px;font-size:11px"></button>';
+    accent.after(row);
+    row.querySelector("button").onclick=()=>setLook(root.getAttribute("data-look")==="aurora"?"hud":"aurora",true);
+  }
+  let look="hud"; try{ look=localStorage.getItem("jarvis_look")||"hud"; }catch(e){}
+  setLook(look,false);
+
+  // widgets
+  const stats=document.querySelector("#dashboard .stats"); if(!stats) return;
+  const QUOTES=["Small steps every day beat big plans someday.","You don't have to be great to start, but you have to start to be great.","Discipline is choosing what you want most over what you want now.","One chapter today is one less panic tomorrow.","Focus is a superpower. Protect it.","Progress, not perfection.","Future you is watching. Make them proud."];
+  const W=document.createElement("div"); W.className="widgets";
+  W.innerHTML=`
+    <div class="card"><div class="label">NEXT EXAM</div><div class="wnum" id="wExam">-</div><div class="wsub" id="wExamSub"></div></div>
+    <div class="card"><div class="label">HABIT STREAK</div><div class="wnum" id="wStreak">0 days</div><div class="wsub" id="wStreakSub"></div></div>
+    <div class="card"><div class="label">INSTAGRAM BUDGET</div><div class="wnum" id="wSoc">-</div><div class="bar"><span id="wSocBar"></span></div></div>
+    <div class="card"><div class="label">FOCUS TIMER</div><div class="wnum" id="wTimer">25:00</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><select id="wTimerLen" style="width:70px"><option value="15">15m</option><option value="25" selected>25m</option><option value="45">45m</option></select>
+      <button type="button" class="action" id="wTimerGo">START</button><button type="button" class="action" id="wTimerReset">RESET</button></div></div>
+    <div class="card"><div class="label">THOUGHT OF THE DAY</div><div class="quote" id="wQuote"></div></div>`;
+  stats.after(W);
+  const $=id=>document.getElementById(id);
+  $("wQuote").textContent=QUOTES[Math.floor(Date.now()/86400000)%QUOTES.length];
+
+  // focus timer
+  let left=25*60, run=null;
+  const fmt=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+  function showT(){ $("wTimer").textContent=fmt(left); $("wTimerGo").textContent=run?"PAUSE":"START"; }
+  $("wTimerLen").onchange=e=>{ if(!run){ left=Number(e.target.value)*60; showT(); } };
+  $("wTimerGo").onclick=()=>{
+    if(run){ clearInterval(run); run=null; showT(); return; }
+    run=setInterval(()=>{ left--; if(left<=0){ clearInterval(run); run=null; left=Number($("wTimerLen").value)*60; try{announce("Focus session complete, sir. Take a short break.");}catch(e){} } showT(); },1000); showT();
+  };
+  $("wTimerReset").onclick=()=>{ clearInterval(run); run=null; left=Number($("wTimerLen").value)*60; showT(); };
+
+  function dayHasTick(iso){ return Object.keys(habitData).some(k=>k.startsWith(iso+"_")&&habitData[k]==="✓"); }
+  function refresh(){
+    try{
+      const ne=nextExam();
+      if(ne){ const d=daysUntil(ne.date); $("wExam").textContent=d===0?"TODAY":d===1?"TOMORROW":d+" days"; $("wExamSub").textContent=ne.subject+" // "+fmtExamDate(ne.date); }
+      else { $("wExam").textContent="None"; $("wExamSub").textContent="No upcoming exams"; }
+      let i=dayHasTick(socDay(0))?0:1, n=0; while(i<400&&dayHasTick(socDay(i))){ n++; i++; }
+      $("wStreak").textContent=n+(n===1?" day":" days"); $("wStreakSub").textContent=dayHasTick(socDay(0))?"Today is logged":"Log a habit to keep it alive";
+      const t=socToday(), lim=socLimit(), pct=Math.min(100,Math.round(t.mins/lim*100));
+      $("wSoc").textContent=Math.round(t.mins)+" / "+lim+" min"; const b=$("wSocBar"); b.style.width=pct+"%"; b.style.background=pct>=100?"var(--red)":pct>=75?"var(--amber)":"var(--cyan)";
+    }catch(e){}
+  }
+  refresh(); setInterval(refresh,4000);
+})();
+
+/* ===== ALIVE ORB BRAIN ===== */
+(function(){
+  const orb=document.querySelector(".reactor"); if(!orb) return;
+  let speechOn=false, typeOn=false, thinking=false, thinkT=0, typeT=0, kickT=0, beatTimer=0, busyUntil=0;
+  const speaking=()=>speechOn||typeOn;
+  function sync(){
+    orb.classList.toggle("speaking",speaking());
+    orb.classList.toggle("thinking",thinking&&!speaking());
+    clearInterval(beatTimer);
+    // fake "voice level": kick in a loose rhythm while speaking (real word beats also kick)
+    if(speaking()) beatTimer=setInterval(()=>kick(),180+Math.random()*140);
+  }
+  function kick(){ orb.classList.add("kick"); clearTimeout(kickT); kickT=setTimeout(()=>orb.classList.remove("kick"),110); }
+
+  // speaking: follow the real speech engine
+  if(window.speechSynthesis){
+    const origSpeak=speechSynthesis.speak.bind(speechSynthesis); let cur=null;
+    speechSynthesis.speak=function(u){
+      cur=u;
+      u.addEventListener("start",()=>{ if(cur===u){ speechOn=true; thinking=false; sync(); } });
+      u.addEventListener("boundary",()=>{ if(cur===u) kick(); });
+      const stop=()=>{ if(cur===u){ speechOn=false; sync(); } };
+      u.addEventListener("end",stop); u.addEventListener("error",stop);
+      return origSpeak(u);
+    };
+  }
+  // typing a reply also counts as speaking (works even if voice is muted)
+  const _type=window.typeOutMessage;
+  window.typeOutMessage=function(text,onDone){
+    clearTimeout(typeT); typeOn=true; thinking=false; sync();
+    typeT=setTimeout(()=>{ typeOn=false; sync(); }, Math.min(9000,text.length*(text.length>180?8:15)+500));
+    return _type.call(this,text,onDone);
+  };
+  // thinking: while the typing dots show
+  const _ind=window.showTypingIndicator;
+  window.showTypingIndicator=function(){
+    thinking=true; sync(); clearTimeout(thinkT); thinkT=setTimeout(()=>{ thinking=false; sync(); },9000);
+    return _ind.apply(this,arguments);
+  };
+
+  // random idle activities
+  const ACTS=["a-scan","a-surge","a-flicker","a-ping","a-glitch","look","look"];
+  function act(){
+    if(!speaking()&&!thinking&&!document.hidden&&Date.now()>busyUntil){
+      const a=ACTS[Math.floor(Math.random()*ACTS.length)];
+      if(a==="look"){ orb.style.setProperty("--lx",(Math.random()*14-7)+"px"); orb.style.setProperty("--ly",(Math.random()*14-7)+"px"); setTimeout(()=>{orb.style.setProperty("--lx","0px");orb.style.setProperty("--ly","0px");},900+Math.random()*900); }
+      else { orb.classList.add(a); setTimeout(()=>orb.classList.remove(a),1600); }
+    }
+    setTimeout(act,2500+Math.random()*4500);
+  }
+  setTimeout(act,2500);
+
+  // eyes follow the mouse; click pokes it
+  document.addEventListener("mousemove",e=>{
+    const r=orb.getBoundingClientRect(); if(!r.width) return;
+    const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2), d=Math.hypot(dx,dy)||1, m=Math.min(7,d/60);
+    orb.style.setProperty("--lx",(dx/d*m)+"px"); orb.style.setProperty("--ly",(dy/d*m)+"px"); busyUntil=Date.now()+2500;
+  });
+  orb.addEventListener("click",()=>{ const a=["a-scan","a-ping","a-surge","a-glitch"][Math.floor(Math.random()*4)]; orb.classList.add(a); kick(); setTimeout(()=>orb.classList.remove(a),1600); });
+})();
+
+/* ===== DIGITAL CAT: ALIVE COMPANION v3 — improved design ===== */
+(function(){
+  const F="#f7a85a", D="#d47a2e", INK="#1a2430", PINK="#ff9ab0", CREAM="#fff0e0", HI="#ffc48a";
+  const esc = x => String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const tail = d => `<g class="c-tail">
+    <animateTransform attributeName="transform" type="rotate" values="-16; 20; -16" dur="1.1s" repeatCount="indefinite" additive="sum"/>
+    <path d="${d}" fill="none" stroke="${F}" stroke-width="9" stroke-linecap="round"/>
+    <path d="${d}" fill="none" stroke="${HI}" stroke-width="3.5" stroke-linecap="round" opacity=".45"/>
+  </g>`;
+  const stripes = (x,y) => `<path d="M${x} ${y}l3.5 11 M${x+11} ${y-2}l3.5 12 M${x+22} ${y}l3.5 11" stroke="${D}" stroke-width="2.8" stroke-linecap="round" fill="none" opacity=".85"/>`;
+
+  function head(cx,cy,mode="open"){
+    const eyeBase = mode==="closed"
+      ? `<path d="M${cx+1} ${cy-1}q6 6 12 0" stroke="${INK}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+         <path d="M${cx+1} ${cy+1}q6 3 12 0" stroke="${INK}" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".4"/>`
+      : `<g class="c-eyes">
+          <ellipse class="c-eye" cx="${cx+6.5}" cy="${cy-2}" rx="3.6" ry="4.6" fill="${INK}">
+            <animate attributeName="ry" values="4.6;4.6;0.3;4.6;4.6;0.3;4.6" keyTimes="0;0.88;0.9;0.92;0.94;0.96;1" dur="3.5s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse class="c-eye" cx="${cx+19.5}" cy="${cy-2}" rx="3.6" ry="4.6" fill="${INK}">
+            <animate attributeName="ry" values="4.6;4.6;0.3;4.6;4.6;0.3;4.6" keyTimes="0;0.88;0.9;0.92;0.94;0.96;1" dur="3.5s" repeatCount="indefinite"/>
+          </ellipse>
+          <circle class="c-pupil" cx="${cx+7.6}" cy="${cy-3.4}" r="1.25" fill="#fff"/>
+          <circle class="c-pupil" cx="${cx+20.6}" cy="${cy-3.4}" r="1.25" fill="#fff"/>
+          <circle cx="${cx+5.2}" cy="${cy-0.5}" r="0.7" fill="#fff" opacity=".35"/>
+          <circle cx="${cx+18.2}" cy="${cy-0.5}" r="0.7" fill="#fff" opacity=".35"/>
+        </g>`;
+    const glasses = mode==="glasses"
+      ? `<g>
+          <circle cx="${cx+6.5}" cy="${cy-2}" r="8.2" fill="rgba(255,255,255,.12)" stroke="#eef6ff" stroke-width="2"/>
+          <circle cx="${cx+19.5}" cy="${cy-2}" r="8.2" fill="rgba(255,255,255,.12)" stroke="#eef6ff" stroke-width="2"/>
+          <path d="M${cx+14.5} ${cy-2}h5M${cx-2} ${cy-3}l-9 -3.5" stroke="#eef6ff" stroke-width="2"/>
+          <path class="glasses-glint" d="M${cx+2} ${cy-7}l8 8" stroke="#fff" stroke-width="2.2" opacity=".05"/>
+        </g>` : "";
+    return `
+      <g class="cat-head">
+        <polygon class="cat-ear left" points="${cx-14},${cy-12} ${cx-10},${cy-36} ${cx+3},${cy-17}" fill="${F}"/>
+        <polygon class="cat-ear right" points="${cx+4},${cy-17} ${cx+19},${cy-36} ${cx+20},${cy-10}" fill="${F}"/>
+        <polygon points="${cx-10},${cy-16} ${cx-8},${cy-28} ${cx-1},${cy-18}" fill="${PINK}"/>
+        <polygon points="${cx+8},${cy-18} ${cx+16},${cy-28} ${cx+17},${cy-15}" fill="${PINK}"/>
+        <circle cx="${cx}" cy="${cy}" r="20.5" fill="${F}"/>
+        <ellipse cx="${cx-2}" cy="${cy+2}" rx="14" ry="12" fill="${HI}" opacity=".18"/>
+        ${eyeBase}${glasses}
+        <ellipse cx="${cx+13}" cy="${cy+5.5}" rx="3.2" ry="2.2" fill="${PINK}" opacity=".9"/>
+        <path d="M${cx+13} ${cy+5}q-3.5 4.5-8 1.2" stroke="${INK}" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path class="whisker" d="M${cx+13} ${cy+3.5}l18 -6M${cx+13} ${cy+6.5}l19 2M${cx+13} ${cy+9}l16 7" stroke="${CREAM}" stroke-width="1.15" opacity=".9"/>
+        <path class="whisker" d="M${cx-1} ${cy+5}l-16 -3M${cx-1} ${cy+8}l-15 4" stroke="${CREAM}" stroke-width="1.15" opacity=".9"/>
+        <path d="M${cx+16} ${cy+3.5}q3.5 3.5 0 7" fill="${PINK}" opacity=".75"/>
+        <g class="cat-collar">
+          <path d="M${cx-12} ${cy+16}q12 8 24 0" fill="none" stroke="var(--cyan)" stroke-width="3.5" stroke-linecap="round"/>
+          <rect class="cat-tag" x="${cx+2}" y="${cy+18}" width="9" height="11" rx="2" fill="#ffd45c" stroke="#b57500" stroke-width="1"/>
+          <text x="${cx+6.5}" y="${cy+26}" text-anchor="middle" style="font:700 6px sans-serif;fill:#5a3a00">J</text>
+        </g>
+      </g>`;
+  }
+
+  const ground = `<line class="c-ground" x1="4" y1="112" x2="236" y2="112" stroke="rgba(54,232,255,.4)" stroke-width="2.2"/>`;
+
+  const POSES = {
+    walk:`<svg viewBox="0 0 240 130" aria-label="Cat walking with backpack">
+      <line class="c-ground" x1="4" y1="112" x2="236" y2="112" stroke="rgba(54,232,255,.4)" stroke-width="2.2" stroke-dasharray="10 8">
+        <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="0.45s" repeatCount="indefinite"/>
+      </line>
+      <ellipse class="cat-shadow" cx="128" cy="112" rx="76" ry="7" fill="#000">
+        <animate attributeName="rx" values="76;60;76" dur="0.6s" repeatCount="indefinite"/>
+      </ellipse>
+      <g class="cat-walker">
+        <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0; 0 -5; 0 0" dur="0.6s" repeatCount="indefinite"/>
+        ${tail("M48 70 C18 66 14 36 36 24")}
+        <g class="walk-leg">
+          <animateTransform attributeName="transform" type="rotate" values="-26 63 78; 28 63 78; -26 63 78" dur="0.6s" repeatCount="indefinite"/>
+          <rect x="58" y="78" width="11" height="30" rx="5.5" fill="${D}"/><ellipse class="walk-paw" cx="63.5" cy="108" rx="7" ry="4" fill="${D}"/>
+        </g>
+        <g class="walk-leg alt">
+          <animateTransform attributeName="transform" type="rotate" values="28 87 78; -26 87 78; 28 87 78" dur="0.6s" repeatCount="indefinite"/>
+          <rect x="82" y="78" width="11" height="30" rx="5.5" fill="${F}"/><ellipse class="walk-paw" cx="87.5" cy="108" rx="7" ry="4" fill="${F}"/>
+        </g>
+        <g class="walk-leg alt">
+          <animateTransform attributeName="transform" type="rotate" values="28 125 78; -26 125 78; 28 125 78" dur="0.6s" repeatCount="indefinite"/>
+          <rect x="120" y="78" width="11" height="30" rx="5.5" fill="${D}"/><ellipse class="walk-paw" cx="125.5" cy="108" rx="7" ry="4" fill="${D}"/>
+        </g>
+        <g class="walk-leg">
+          <animateTransform attributeName="transform" type="rotate" values="-26 149 78; 28 149 78; -26 149 78" dur="0.6s" repeatCount="indefinite"/>
+          <rect x="144" y="78" width="11" height="30" rx="5.5" fill="${F}"/><ellipse class="walk-paw" cx="149.5" cy="108" rx="7" ry="4" fill="${F}"/>
+        </g>
+        <g class="cat-breathe">
+          <rect x="46" y="52" width="112" height="34" rx="17" fill="${F}"/>
+          <ellipse cx="100" cy="62" rx="40" ry="14" fill="${HI}" opacity=".2"/>
+          ${stripes(68,56)}
+        </g>
+        <g class="backpack">
+          <animateTransform attributeName="transform" type="translate" values="0 2; 0 -3; 0 2" dur="0.6s" repeatCount="indefinite"/>
+          <rect x="56" y="28" width="44" height="48" rx="11" style="fill:var(--cyan)" stroke="#042a32" stroke-width="2.2"/>
+          <rect x="62" y="48" width="32" height="18" rx="5" fill="rgba(0,0,0,.3)"/>
+          <path d="M78 52v10M72 57h12" stroke="#fff" stroke-width="2.2" opacity=".9"/>
+          <path d="M100 36q16 14 8 40" fill="none" stroke="#042a32" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="78" cy="36" r="4" fill="rgba(255,255,255,.35)"/>
+        </g>
+        ${head(166,54,"open")}
+      </g>
+    </svg>`,
+
+    push:`<svg viewBox="0 0 240 130" aria-label="Cat doing push ups">
+      <rect x="10" y="111" width="220" height="9" rx="4.5" fill="rgba(54,232,255,.28)"/>
+      <ellipse class="cat-shadow" cx="120" cy="114" rx="78" ry="6" fill="#000">
+        <animate attributeName="rx" values="78;55;78" dur="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".35;.15;.35" dur="1.2s" repeatCount="indefinite"/>
+      </ellipse>
+      <g class="push-body">
+        <animateTransform attributeName="transform" type="translate" values="0 0; 0 18; 0 0" keyTimes="0;0.5;1" dur="1.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+        ${tail("M50 68 C20 68 16 44 36 30")}
+        <g class="push-arm" transform-origin="57 78">
+          <animateTransform attributeName="transform" type="rotate" values="-14 57 78; 12 57 78; -14 57 78" dur="1.2s" repeatCount="indefinite"/>
+          <rect x="52" y="78" width="11" height="32" rx="5.5" fill="${D}"/><ellipse cx="57.5" cy="110" rx="7" ry="4" fill="${D}"/>
+        </g>
+        <g class="push-arm alt" transform-origin="137 78">
+          <animateTransform attributeName="transform" type="rotate" values="12 137 78; -14 137 78; 12 137 78" dur="1.2s" repeatCount="indefinite"/>
+          <rect x="132" y="78" width="11" height="32" rx="5.5" fill="${D}"/><ellipse cx="137.5" cy="110" rx="7" ry="4" fill="${D}"/>
+        </g>
+        <rect x="46" y="52" width="108" height="32" rx="16" fill="${F}"/>
+        <ellipse cx="100" cy="60" rx="36" ry="12" fill="${HI}" opacity=".2"/>
+        ${stripes(68,56)}
+        <g>
+          <animateTransform attributeName="transform" type="translate" values="0 0; 0 5; 0 0" dur="1.2s" repeatCount="indefinite"/>
+          ${head(166,58,"open")}
+          <path class="headband" d="M150 44q18 -13 36 0" fill="none" stroke="#ff5577" stroke-width="5.5" stroke-linecap="round"/>
+        </g>
+        <path class="c-sweat" d="M156 30q-5 7 0 11q5-4 0-11z" fill="#8af6ff">
+          <animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.4;0.55;1" dur="1.2s" repeatCount="indefinite"/>
+          <animateTransform attributeName="transform" type="translate" values="0 0; 0 0; 4 16" keyTimes="0;0.4;1" dur="1.2s" repeatCount="indefinite"/>
+        </path>
+        <path class="c-sweat" d="M188 32q-5 7 0 11q5-4 0-11z" fill="#8af6ff">
+          <animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.5;0.65;1" dur="1.2s" repeatCount="indefinite"/>
+          <animateTransform attributeName="transform" type="translate" values="0 0; 0 0; 5 14" keyTimes="0;0.5;1" dur="1.2s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </svg>`,
+
+    study:`<svg viewBox="0 0 240 130" aria-label="Cat studying">
+      ${ground}
+      <ellipse class="cat-shadow" cx="116" cy="112" rx="74" ry="7" fill="#000"/>
+      ${tail("M48 94 C16 100 15 68 40 70")}
+      <g class="cat-breathe">
+        <animateTransform attributeName="transform" type="scale" values="1 1; 1 1.04; 1 1" dur="2.6s" repeatCount="indefinite" additive="sum"/>
+        <ellipse cx="94" cy="82" rx="54" ry="30" fill="${F}"/>
+        <ellipse cx="88" cy="74" rx="30" ry="16" fill="${HI}" opacity=".18"/>
+        ${stripes(66,64)}
+      </g>
+      <g class="study-head">
+        <animateTransform attributeName="transform" type="rotate" values="0 150 64; 4 150 64; -3 150 64; 2 150 64; 0 150 64" keyTimes="0;0.25;0.5;0.75;1" dur="3.6s" repeatCount="indefinite"/>
+        ${head(150,64,"glasses")}
+      </g>
+      <ellipse cx="150" cy="106" rx="24" ry="7" fill="${F}"/>
+      <g class="book-base">
+        <path d="M82 94L142 88L142 108L82 114Z" fill="#e8e0d0"/>
+        <path d="M142 88L200 94L200 114L142 108Z" fill="#faf6ee"/>
+        <path d="M90 99l40 -4M90 104l34 -3.5M150 96l38 4.5M150 102l32 3.5" stroke="#b0a890" stroke-width="1.5"/>
+        <g class="page">
+          <animateTransform attributeName="transform" type="scale" values="1 1; 0.1 1; -1 1; -1 1; 1 1" keyTimes="0;0.2;0.35;0.85;1" dur="5s" repeatCount="indefinite"/>
+          <path d="M142 88L200 94L200 114L142 108Z" fill="#fff"/>
+        </g>
+        <g class="pencil">
+          <animateTransform attributeName="transform" type="rotate" values="0 112 98; -10 112 98; 6 112 98; -4 112 98; 0 112 98" dur="2s" repeatCount="indefinite"/>
+          <path d="M112 98l24 -9" stroke="#ffd45c" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="112" cy="98" r="2.2" fill="#e74c3c"/>
+        </g>
+      </g>
+    </svg>`,
+
+    sleep:`<svg viewBox="0 0 240 130" aria-label="Cat sleeping">
+      ${ground}
+      <ellipse class="cat-shadow" cx="116" cy="112" rx="76" ry="7" fill="#000">
+        <animate attributeName="rx" values="76;68;76" dur="3s" repeatCount="indefinite"/>
+      </ellipse>
+      ${tail("M48 96 C16 104 16 70 40 73")}
+      <g class="sleep-body">
+        <animateTransform attributeName="transform" type="scale" values="1 1; 1.06 1.08; 1 1" dur="3s" repeatCount="indefinite" additive="sum"/>
+        <ellipse cx="98" cy="86" rx="58" ry="31" fill="${F}"/>
+        <ellipse cx="92" cy="78" rx="32" ry="16" fill="${HI}" opacity=".16"/>
+        ${stripes(70,68)}
+        ${head(156,84,"closed")}
+        <ellipse cx="156" cy="106" rx="24" ry="7" fill="${F}"/>
+      </g>
+      <text class="zzz" x="188" y="56" style="font:800 15px sans-serif;fill:var(--cyan)">z
+        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0 8; 12 -28" dur="3s" repeatCount="indefinite"/>
+      </text>
+      <text class="zzz z2" x="200" y="42" style="font:800 20px sans-serif;fill:var(--cyan)">Z
+        <animate attributeName="opacity" values="0;1;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0 8; 14 -30" dur="3s" begin="1s" repeatCount="indefinite"/>
+      </text>
+      <text class="zzz z3" x="186" y="58" style="font:800 12px sans-serif;fill:var(--cyan)">z
+        <animate attributeName="opacity" values="0;1;0" dur="3s" begin="2s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0 6; 10 -22" dur="3s" begin="2s" repeatCount="indefinite"/>
+      </text>
+    </svg>`
+  };
+
+  const PAGES = {
+    timetable:{
+      pose:"walk",
+      status:"SCHOOL RUN // ACTIVE",
+      eyebrow:"J.A.R.V.I.S // SCHOOL RUN",
+      title:"Class 10-B Timetable",
+      lines:()=>{
+        let a=["Bag packed. Let's move, sir. 🎒","Don't forget your homework.","Walking to class... meow!","Lunch is my favourite subject. 😼"];
+        try{
+          const d=["SUN","MON","TUE","WED","THU","FRI","SAT"][new Date().getDay()];
+          const f=(schedule[d]||[])[0];
+          if(f) a.unshift("First period: "+f[2]+" at "+f[0]+". 🎒");
+        }catch(e){}
+        return a;
+      }
+    },
+    tracker:{pose:"push",status:"TRAINING // IN PROGRESS",lines:()=>["Push-ups build habits too! 💪"]},
+    exam:{
+      pose:"study",status:"STUDY MODE // ACTIVE",
+      eyebrow:"J.A.R.V.I.S // EXAM ZONE",title:"Datesheet & Preparation",
+      lines:()=>{
+        let a=["Revision beats panic. 📖","One chapter at a time.","Reading so you don't have to... almost."];
+        try{
+          const n=nextExam();
+          if(n){const d=daysUntil(n.date);a.unshift(n.subject+" exam "+(d===0?"is today!":d===1?"is tomorrow!":"in "+d+" days. Study up!"));}
+        }catch(e){}
+        return a;
+      }
+    },
+    calendar:{pose:"sleep",status:"LOW POWER // RESTING",lines:()=>["Zzz... wake me up for the weekend. 😴","Five more minutes...","Dreaming of a day with no homework."]}
+  };
+
+  const catInstances=[];
+  Object.keys(PAGES).forEach(id=>{
+    const sec=document.getElementById(id), cfg=PAGES[id];
+    if(!sec) return;
+    const host=sec.querySelector(".hero");
+    if(!host) return;
+
+    host.classList.add("has-cat");
+    const pet=document.createElement("div");
+    pet.className="cat-pet pose-"+cfg.pose;
+    pet.innerHTML=POSES[cfg.pose];
+
+    const status=document.createElement("div");
+    status.className="cat-status";
+    status.textContent=cfg.status;
+
+    const bub=document.createElement("div");
+    bub.className="cat-bubble";
+    host.append(pet,status,bub);
+
+    const instance={id,pet,bub,cfg,index:0,reps:0};
+    catInstances.push(instance);
+
+    const say=(txt,duration=4200)=>{
+      bub.textContent=txt;
+      bub.classList.add("show");
+      clearTimeout(instance.hideTimer);
+      instance.hideTimer=setTimeout(()=>bub.classList.remove("show"),duration);
+    };
+    instance.say=say;
+
+    if(cfg.pose==="push"){
+      say("Push-up #0 💪",1800);
+      const g=pet.querySelector(".push-body");
+      if(g) g.addEventListener("animationiteration",()=>{
+        instance.reps++;
+        say(instance.reps%10===0 ? instance.reps+"! Beast mode 🔥" : "Push-up #"+instance.reps+" 💪",1200);
+      });
+    }else{
+      const cycle=()=>{
+        const lines=cfg.lines();
+        say(lines[instance.index++%lines.length],4300);
+      };
+      setTimeout(cycle,900+Math.random()*900);
+      setInterval(cycle,9500+Math.random()*2500);
+    }
+
+    pet.addEventListener("click",()=>{
+      pet.classList.remove("pet-purr","look-around","hop");
+      void pet.offsetWidth;
+      pet.classList.add("hop","pet-purr");
+      setTimeout(()=>pet.classList.remove("hop","pet-purr"),900);
+      const m=cfg.pose==="push"
+        ? ["Keep going! 💪","One more rep! 🔥","Beast mode!","Sweat is progress!"]
+        : cfg.pose==="sleep"
+        ? ["Zzz... five more min...","Don't wake me... 😴","Mmmrph..."]
+        : ["Meow! 🐱","Purrr... ✨","Mrrrow?","Hey, I'm working! 😼","You pet me! 💕","*happy wiggle*"];
+      say(m[Math.floor(Math.random()*m.length)],2200);
+    });
+  });
+
+  // Cat eyes subtly follow the cursor.
+  document.addEventListener("mousemove",e=>{
+    document.querySelectorAll(".cat-pet").forEach(pet=>{
+      const r=pet.getBoundingClientRect();
+      if(!r.width) return;
+      const dx=e.clientX-(r.left+r.width*.70);
+      const dy=e.clientY-(r.top+r.height*.38);
+      const d=Math.hypot(dx,dy)||1;
+      const m=Math.min(2.2,d/90);
+      pet.querySelectorAll(".c-pupil").forEach(p=>{
+        p.style.transform=`translate(${dx/d*m}px,${dy/d*m}px)`;
+      });
+    });
+  });
+
+  // Occasional autonomous behaviour so the cats never feel frozen.
+  setInterval(()=>{
+    const visible=catInstances.filter(x=>{
+      const r=x.pet.getBoundingClientRect();
+      return r.width>0 && getComputedStyle(x.pet).display!=="none";
+    });
+    if(!visible.length) return;
+    const c=visible[Math.floor(Math.random()*visible.length)];
+    if(c.cfg.pose==="sleep") return;
+    const roll=Math.random();
+    if(roll<.35){
+      c.pet.classList.add("pet-purr");
+      setTimeout(()=>c.pet.classList.remove("pet-purr"),1100);
+    } else if(roll<.6){
+      c.pet.classList.add("look-around");
+      setTimeout(()=>c.pet.classList.remove("look-around"),1900);
+    } else if(roll<.75 && c.cfg.pose!=="push"){
+      c.pet.classList.add("hop");
+      setTimeout(()=>c.pet.classList.remove("hop"),600);
+    }
+  },4800);
+
+  // If JARVIS has a speech hook, make every visible cat look more energetic while speaking.
+  window.jarvisCatSpeaking=function(on){
+    document.querySelectorAll(".cat-pet").forEach(p=>{
+      p.classList.toggle("pet-purr",!!on);
+    });
+  };
+
+  /* ===== JS animation driver (works in Edge / Chromium where SMIL is gone) ===== */
+  function driveCats(ts){
+    catInstances.forEach(inst=>{
+      const pet=inst.pet;
+      if(!pet.getBoundingClientRect().width) return;
+      const pose=inst.cfg.pose;
+      const t=ts/1000;
+
+      // tail sway (all poses)
+      pet.querySelectorAll(".c-tail").forEach(el=>{
+        el.style.transformOrigin="100% 100%";
+        el.style.transform=`rotate(${Math.sin(t*2.2)*18}deg)`;
+      });
+
+      // ear twitch
+      const earL=pet.querySelector(".cat-ear.left");
+      const earR=pet.querySelector(".cat-ear.right");
+      if(earL){ earL.style.transformOrigin="50% 90%"; earL.style.transform=`rotate(${Math.sin(t*0.7)*6+Math.sin(t*3.1)*3}deg)`; }
+      if(earR){ earR.style.transformOrigin="50% 90%"; earR.style.transform=`rotate(${Math.sin(t*0.9+1)*-5+Math.sin(t*2.7)*2}deg)`; }
+
+      // blink
+      pet.querySelectorAll(".c-eye").forEach(el=>{
+        const cycle=(t%3.6);
+        const closed=cycle>3.3&&cycle<3.45;
+        el.style.transformOrigin="center";
+        el.style.transform=closed?"scaleY(0.08)":"scaleY(1)";
+      });
+
+      if(pose==="push"){
+        const body=pet.querySelector(".push-body");
+        if(body){
+          const dip=(Math.sin(t*Math.PI*2/1.2)*0.5+0.5); // 0..1
+          const y=dip*18;
+          body.style.transform=`translateY(${y}px) rotate(${dip*-2}deg)`;
+          body.style.transformOrigin="50% 100%";
+        }
+        pet.querySelectorAll(".push-arm").forEach((arm,i)=>{
+          const dip=(Math.sin(t*Math.PI*2/1.2+(i?Math.PI:0))*0.5+0.5);
+          arm.style.transformOrigin="50% 0";
+          arm.style.transform=`rotate(${(dip*26-13)}deg)`;
+        });
+        // sweat
+        pet.querySelectorAll(".c-sweat").forEach((sw,i)=>{
+          const phase=((t/1.2)+i*0.35)%1;
+          sw.style.opacity=phase>0.4&&phase<0.85?String(1-(phase-0.4)/0.45):"0";
+          sw.style.transform=`translate(${phase*6}px,${phase*16}px)`;
+        });
+      }
+
+      if(pose==="walk"){
+        const walker=pet.querySelector(".cat-walker");
+        if(walker){
+          const bob=Math.abs(Math.sin(t*Math.PI*2/0.6))*5;
+          walker.style.transform=`translateY(${-bob}px)`;
+        }
+        pet.querySelectorAll(".walk-leg").forEach((leg,i)=>{
+          const ang=Math.sin(t*Math.PI*2/0.6+(i%2?Math.PI:0))*27;
+          leg.style.transformOrigin="50% 8%";
+          leg.style.transform=`rotate(${ang}deg)`;
+        });
+        const bag=pet.querySelector(".backpack");
+        if(bag){
+          bag.style.transformOrigin="50% 100%";
+          bag.style.transform=`translateY(${Math.sin(t*Math.PI*2/0.6)*-2.5}px) rotate(${Math.sin(t*Math.PI*2/0.6)*2}deg)`;
+        }
+        const ground=pet.querySelector(".c-ground");
+        if(ground) ground.style.strokeDashoffset=String(-(t*30)%18);
+      }
+
+      if(pose==="study"){
+        const head=pet.querySelector(".study-head");
+        if(head){
+          const nod=Math.sin(t*0.9)*3+Math.sin(t*0.35)*1.5;
+          head.style.transformOrigin="50% 88%";
+          head.style.transform=`rotate(${nod}deg)`;
+        }
+        const page=pet.querySelector(".page");
+        if(page){
+          const cycle=(t%5)/5;
+          let sx=1;
+          if(cycle>0.38&&cycle<0.48) sx=1-((cycle-0.38)/0.1)*2; // flip through 0
+          else if(cycle>=0.48&&cycle<0.88) sx=-1;
+          page.style.transformOrigin="0 50%";
+          page.style.transform=`scaleX(${sx})`;
+        }
+        const pencil=pet.querySelector(".pencil");
+        if(pencil){
+          const w=Math.sin(t*3)*8;
+          pencil.style.transformOrigin="0 50%";
+          pencil.style.transform=`rotate(${w}deg) translate(${Math.abs(w)*0.4}px,0)`;
+        }
+      }
+
+      if(pose==="sleep"){
+        const body=pet.querySelector(".sleep-body");
+        if(body){
+          const breath=1+Math.sin(t*Math.PI*2/3)*0.045;
+          body.style.transformOrigin="50% 100%";
+          body.style.transform=`scale(${breath})`;
+        }
+        pet.querySelectorAll(".zzz").forEach((z,i)=>{
+          const phase=((t/3.2)+i*0.33)%1;
+          z.style.opacity=phase<0.7?String(Math.sin(phase*Math.PI)):0;
+          z.style.transform=`translate(${phase*14}px,${-phase*28}px) scale(${0.7+phase*0.4})`;
+        });
+      }
+    });
+    requestAnimationFrame(driveCats);
+  }
+  requestAnimationFrame(driveCats);
+})();
 
 renderTasks();renderWeeklyTable();renderHabits();renderMoodGraph();renderDashSchedule();renderExams();renderCalendar();syncAnnounceBtn();updateClock();setInterval(updateClock,1000);
 restoreMusicLibrary();
@@ -2024,7 +4303,7 @@ document.addEventListener("keydown", function(e){
 });
 
 // ===== DATA EXPORT / IMPORT (v2: music + photos) =====
-const JARVIS_DATA_KEYS = ["jarvis_tasks","jarvis_tasks_date","jarvis_task_history","jarvis_habits","jarvis_habits_v2","jarvis_exams","jarvis_moods","jarvis_announce","jarvis_theme","jarvis_focus"];
+const JARVIS_DATA_KEYS = ["jarvis_tasks","jarvis_tasks_date","jarvis_task_history","jarvis_habits","jarvis_habits_v2","jarvis_habit_list","jarvis_timetable","jarvis_social","jarvis_accent","jarvis_look","jarvis_exams","jarvis_moods","jarvis_announce","jarvis_theme","jarvis_focus"];
 
 function blobToDataUrl(blob){
   return new Promise((resolve,reject)=>{
